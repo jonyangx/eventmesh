@@ -14,33 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-<<<<<<< HEAD
-configurations {
-    implementation.exclude group: 'ch.qos.logback', module: 'logback-classic'
-    implementation.exclude group: 'log4j', module: 'log4j'
-}
-=======
->>>>>>> upstream/master
 
 dependencies {
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     implementation project(":eventmesh-common")
     // https://mavenlibs.com/maven/dependency/io.cloudevents/cloudevents-kafka
-<<<<<<< HEAD
-    implementation group: 'io.cloudevents', name: 'cloudevents-kafka', version: '2.4.2'
-
-    // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
-    implementation 'org.apache.kafka:kafka-clients:3.0.0'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.0'
-=======
     implementation group: 'io.cloudevents', name: 'cloudevents-kafka', version: '2.5.0'
 
     // https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
     implementation 'org.apache.kafka:kafka-clients:3.9.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter'
->>>>>>> upstream/master
 
     testImplementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     testImplementation project(":eventmesh-common")

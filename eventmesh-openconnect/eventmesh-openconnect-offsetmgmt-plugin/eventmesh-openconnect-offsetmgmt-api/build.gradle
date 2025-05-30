@@ -16,16 +16,6 @@
  */
 
 dependencies {
-<<<<<<< HEAD
-    api project(":eventmesh-spi")
-    api "org.slf4j:slf4j-api"
-    implementation "org.apache.logging.log4j:log4j-api"
-    implementation "org.apache.logging.log4j:log4j-core"
-    implementation "org.apache.logging.log4j:log4j-slf4j-impl"
-
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-=======
     implementation project(":eventmesh-common")
     api project(":eventmesh-spi")
     api "org.slf4j:slf4j-api"
@@ -33,7 +23,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation project(":eventmesh-common")
->>>>>>> upstream/master
 
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'

@@ -20,9 +20,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-<<<<<<< HEAD
-    implementation 'org.apache.zookeeper:zookeeper'
-=======
     /*
      * The exclusion can be removed once ZOOKEEPER-4820 has been fixed.
      *
@@ -32,7 +29,6 @@ dependencies {
         exclude group: 'ch.qos.logback', module: 'logback-core'
         exclude group: 'ch.qos.logback', module: 'logback-classic'
     }
->>>>>>> upstream/master
     implementation 'org.apache.curator:curator-client'
     implementation 'org.apache.curator:curator-framework'
     implementation 'org.apache.curator:curator-recipes'

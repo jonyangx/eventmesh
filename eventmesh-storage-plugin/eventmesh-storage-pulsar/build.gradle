@@ -15,21 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-configurations {
-    implementation.exclude group: 'ch.qos.logback', module: 'logback-classic'
-    implementation.exclude group: 'log4j', module: 'log4j'
-}
-
-dependencies {
-    implementation project(":eventmesh-common")
-    implementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
-    implementation 'org.apache.pulsar:pulsar-client:2.10.1'
-
-    testImplementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
-    testImplementation project(":eventmesh-common")
-    testImplementation 'org.apache.pulsar:pulsar-client:2.10.1'
-=======
 dependencies {
     implementation project(":eventmesh-common")
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
@@ -54,7 +39,6 @@ dependencies {
 
     testImplementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     testImplementation project(":eventmesh-common")
->>>>>>> upstream/master
 
     implementation 'io.cloudevents:cloudevents-json-jackson'
 

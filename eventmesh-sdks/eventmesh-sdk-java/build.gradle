@@ -15,12 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-def grpcVersion = '1.43.2'
-
-dependencies {
-    api project(":eventmesh-common")
-=======
 def grpcVersion = '1.68.0'
 
 dependencies {
@@ -29,7 +23,6 @@ dependencies {
         exclude group: 'org.apache.logging.log4j', module: 'log4j-core'
         exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j2-impl'
     }
->>>>>>> upstream/master
 
     implementation "com.fasterxml.jackson.core:jackson-databind"
     implementation "com.fasterxml.jackson.core:jackson-core"
@@ -61,11 +54,7 @@ dependencies {
 
     implementation "io.grpc:grpc-protobuf:${grpcVersion}"
     implementation "io.grpc:grpc-stub:${grpcVersion}"
-<<<<<<< HEAD
-    implementation "com.google.protobuf:protobuf-java-util:3.21.5"
-=======
     implementation "com.google.protobuf:protobuf-java-util:3.25.4"
->>>>>>> upstream/master
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 

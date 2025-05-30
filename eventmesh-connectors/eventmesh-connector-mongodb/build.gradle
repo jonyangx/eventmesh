@@ -19,11 +19,7 @@ dependencies {
     implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
     implementation project(":eventmesh-common")
 
-<<<<<<< HEAD
-    implementation 'org.mongodb:mongodb-driver:3.12.11'
-=======
     implementation 'org.mongodb:mongodb-driver:3.12.14'
->>>>>>> upstream/master
 
     implementation 'io.cloudevents:cloudevents-json-jackson'
 

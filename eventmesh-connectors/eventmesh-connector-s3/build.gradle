@@ -15,30 +15,10 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-<<<<<<<< HEAD:eventmesh-connectors/eventmesh-connector-s3/build.gradle
-dependencies {
-=======
 dependencies {
     implementation project(":eventmesh-common")
->>>>>>> upstream/master
     implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
     implementation 'software.amazon.awssdk:s3'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-<<<<<<< HEAD
 }
-========
-//! Configurations.
-
-/// gRPC client configuration.
-mod grpc_config;
-
-#[cfg(feature = "grpc")]
-
-/// Re-export gRPC client configuration when "grpc" feature is enabled.
-pub use crate::config::grpc_config::EventMeshGrpcClientConfig;
->>>>>>>> upstream/master:eventmesh-sdks/eventmesh-sdk-rust/src/config.rs
-=======
-}
->>>>>>> upstream/master

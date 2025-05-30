@@ -15,32 +15,16 @@
  * limitations under the License.
  */
 
-<<<<<<< HEAD
-configurations {
-    implementation.exclude group: 'ch.qos.logback', module: 'logback-classic'
-    implementation.exclude group: 'log4j', module: 'log4j'
-}
-
-=======
->>>>>>> upstream/master
 dependencies {
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     implementation project(":eventmesh-common")
     // rabbitmq
-<<<<<<< HEAD
-    implementation 'com.rabbitmq:amqp-client:5.16.0'
-=======
     implementation 'com.rabbitmq:amqp-client:5.22.0'
->>>>>>> upstream/master
 
     testImplementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     testImplementation project(":eventmesh-common")
     // rabbitmq
-<<<<<<< HEAD
-    testImplementation 'com.rabbitmq:amqp-client:5.16.0'
-=======
     testImplementation 'com.rabbitmq:amqp-client:5.22.0'
->>>>>>> upstream/master
 
     implementation 'io.cloudevents:cloudevents-json-jackson'
     testImplementation 'io.cloudevents:cloudevents-json-jackson'

@@ -34,9 +34,6 @@ List rocketmq = [
 dependencies {
     api project(":eventmesh-openconnect:eventmesh-openconnect-java")
     implementation project(":eventmesh-common")
-<<<<<<< HEAD
-    implementation rocketmq
-=======
     /*
      * The exclusions can be removed after this issue is fixed:
      * https://github.com/apache/rocketmq/issues/5347
@@ -47,7 +44,6 @@ dependencies {
         }
     }
 
->>>>>>> upstream/master
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation "org.mockito:mockito-core"
