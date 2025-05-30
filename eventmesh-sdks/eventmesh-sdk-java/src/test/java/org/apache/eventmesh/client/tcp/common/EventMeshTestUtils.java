@@ -111,7 +111,11 @@ public class EventMeshTestUtils {
     private static EventMeshMessage generateAsyncRRMqMsg() {
         EventMeshMessage mqMsg = new EventMeshMessage();
         mqMsg.setTopic(TOPIC_PRX_SyncSubscribeTest);
+<<<<<<< HEAD
         mqMsg.getProperties().put("REPLY_TO", "10.36.0.109@ProducerGroup-producerPool-9-access#V1_4_0#CI");
+=======
+        mqMsg.getProperties().put("REPLY_TO", "127.0.0.1@ProducerGroup-producerPool-9-access#V1_4_0#CI");
+>>>>>>> upstream/master
         mqMsg.getProperties().put("TTL", "300000");
         mqMsg.getProperties().put("PROPERTY_MESSAGE_REPLY_TO", "notnull");
         mqMsg.setBody("testAsyncRR");
@@ -121,7 +125,11 @@ public class EventMeshTestUtils {
     private static EventMeshMessage generateAsyncEventMqMsg() {
         EventMeshMessage mqMsg = new EventMeshMessage();
         mqMsg.setTopic(TOPIC_PRX_WQ2ClientUniCast);
+<<<<<<< HEAD
         mqMsg.getProperties().put("REPLY_TO", "10.36.0.109@ProducerGroup-producerPool-9-access#V1_4_0#CI");
+=======
+        mqMsg.getProperties().put("REPLY_TO", "127.0.0.1@ProducerGroup-producerPool-9-access#V1_4_0#CI");
+>>>>>>> upstream/master
         mqMsg.getProperties().put("TTL", "30000");
         mqMsg.getProperties().put("PROPERTY_MESSAGE_REPLY_TO", "notnull");
         mqMsg.setBody("testAsyncMessage");
@@ -131,7 +139,11 @@ public class EventMeshTestUtils {
     public static EventMeshMessage generateBroadcastMqMsg() {
         EventMeshMessage mqMsg = new EventMeshMessage();
         mqMsg.setTopic(TOPIC_PRX_WQ2ClientBroadCast);
+<<<<<<< HEAD
         mqMsg.getProperties().put("REPLY_TO", "10.36.0.109@ProducerGroup-producerPool-9-access#V1_4_0#CI");
+=======
+        mqMsg.getProperties().put("REPLY_TO", "127.0.0.1@ProducerGroup-producerPool-9-access#V1_4_0#CI");
+>>>>>>> upstream/master
         mqMsg.getProperties().put("TTL", "30000");
         mqMsg.getProperties().put("PROPERTY_MESSAGE_REPLY_TO", "notnull");
         mqMsg.setBody("testAsyncMessage");

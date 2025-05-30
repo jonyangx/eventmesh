@@ -22,4 +22,8 @@ package org.apache.eventmesh.runtime.core.protocol.http.processor;
  */
 
 public interface ShortHttpProcessor extends HttpProcessor {
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 }

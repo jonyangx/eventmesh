@@ -52,9 +52,12 @@ public abstract class UniversalJdbcContext<Part extends Partition, OffSetCtx ext
         return poCtx.getOffsetContext();
     }
 
+<<<<<<< HEAD
     /**
      * @return
      */
+=======
+>>>>>>> upstream/master
     @Override
     public TableId ofCurrentTableId() {
         return tableId;

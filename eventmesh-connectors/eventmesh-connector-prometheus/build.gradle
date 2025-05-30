@@ -16,10 +16,18 @@
  */
 
 dependencies {
+<<<<<<< HEAD
     implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
     implementation 'org.apache.httpcomponents:httpclient'
     implementation 'com.github.rholder:guava-retrying'
     implementation 'com.alibaba:fastjson'
+=======
+    implementation project(":eventmesh-common")
+    implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
+    implementation 'org.apache.httpcomponents:httpclient'
+    implementation 'com.github.rholder:guava-retrying'
+    implementation 'com.alibaba.fastjson2:fastjson2'
+>>>>>>> upstream/master
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 }

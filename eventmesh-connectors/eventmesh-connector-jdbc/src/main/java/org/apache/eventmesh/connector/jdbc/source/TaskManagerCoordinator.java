@@ -17,6 +17,10 @@
 
 package org.apache.eventmesh.connector.jdbc.source;
 
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.common.utils.JsonUtils;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -39,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TaskManagerCoordinator {
 
+<<<<<<< HEAD
     private static final int BATCH_MAX = 10;
     private static final int DEFAULT_QUEUE_SIZE = 1 << 13;
 
@@ -49,6 +54,18 @@ public class TaskManagerCoordinator {
      * Constructs a new TaskManagerCoordinator.
      */
     public TaskManagerCoordinator() {
+=======
+    private final BlockingQueue<ConnectRecord> recordBlockingQueue;
+    private final Map<String, JdbcTaskManager> taskManagerCache = new HashMap<>(8);
+    private final int maxBatchSize;
+    private final long maxPollTimeout;
+
+
+    public TaskManagerCoordinator(int capacity, int maxBatchSize, long maxPollTimeout) {
+        this.recordBlockingQueue = new LinkedBlockingQueue<>(capacity);
+        this.maxBatchSize = maxBatchSize;
+        this.maxPollTimeout = maxPollTimeout;
+>>>>>>> upstream/master
     }
 
     /**
@@ -95,6 +112,7 @@ public class TaskManagerCoordinator {
      * @return A list of ConnectRecords, up to the maximum batch size defined by BATCH_MAX.
      */
     public List<ConnectRecord> poll() {
+<<<<<<< HEAD
         List<ConnectRecord> records = new ArrayList<>(BATCH_MAX);
         for (int index = 0; index < BATCH_MAX; ++index) {
             try {
@@ -103,6 +121,26 @@ public class TaskManagerCoordinator {
                     break;
                 }
                 records.add(record);
+=======
+        long startTime = System.currentTimeMillis();
+        long remainingTime = maxPollTimeout;
+
+        List<ConnectRecord> records = new ArrayList<>(maxBatchSize);
+        for (int index = 0; index < maxBatchSize; ++index) {
+            try {
+                ConnectRecord record = recordBlockingQueue.poll(remainingTime, TimeUnit.MILLISECONDS);
+                if (Objects.isNull(record)) {
+                    break;
+                }
+                if (log.isDebugEnabled()) {
+                    log.debug("record:{}", JsonUtils.toJSONString(record));
+                }
+                records.add(record);
+
+                // calculate elapsed time and update remaining time for next poll
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                remainingTime = maxPollTimeout > elapsedTime ? maxPollTimeout - elapsedTime : 0;
+>>>>>>> upstream/master
             } catch (InterruptedException e) {
                 break;
             }

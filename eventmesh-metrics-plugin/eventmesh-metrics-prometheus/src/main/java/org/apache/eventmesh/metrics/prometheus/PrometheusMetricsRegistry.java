@@ -19,6 +19,7 @@ package org.apache.eventmesh.metrics.prometheus;
 
 import org.apache.eventmesh.common.config.Config;
 import org.apache.eventmesh.metrics.api.MetricsRegistry;
+<<<<<<< HEAD
 import org.apache.eventmesh.metrics.api.model.GrpcSummaryMetrics;
 import org.apache.eventmesh.metrics.api.model.HttpSummaryMetrics;
 import org.apache.eventmesh.metrics.api.model.Metric;
@@ -33,6 +34,16 @@ import java.io.IOException;
 import io.opentelemetry.exporter.prometheus.PrometheusCollector;
 import io.opentelemetry.sdk.metrics.SdkMeterProvider;
 import io.prometheus.client.exporter.HTTPServer;
+=======
+import org.apache.eventmesh.metrics.api.model.Metric;
+import org.apache.eventmesh.metrics.prometheus.config.PrometheusConfiguration;
+
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.sdk.OpenTelemetrySdk;
+>>>>>>> upstream/master
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +51,13 @@ import lombok.extern.slf4j.Slf4j;
 @Config(field = "prometheusConfiguration")
 public class PrometheusMetricsRegistry implements MetricsRegistry {
 
+<<<<<<< HEAD
     private volatile HTTPServer prometheusHttpServer;
+=======
+    private final AtomicBoolean started = new AtomicBoolean(false);
+
+    private OpenTelemetry openTelemetry;
+>>>>>>> upstream/master
 
     /**
      * Unified configuration class corresponding to prometheus.properties
@@ -49,6 +66,7 @@ public class PrometheusMetricsRegistry implements MetricsRegistry {
 
     @Override
     public void start() {
+<<<<<<< HEAD
         if (prometheusHttpServer == null) {
             synchronized (PrometheusMetricsRegistry.class) {
                 if (prometheusHttpServer == null) {
@@ -63,12 +81,38 @@ public class PrometheusMetricsRegistry implements MetricsRegistry {
                         log.error("failed to start prometheus server, port: {} due to {}", port, e.getMessage());
                     }
                 }
+=======
+
+        if (!started.compareAndSet(false, true)) {
+            return;
+        }
+
+        try {
+            this.prometheusConfiguration = Objects.requireNonNull(this.prometheusConfiguration, "prometheusConfiguration can't be null!");
+            String eventMeshPrometheusExportHost = prometheusConfiguration.getEventMeshPrometheusExportHost();
+            int eventMeshPrometheusPort = prometheusConfiguration.getEventMeshPrometheusPort();
+            this.openTelemetry = OpenTelemetryPrometheusManager.initOpenTelemetry(eventMeshPrometheusExportHost, eventMeshPrometheusPort);
+            PrometheusMetricsRegistryManager.createMetric(this.openTelemetry);
+        } catch (Exception e) {
+            log.error("failed to start prometheus export, Host: {}:{} due to {}", prometheusConfiguration.getEventMeshPrometheusExportHost(),
+                prometheusConfiguration.getEventMeshPrometheusPort(), e.getMessage());
+        }
+    }
+
+    @Override
+    public void showdown() {
+        if (this.openTelemetry instanceof OpenTelemetrySdk) {
+
+            try (OpenTelemetrySdk ignored = (OpenTelemetrySdk) this.openTelemetry) {
+                //OpenTelemetrySdk will call close auto
+>>>>>>> upstream/master
             }
         }
 
     }
 
     @Override
+<<<<<<< HEAD
     public void showdown() {
         if (prometheusHttpServer != null) {
             prometheusHttpServer.stop();
@@ -91,6 +135,10 @@ public class PrometheusMetricsRegistry implements MetricsRegistry {
         if (metric instanceof GrpcSummaryMetrics) {
             PrometheusGrpcExporter.export("apache-eventmesh", (GrpcSummaryMetrics) metric);
         }
+=======
+    public void register(Metric metric) {
+        PrometheusMetricsRegistryManager.registerMetric(metric);
+>>>>>>> upstream/master
     }
 
     @Override

@@ -17,6 +17,7 @@
 
 package org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.mysql;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.jdbc.connection.mysql.MysqlJdbcConnection;
 import org.apache.eventmesh.connector.jdbc.context.mysql.MysqlOffsetContext;
 import org.apache.eventmesh.connector.jdbc.context.mysql.MysqlPartition;
@@ -30,6 +31,27 @@ import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlDialectSql;
 import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlJdbcContext;
 import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.AbstractSnapshotEngine;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
+=======
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.MysqlConfig;
+import org.apache.eventmesh.connector.jdbc.CatalogChanges;
+import org.apache.eventmesh.connector.jdbc.connection.mysql.MysqlJdbcConnection;
+import org.apache.eventmesh.connector.jdbc.context.mysql.MysqlOffsetContext;
+import org.apache.eventmesh.connector.jdbc.context.mysql.MysqlPartition;
+import org.apache.eventmesh.connector.jdbc.dialect.mysql.MysqlDatabaseDialect;
+import org.apache.eventmesh.connector.jdbc.event.Event;
+import org.apache.eventmesh.connector.jdbc.event.EventConsumer;
+import org.apache.eventmesh.connector.jdbc.event.SchemaChangeEventType;
+import org.apache.eventmesh.connector.jdbc.source.SourceMateData;
+import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlConstants;
+import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlDialectSql;
+import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlJdbcContext;
+import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlSourceMateData;
+import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.AbstractSnapshotEngine;
+import org.apache.eventmesh.connector.jdbc.table.catalog.DefaultValueConvertor;
+import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
+import org.apache.eventmesh.connector.jdbc.table.catalog.mysql.MysqlDefaultValueConvertorImpl;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.utils.MysqlUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -60,6 +82,11 @@ public class MysqlSnapshotEngine extends
 
     private MysqlJdbcConnection connection;
 
+<<<<<<< HEAD
+=======
+    private DefaultValueConvertor defaultValueConvertor = new MysqlDefaultValueConvertorImpl();
+
+>>>>>>> upstream/master
     public MysqlSnapshotEngine(JdbcSourceConfig jdbcSourceConfig, MysqlDatabaseDialect databaseDialect, MysqlJdbcContext jdbcContext) {
         super(jdbcSourceConfig, databaseDialect, jdbcContext, jdbcContext.getPartition(), jdbcContext.getOffsetContext());
         this.connection = databaseDialect.getConnection();
@@ -76,6 +103,32 @@ public class MysqlSnapshotEngine extends
         shutdown();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Builds the source metadata.
+     *
+     * @param context         The context.
+     * @param snapshotContext The snapshot context.
+     * @param tableId         The table id
+     * @return The source metadata.
+     */
+    @Override
+    protected SourceMateData buildSourceMateData(MysqlJdbcContext context, SnapshotContext<MysqlPartition, MysqlOffsetContext> snapshotContext,
+        TableId tableId) {
+
+        MysqlSourceMateData sourceMateData = MysqlSourceMateData.newBuilder()
+            .name(sourceConnectorConfig.getName())
+            .withTableId(tableId)
+            .serverId(sourceConnectorConfig.getMysqlConfig().getServerId())
+            .snapshot(true)
+            .position(context.getSourceInfo().getCurrentBinlogPosition())
+            .build();
+
+        return sourceMateData;
+    }
+
+>>>>>>> upstream/master
     @Override
     protected void preSnapshot(MysqlJdbcContext jdbcContext, SnapshotContext<MysqlPartition, MysqlOffsetContext> snapshotContext) {
         // nothing to do
@@ -185,7 +238,21 @@ public class MysqlSnapshotEngine extends
                 if (event == null) {
                     return;
                 }
+<<<<<<< HEAD
                 event.getJdbcConnectData().getPayload().ofSourceMateData().setSnapshot(true);
+=======
+                // handle default value expression
+                if (event.getJdbcConnectData().isSchemaChanges()) {
+                    CatalogChanges catalogChanges = event.getJdbcConnectData().getPayload().getCatalogChanges();
+                    SchemaChangeEventType schemaChangeEventType = SchemaChangeEventType.ofSchemaChangeEventType(catalogChanges.getType(),
+                        catalogChanges.getOperationType());
+                    if (SchemaChangeEventType.TABLE_CREATE == schemaChangeEventType || SchemaChangeEventType.TABLE_ALERT == schemaChangeEventType) {
+                        catalogChanges.getColumns().forEach(
+                            column -> column.setDefaultValue(defaultValueConvertor.parseDefaultValue(column, column.getDefaultValueExpression())));
+                    }
+                }
+                event.getJdbcConnectData().getPayload().withDdl(ddl).ofSourceMateData().setSnapshot(true);
+>>>>>>> upstream/master
                 eventQueue.put(event);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -270,7 +337,11 @@ public class MysqlSnapshotEngine extends
         while (isRunning) {
             try {
                 Event event = eventQueue.poll(5, TimeUnit.SECONDS);
+<<<<<<< HEAD
                 if (null == event) {
+=======
+                if (event == null) {
+>>>>>>> upstream/master
                     continue;
                 }
                 consumers.forEach(consumer -> consumer.accept(event));

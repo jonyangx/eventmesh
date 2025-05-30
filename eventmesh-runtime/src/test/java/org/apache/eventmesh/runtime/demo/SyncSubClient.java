@@ -20,7 +20,10 @@ package org.apache.eventmesh.runtime.demo;
 import org.apache.eventmesh.common.protocol.SubscriptionMode;
 import org.apache.eventmesh.common.protocol.SubscriptionType;
 import org.apache.eventmesh.common.protocol.tcp.Command;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.client.common.ClientConstants;
 import org.apache.eventmesh.runtime.client.common.MessageUtils;
 import org.apache.eventmesh.runtime.client.impl.SubClientImpl;
@@ -38,7 +41,11 @@ public class SyncSubClient {
             client.justSubscribe(ClientConstants.SYNC_TOPIC, SubscriptionMode.CLUSTERING, SubscriptionType.SYNC);
             client.registerBusiHandler((msg, ctx) -> {
                 if (msg.getHeader().getCommand() == Command.REQUEST_TO_CLIENT) {
+<<<<<<< HEAD
                     LogUtils.info(log, "receive message:{}", msg);
+=======
+                    log.info("receive message:{}", msg);
+>>>>>>> upstream/master
                 }
             });
         }

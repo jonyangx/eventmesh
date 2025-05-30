@@ -21,16 +21,28 @@ import org.apache.eventmesh.common.utils.RandomStringUtils;
 import org.apache.eventmesh.trace.api.TracePluginFactory;
 import org.apache.eventmesh.trace.pinpoint.PinpointTraceService;
 import org.apache.eventmesh.trace.pinpoint.config.PinpointConfiguration;
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> upstream/master
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+<<<<<<< HEAD
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+=======
+ 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+ 
+>>>>>>> upstream/master
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.SpanKind;
@@ -43,10 +55,18 @@ import io.opentelemetry.sdk.trace.data.EventData;
 import io.opentelemetry.sdk.trace.data.LinkData;
 import io.opentelemetry.sdk.trace.data.SpanData;
 import io.opentelemetry.sdk.trace.data.StatusData;
+<<<<<<< HEAD
 
 public class PinpointSpanExporterTest {
 
     private PinpointSpanExporter exporter;
+=======
+ 
+public class PinpointSpanExporterTest {
+
+    private PinpointSpanExporter exporter;
+    public static final String AGENT_ID = "test";
+>>>>>>> upstream/master
 
     @BeforeEach
     public void setup() {
@@ -73,6 +93,14 @@ public class PinpointSpanExporterTest {
         spans.clear();
         spans.add(new SpanDateTest());
         Assertions.assertEquals(CompletableResultCode.ofSuccess(), exporter.export(spans));
+<<<<<<< HEAD
+=======
+
+        spans.clear();
+        spans.add(new SpanDateTest());
+        spans.add(new ChildSpanDateTest());
+        Assertions.assertEquals(CompletableResultCode.ofSuccess(), exporter.export(spans));
+>>>>>>> upstream/master
     }
 
     @Test
@@ -87,7 +115,11 @@ public class PinpointSpanExporterTest {
 
     /**
      * for test
+<<<<<<< HEAD
      */
+=======
+    */
+>>>>>>> upstream/master
     private static class SpanDateTest implements SpanData {
 
         @Override
@@ -171,6 +203,92 @@ public class PinpointSpanExporterTest {
         }
     }
 
+<<<<<<< HEAD
+=======
+    private static class ChildSpanDateTest implements SpanData {
+
+        @Override
+        public SpanContext getSpanContext() {
+            return new SpanContextTest();
+        }
+
+        @Override
+        public SpanContext getParentSpanContext() {
+            return new SpanContextTest();
+        }
+
+        @Override
+        public Resource getResource() {
+            return null;
+        }
+
+        @Override
+        public InstrumentationLibraryInfo getInstrumentationLibraryInfo() {
+            return null;
+        }
+
+        @Override
+        public String getName() {
+            return this.getClass().getName();
+        }
+
+        @Override
+        public SpanKind getKind() {
+            return SpanKind.INTERNAL;
+        }
+
+        @Override
+        public long getStartEpochNanos() {
+            return System.nanoTime();
+        }
+
+        @Override
+        public Attributes getAttributes() {
+            return null;
+        }
+
+        @Override
+        public List<EventData> getEvents() {
+            return null;
+        }
+
+        @Override
+        public List<LinkData> getLinks() {
+            return null;
+        }
+
+        @Override
+        public StatusData getStatus() {
+            return StatusData.ok();
+        }
+
+        @Override
+        public long getEndEpochNanos() {
+            return System.nanoTime();
+        }
+
+        @Override
+        public boolean hasEnded() {
+            return true;
+        }
+
+        @Override
+        public int getTotalRecordedEvents() {
+            return 0;
+        }
+
+        @Override
+        public int getTotalRecordedLinks() {
+            return 0;
+        }
+
+        @Override
+        public int getTotalAttributeCount() {
+            return 0;
+        }
+    }
+
+>>>>>>> upstream/master
     private static class SpanContextTest implements SpanContext {
 
         @Override

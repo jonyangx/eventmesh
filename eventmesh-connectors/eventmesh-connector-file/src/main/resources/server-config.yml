@@ -14,6 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+<<<<<<<< HEAD:eventmesh-connectors/eventmesh-connector-file/src/main/resources/server-config.yml
 
 sourceEnable: false
 sinkEnable: true
+========
+*.sh text eol=lf
+gradlew text eol=lf
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
+>>>>>>>> upstream/master:.gitattributes

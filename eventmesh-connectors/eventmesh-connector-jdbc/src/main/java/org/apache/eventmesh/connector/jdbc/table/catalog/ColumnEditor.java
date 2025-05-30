@@ -20,6 +20,10 @@ package org.apache.eventmesh.connector.jdbc.table.catalog;
 import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
 
 import java.sql.JDBCType;
+<<<<<<< HEAD
+=======
+import java.util.List;
+>>>>>>> upstream/master
 
 /**
  * An interface for building and configuring columns in a database table.
@@ -66,7 +70,11 @@ public interface ColumnEditor<CE extends ColumnEditor, Col extends Column> {
      * @param eventMeshType The EventMesh data type of the column.
      * @return The column editor instance.
      */
+<<<<<<< HEAD
     CE withEventMeshType(EventMeshDataType<?> eventMeshType);
+=======
+    CE withEventMeshType(EventMeshDataType eventMeshType);
+>>>>>>> upstream/master
 
     /**
      * Sets the order or position of the column within a table.
@@ -82,7 +90,11 @@ public interface ColumnEditor<CE extends ColumnEditor, Col extends Column> {
      * @param length The length of the column.
      * @return The column editor instance.
      */
+<<<<<<< HEAD
     CE length(int length);
+=======
+    CE length(long length);
+>>>>>>> upstream/master
 
     /**
      * Sets the scale of the column (if applicable).
@@ -132,10 +144,25 @@ public interface ColumnEditor<CE extends ColumnEditor, Col extends Column> {
      */
     CE notNull(boolean notNull);
 
+<<<<<<< HEAD
+=======
+    CE charsetName(String charsetName);
+
+    CE enumValues(List<String> enumValues);
+
+    CE withOption(String key, Object value);
+
+    CE withOptions(Options options);
+
+>>>>>>> upstream/master
     /**
      * Builds and returns the configured column.
      *
      * @return The configured column.
      */
     Col build();
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 }

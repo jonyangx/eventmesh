@@ -18,9 +18,15 @@
 package org.apache.eventmesh.connector.jdbc.source.dialect.snapshot;
 
 import org.apache.eventmesh.common.ThreadPoolFactory;
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.jdbc.DataChanges;
 import org.apache.eventmesh.connector.jdbc.DataChanges.Builder;
 import org.apache.eventmesh.connector.jdbc.DatabaseDialect;
+=======
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
+import org.apache.eventmesh.connector.jdbc.DataChanges;
+import org.apache.eventmesh.connector.jdbc.DataChanges.Builder;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.Field;
 import org.apache.eventmesh.connector.jdbc.JdbcContext;
 import org.apache.eventmesh.connector.jdbc.OffsetContext;
@@ -29,11 +35,19 @@ import org.apache.eventmesh.connector.jdbc.Payload;
 import org.apache.eventmesh.connector.jdbc.Schema;
 import org.apache.eventmesh.connector.jdbc.UniversalJdbcContext;
 import org.apache.eventmesh.connector.jdbc.connection.JdbcConnection;
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.jdbc.event.Event;
 import org.apache.eventmesh.connector.jdbc.event.InsertDataEvent;
 import org.apache.eventmesh.connector.jdbc.source.AbstractEngine;
 import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
 import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlSourceMateData;
+=======
+import org.apache.eventmesh.connector.jdbc.dialect.DatabaseDialect;
+import org.apache.eventmesh.connector.jdbc.event.Event;
+import org.apache.eventmesh.connector.jdbc.event.InsertDataEvent;
+import org.apache.eventmesh.connector.jdbc.source.AbstractEngine;
+import org.apache.eventmesh.connector.jdbc.source.SourceMateData;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.SnapshotResult.SnapshotResultStatus;
 import org.apache.eventmesh.connector.jdbc.table.catalog.Column;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
@@ -216,6 +230,7 @@ public abstract class AbstractSnapshotEngine<DbDialect extends DatabaseDialect<J
     private Callable<Void> createSnapshotDataEvent4TableCallable(Jc context, SnapshotContext<Part, Offset> snapshotContext,
         Queue<JdbcConnection> connectionPool, String sql, TableId tableId) {
         UniversalJdbcContext<?, ?, ?> universalJdbcContext = (UniversalJdbcContext<?, ?, ?>) context;
+<<<<<<< HEAD
         universalJdbcContext.withTableId(tableId);
         return () -> {
             JdbcConnection connection = connectionPool.poll();
@@ -232,6 +247,21 @@ public abstract class AbstractSnapshotEngine<DbDialect extends DatabaseDialect<J
                 List<Field> fields = columns.stream()
                     .map(col -> new Field(col.getDataType().getName(), col.isNotNull(), col.getName(), tableId.toString()))
                     .collect(Collectors.toList());
+=======
+        //universalJdbcContext.withTableId(tableId);
+        return () -> {
+            JdbcConnection connection = connectionPool.poll();
+            SourceMateData sourceMateData = buildSourceMateData(context, snapshotContext, tableId);
+            TableSchema tableSchema = universalJdbcContext.getCatalogTableSet().getTableSchema(tableId);
+            Field field = new Field().withField("after").withName("payload.after").withRequired(false);
+            List<? extends Column> columns = tableSchema.getColumns();
+            if (CollectionUtils.isNotEmpty(columns)) {
+                List<Field> fields = columns.stream().map(col -> {
+                    Column<?> rebuild = Column.newBuilder().withName(col.getName()).withDataType(col.getDataType())
+                        .withJdbcType(col.getJdbcType()).withNativeType(col.getNativeType()).withOrder(col.getOrder()).build();
+                    return new Field(rebuild, col.isNotNull(), col.getName(), tableId.toString());
+                }).collect(Collectors.toList());
+>>>>>>> upstream/master
                 field.withRequired(true).withFields(fields);
             }
             try (Statement statement = connection.createStatement(jdbcSourceConfig.getSourceConnectorConfig().getSnapshotFetchSize(), 100)) {
@@ -239,13 +269,21 @@ public abstract class AbstractSnapshotEngine<DbDialect extends DatabaseDialect<J
                 while (resultSet.next()) {
                     int columnCount = resultSet.getMetaData().getColumnCount();
                     InsertDataEvent event = new InsertDataEvent(tableId);
+<<<<<<< HEAD
                     Payload payload = event.getJdbcConnectData().getPayload();
+=======
+>>>>>>> upstream/master
                     Map<String, Object> values = new HashMap<>(columnCount);
                     for (int index = 1; index <= columnCount; ++index) {
                         values.put(resultSet.getMetaData().getColumnName(index), resultSet.getObject(index));
                     }
                     Builder builder = DataChanges.newBuilder();
                     builder.withAfter(values);
+<<<<<<< HEAD
+=======
+                    builder.withType(event.getDataChangeEventType().ofCode());
+                    final Payload payload = event.getJdbcConnectData().getPayload();
+>>>>>>> upstream/master
                     payload.withDataChanges(builder.build());
                     payload.withSource(sourceMateData);
                     event.getJdbcConnectData().setSchema(new Schema(Collections.singletonList(field)));
@@ -274,6 +312,19 @@ public abstract class AbstractSnapshotEngine<DbDialect extends DatabaseDialect<J
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Builds the source metadata.
+     *
+     * @param context         The context.
+     * @param snapshotContext The snapshot context.
+     * @param tableId         The table id
+     * @return The source metadata.
+     */
+    protected abstract SourceMateData buildSourceMateData(Jc context, SnapshotContext<Part, Offset> snapshotContext, TableId tableId);
+
+    /**
+>>>>>>> upstream/master
      * Pre-snapshot preparations.
      *
      * @param jdbcContext     the JDBC context

@@ -21,12 +21,19 @@ import org.apache.eventmesh.client.grpc.config.EventMeshGrpcClientConfig;
 import org.apache.eventmesh.client.grpc.util.EventMeshCloudEventBuilder;
 import org.apache.eventmesh.common.EventMeshMessage;
 import org.apache.eventmesh.common.enums.EventMeshProtocolType;
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.common.exception.EventMeshException;
+>>>>>>> upstream/master
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.CloudEvent;
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.CloudEventBatch;
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.PublisherServiceGrpc.PublisherServiceBlockingStub;
 import org.apache.eventmesh.common.protocol.grpc.common.EventMeshCloudEventUtils;
 import org.apache.eventmesh.common.protocol.grpc.common.Response;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -50,6 +57,7 @@ public class EventMeshMessageProducer implements GrpcProducer<EventMeshMessage> 
     }
 
     @Override
+<<<<<<< HEAD
     public Response publish(EventMeshMessage message) {
 
         if (null == message) {
@@ -57,6 +65,15 @@ public class EventMeshMessageProducer implements GrpcProducer<EventMeshMessage> 
         }
 
         LogUtils.debug(log, "Publish message: {}", message);
+=======
+    public Response publish(EventMeshMessage message) throws EventMeshException {
+
+        if (message == null) {
+            return null;
+        }
+
+        log.debug("Publish message: {}", message);
+>>>>>>> upstream/master
         CloudEvent cloudEvent = EventMeshCloudEventBuilder.buildEventMeshCloudEvent(message, clientConfig, PROTOCOL_TYPE);
         try {
             CloudEvent response = publisherClient.publish(cloudEvent);
@@ -65,6 +82,7 @@ public class EventMeshMessageProducer implements GrpcProducer<EventMeshMessage> 
                 .respMsg(EventMeshCloudEventUtils.getResponseMessage(response))
                 .respTime(EventMeshCloudEventUtils.getResponseTime(response))
                 .build();
+<<<<<<< HEAD
             LogUtils.info(log, "Received response:{}", parsedResponse);
             return parsedResponse;
         } catch (Exception e) {
@@ -75,6 +93,18 @@ public class EventMeshMessageProducer implements GrpcProducer<EventMeshMessage> 
 
     @Override
     public Response publish(List<EventMeshMessage> messages) {
+=======
+            log.info("Received response:{}", parsedResponse);
+            return parsedResponse;
+        } catch (Exception e) {
+            log.error("Error in publishing message {}", message, e);
+            throw new EventMeshException("Error in publishing message {}", e);
+        }
+    }
+
+    @Override
+    public Response publish(List<EventMeshMessage> messages) throws EventMeshException {
+>>>>>>> upstream/master
 
         if (CollectionUtils.isEmpty(messages)) {
             return null;
@@ -87,6 +117,7 @@ public class EventMeshMessageProducer implements GrpcProducer<EventMeshMessage> 
                 .respMsg(EventMeshCloudEventUtils.getResponseMessage(response))
                 .respTime(EventMeshCloudEventUtils.getResponseTime(response))
                 .build();
+<<<<<<< HEAD
             LogUtils.info(log, "Received response:{}", parsedResponse);
             return parsedResponse;
         } catch (Exception e) {
@@ -98,15 +129,37 @@ public class EventMeshMessageProducer implements GrpcProducer<EventMeshMessage> 
     @Override
     public EventMeshMessage requestReply(EventMeshMessage message, long timeout) {
         LogUtils.info(log, "RequestReply message:{}", message);
+=======
+            log.info("Received response:{}", parsedResponse);
+            return parsedResponse;
+        } catch (Exception e) {
+            log.error("Error in BatchPublish message {}", messages, e);
+            throw new EventMeshException("Error in BatchPublish message {}", e);
+        }
+    }
+
+    @Override
+    public EventMeshMessage requestReply(EventMeshMessage message, long timeout) throws EventMeshException {
+        log.info("RequestReply message:{}", message);
+>>>>>>> upstream/master
 
         final CloudEvent cloudEvent = EventMeshCloudEventBuilder.buildEventMeshCloudEvent(message, clientConfig, PROTOCOL_TYPE);
         try {
             final CloudEvent reply = publisherClient.withDeadlineAfter(timeout, TimeUnit.MILLISECONDS).requestReply(cloudEvent);
+<<<<<<< HEAD
             LogUtils.info(log, "Received reply message:{}", reply);
             return EventMeshCloudEventBuilder.buildMessageFromEventMeshCloudEvent(reply, PROTOCOL_TYPE);
         } catch (Exception e) {
             log.error("Error in RequestReply message {}", message, e);
         }
         return null;
+=======
+            log.info("Received reply message:{}", reply);
+            return EventMeshCloudEventBuilder.buildMessageFromEventMeshCloudEvent(reply, PROTOCOL_TYPE);
+        } catch (Exception e) {
+            log.error("Error in RequestReply message {}", message, e);
+            throw new EventMeshException("Error in RequestReply message {}", e);
+        }
+>>>>>>> upstream/master
     }
 }

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+<<<<<<<< HEAD:eventmesh-security-plugin/eventmesh-security-auth-token/build.gradle
 
 def jwtVersion = '0.11.1'
 
@@ -31,3 +32,19 @@ dependencies {
 
 
 }
+========
+dependencies {
+    implementation project(":eventmesh-common")
+    implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
+
+    implementation 'org.redisson:redisson:3.38.1'
+
+    api 'io.cloudevents:cloudevents-json-jackson'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'ai.grakn:redis-mock:0.1.6'
+    testImplementation project(":eventmesh-common")
+}
+>>>>>>>> upstream/master:eventmesh-connectors/eventmesh-connector-redis/build.gradle

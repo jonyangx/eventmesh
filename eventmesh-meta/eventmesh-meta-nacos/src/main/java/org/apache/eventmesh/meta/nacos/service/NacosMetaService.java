@@ -19,6 +19,10 @@ package org.apache.eventmesh.meta.nacos.service;
 
 import org.apache.eventmesh.api.exception.MetaException;
 import org.apache.eventmesh.api.meta.MetaService;
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.api.meta.MetaServiceListener;
+>>>>>>> upstream/master
 import org.apache.eventmesh.api.meta.config.EventMeshMetaConfig;
 import org.apache.eventmesh.api.meta.dto.EventMeshDataInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshRegisterInfo;
@@ -31,9 +35,24 @@ import org.apache.eventmesh.meta.nacos.config.NacosMetaStorageConfiguration;
 import org.apache.eventmesh.meta.nacos.constant.NacosConstant;
 
 import org.apache.commons.lang3.StringUtils;
+<<<<<<< HEAD
 
 import java.util.ArrayList;
 import java.util.Collections;
+=======
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+>>>>>>> upstream/master
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,16 +60,28 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+<<<<<<< HEAD
+=======
+import java.util.concurrent.Executor;
+>>>>>>> upstream/master
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
+<<<<<<< HEAD
+=======
+import com.alibaba.nacos.api.config.listener.Listener;
+>>>>>>> upstream/master
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.client.naming.utils.UtilAndComs;
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.common.utils.JacksonUtils;
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.databind.JsonNode;
+>>>>>>> upstream/master
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -85,6 +116,11 @@ public class NacosMetaService implements MetaService {
 
     private ConcurrentMap<String, EventMeshRegisterInfo> eventMeshRegisterInfoMap;
 
+<<<<<<< HEAD
+=======
+    private MetaServiceListener metaServiceListener;
+
+>>>>>>> upstream/master
     @Override
     public void init() throws MetaException {
 
@@ -94,7 +130,11 @@ public class NacosMetaService implements MetaService {
         eventMeshRegisterInfoMap = new ConcurrentHashMap<>(ConfigurationContextUtil.KEYS.size());
         for (String key : ConfigurationContextUtil.KEYS) {
             CommonConfiguration commonConfiguration = ConfigurationContextUtil.get(key);
+<<<<<<< HEAD
             if (null == commonConfiguration) {
+=======
+            if (commonConfiguration == null) {
+>>>>>>> upstream/master
                 continue;
             }
             if (StringUtils.isBlank(commonConfiguration.getMetaStorageAddr())) {
@@ -174,6 +214,29 @@ public class NacosMetaService implements MetaService {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void getMetaDataWithListener(MetaServiceListener metaServiceListener, String key) {
+        try {
+            nacosConfigService.addListener(key, group, new Listener() {
+
+                @Override
+                public Executor getExecutor() {
+                    return null;
+                }
+
+                @Override
+                public void receiveConfigInfo(String configInfo) {
+                    metaServiceListener.onChange(key, configInfo);
+                }
+            });
+        } catch (Exception e) {
+            throw new RuntimeException("add nacos listener for key " + key + "error", e);
+        }
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void shutdown() throws MetaException {
         if (!initStatus.compareAndSet(true, false)) {
             return;
@@ -183,11 +246,25 @@ public class NacosMetaService implements MetaService {
         }
         try {
             nacosNamingService.shutDown();
+<<<<<<< HEAD
+=======
+            log.info("NacosRegistryService close");
+>>>>>>> upstream/master
         } catch (NacosException e) {
             log.error("[NacosRegistryService][shutdown] error", e);
             throw new MetaException(e.getMessage());
         }
+<<<<<<< HEAD
         log.info("NacosRegistryService close");
+=======
+        try {
+            nacosConfigService.shutDown();
+            log.info("NacosConfigService close");
+        } catch (NacosException e) {
+            log.error("[NacosConfigService][shutdown] error", e);
+            throw new MetaException(e.getMessage());
+        }
+>>>>>>> upstream/master
     }
 
     @Override
@@ -242,16 +319,80 @@ public class NacosMetaService implements MetaService {
         }
     }
 
+<<<<<<< HEAD
     @Override
     public String getMetaData(String key) {
         try {
             return this.nacosConfigService.getConfig(key, group, 5000L);
         } catch (NacosException e) {
+=======
+    // implement with http
+    @Override
+    public Map<String, String> getMetaData(String key, boolean fuzzyEnabled) {
+        if (fuzzyEnabled) {
+            key = key + "*";
+        }
+        int pageNo = 1;
+        int pageSize = 100;
+
+        Map<String, String> result = new HashMap<>();
+        Map<String, String> tmpMap;
+        do {
+            tmpMap = getResultFromNacos(pageNo, pageSize, key, group, fuzzyEnabled);
+            result.putAll(tmpMap);
+        } while (!(tmpMap.size() < pageSize));
+        return result;
+    }
+
+    private Map<String, String> getResultFromNacos(int pageNo, int pageSize, String key, String group, boolean fuzzyEnabled) {
+        Map<String, String> result = new HashMap<>();
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            URIBuilder uriBuilder = new URIBuilder("http://" + serverAddr + "/nacos/v1/cs/configs")
+                .setParameter("dataId", key)
+                .setParameter("group", group)
+                .setParameter("pageNo", String.valueOf(pageNo))
+                .setParameter("pageSize", String.valueOf(pageSize));
+            if (fuzzyEnabled) {
+                uriBuilder.setParameter("search", "blur");
+            }
+            URI uri = uriBuilder.build();
+            HttpGet httpGet = new HttpGet(uri);
+            httpGet.setHeader(NacosConstant.USERNAME, username);
+            httpGet.setHeader(NacosConstant.PASSWORD, password);
+            try (CloseableHttpResponse closeableHttpResponse = httpclient.execute(httpGet)) {
+                if (closeableHttpResponse.getStatusLine().getStatusCode() == 200) {
+                    String response = EntityUtils.toString(closeableHttpResponse.getEntity(), StandardCharsets.UTF_8);
+                    result = processResponse(response);
+                }
+            } catch (Exception e) {
+                log.error("get metaData fail", e);
+                throw new RuntimeException(e);
+            }
+            return result;
+        } catch (Exception e) {
+>>>>>>> upstream/master
             log.error("get metaData fail", e);
             throw new RuntimeException(e);
         }
     }
 
+<<<<<<< HEAD
+=======
+    private Map<String, String> processResponse(String response) {
+        Map<String, String> result = new HashMap<>();
+        JsonNode jsonNode = JacksonUtils.toObj(response);
+        JsonNode jsonNodeArray = jsonNode.get("pageItems");
+        if (jsonNodeArray.isArray()) {
+            for (JsonNode js : jsonNodeArray) {
+                String key = js.get("dataId").asText();
+                String value = js.get("content").asText();
+                result.put(key, value);
+            }
+        }
+        return result;
+    }
+
+>>>>>>> upstream/master
     @Override
     public void updateMetaData(Map<String, String> metadataMap) {
         String protocol = metadataMap.get(EventMeshMetaConfig.EVENT_MESH_PROTO);

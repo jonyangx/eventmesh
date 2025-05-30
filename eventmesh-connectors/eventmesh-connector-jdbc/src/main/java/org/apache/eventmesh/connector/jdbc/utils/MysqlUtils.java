@@ -21,14 +21,39 @@ import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 
 public class MysqlUtils {
 
+<<<<<<< HEAD
+=======
+    /**
+     * Private constructor to prevent instantiation from outside the class.
+     */
+>>>>>>> upstream/master
     private MysqlUtils() {
 
     }
 
+<<<<<<< HEAD
     public static String wrapper(TableId tableId) {
         return wrapper(tableId.toString());
     }
 
+=======
+    /**
+     * Generates a wrapped name based on the TableId object.
+     *
+     * @param tableId The TableId object.
+     * @return The generated wrapped name.
+     */
+    public static String wrapper(TableId tableId) {
+        return wrapper(tableId.getCatalogName()) + "." + wrapper(tableId.getTableName());
+    }
+
+    /**
+     * Generates a wrapped name based on the original string.
+     *
+     * @param original The original string.
+     * @return The generated wrapped name.
+     */
+>>>>>>> upstream/master
     public static String wrapper(String original) {
         return "`" + original + "`";
     }

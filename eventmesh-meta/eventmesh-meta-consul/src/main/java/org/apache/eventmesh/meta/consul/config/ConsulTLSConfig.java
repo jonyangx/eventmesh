@@ -18,7 +18,11 @@
 package org.apache.eventmesh.meta.consul.config;
 
 import org.apache.eventmesh.common.config.Config;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.config.ConfigFiled;
+=======
+import org.apache.eventmesh.common.config.ConfigField;
+>>>>>>> upstream/master
 import org.apache.eventmesh.common.config.convert.converter.EnumConverter;
 
 import com.ecwid.consul.transport.TLSConfig.KeyStoreInstanceType;
@@ -31,6 +35,7 @@ import lombok.NoArgsConstructor;
 @Config(prefix = "eventMesh.registry.consul.tls")
 public class ConsulTLSConfig {
 
+<<<<<<< HEAD
     @ConfigFiled(field = "keyStoreInstanceType", converter = EnumConverter.class)
     private KeyStoreInstanceType keyStoreInstanceType;
 
@@ -44,6 +49,21 @@ public class ConsulTLSConfig {
     private String keyStorePath;
 
     @ConfigFiled(field = "keyStorePassword")
+=======
+    @ConfigField(field = "keyStoreInstanceType", converter = EnumConverter.class)
+    private KeyStoreInstanceType keyStoreInstanceType;
+
+    @ConfigField(field = "certificatePath")
+    private String certificatePath;
+
+    @ConfigField(field = "certificatePassword")
+    private String certificatePassword;
+
+    @ConfigField(field = "keyStorePath")
+    private String keyStorePath;
+
+    @ConfigField(field = "keyStorePassword")
+>>>>>>> upstream/master
     private String keyStorePassword;
 
 }

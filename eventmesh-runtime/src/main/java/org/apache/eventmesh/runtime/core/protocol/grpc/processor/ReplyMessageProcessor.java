@@ -34,11 +34,19 @@ import org.apache.eventmesh.protocol.api.ProtocolPluginFactory;
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.boot.EventMeshGrpcServer;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.core.protocol.grpc.producer.EventMeshProducer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.producer.ProducerManager;
 import org.apache.eventmesh.runtime.core.protocol.grpc.producer.SendMessageContext;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.ServiceUtils;
+=======
+import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
+import org.apache.eventmesh.runtime.core.protocol.grpc.service.ServiceUtils;
+import org.apache.eventmesh.runtime.core.protocol.producer.EventMeshProducer;
+import org.apache.eventmesh.runtime.core.protocol.producer.ProducerManager;
+import org.apache.eventmesh.runtime.core.protocol.producer.SendMessageContext;
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 
 import java.util.concurrent.TimeUnit;
@@ -51,7 +59,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ReplyMessageProcessor {
 
+<<<<<<< HEAD
     private final Logger aclLogger = LoggerFactory.getLogger(EventMeshConstants.ACL);
+=======
+    private static final Logger ACL_LOGGER = LoggerFactory.getLogger(EventMeshConstants.ACL);
+>>>>>>> upstream/master
 
     private final EventMeshGrpcServer eventMeshGrpcServer;
 
@@ -77,7 +89,11 @@ public class ReplyMessageProcessor {
         try {
             doAclCheck(message);
         } catch (Exception e) {
+<<<<<<< HEAD
             aclLogger.warn("CLIENT HAS NO PERMISSION,RequestReplyMessageProcessor reply failed", e);
+=======
+            ACL_LOGGER.warn("CLIENT HAS NO PERMISSION,RequestReplyMessageProcessor reply failed", e);
+>>>>>>> upstream/master
             ServiceUtils.sendStreamResponseCompleted(message, StatusCode.EVENTMESH_ACL_ERR, e.getMessage(), emitter);
             return;
         }
@@ -109,7 +125,11 @@ public class ReplyMessageProcessor {
 
         SendMessageContext sendMessageContext = new SendMessageContext(seqNum, cloudEvent, eventMeshProducer, eventMeshGrpcServer);
 
+<<<<<<< HEAD
         eventMeshGrpcServer.getMetricsMonitor().recordSendMsgToQueue();
+=======
+        eventMeshGrpcServer.getEventMeshGrpcMetricsManager().recordSendMsgToQueue();
+>>>>>>> upstream/master
         long startTime = System.currentTimeMillis();
         eventMeshProducer.reply(sendMessageContext, new SendCallback() {
 

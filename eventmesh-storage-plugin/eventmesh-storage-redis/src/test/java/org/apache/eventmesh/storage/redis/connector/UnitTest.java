@@ -94,12 +94,18 @@ public class UnitTest extends AbstractRedisServer {
 
                 @Override
                 public void onSuccess(SendResult sendResult) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
                 }
 
                 @Override
                 public void onException(OnExceptionContext context) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
                 }
             });
         }

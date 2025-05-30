@@ -24,7 +24,13 @@ import org.apache.eventmesh.common.exception.JsonException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.lang.reflect.Type;
+=======
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.Map;
+>>>>>>> upstream/master
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -52,6 +58,33 @@ public class JsonUtils {
         OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
+<<<<<<< HEAD
+=======
+    public static <T> T convertValue(Object fromValue, Class<T> toValueType) {
+        return OBJECT_MAPPER.convertValue(fromValue, toValueType);
+    }
+
+    public static <T> T convertValue(Object fromValue, TypeReference<T> toValueTypeRef) {
+        return OBJECT_MAPPER.convertValue(fromValue, toValueTypeRef);
+    }
+
+    public static <T> T mapToObject(Map<String, Object> map, Class<T> beanClass) {
+        if (map == null) {
+            return null;
+        }
+        Object obj = OBJECT_MAPPER.convertValue(map, beanClass);
+        return beanClass.cast(obj);
+    }
+
+    public static Map<String, Object> objectToMap(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        return OBJECT_MAPPER.convertValue(obj, new TypeReference<Map<String, Object>>() {
+        });
+    }
+
+>>>>>>> upstream/master
     /**
      * Serialize object to json string.
      *
@@ -99,6 +132,17 @@ public class JsonUtils {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public static <T> T parseObject(InputStream inputStream, Class<T> clazz) {
+        try {
+            return OBJECT_MAPPER.readValue(inputStream, clazz);
+        } catch (IOException e) {
+            throw new JsonException("deserialize input stream to object error", e);
+        }
+    }
+
+>>>>>>> upstream/master
     public static <T> T parseObject(String text, Type type) {
         if (StringUtils.isEmpty(text)) {
             return null;
@@ -147,6 +191,24 @@ public class JsonUtils {
         }
     }
 
+<<<<<<< HEAD
+=======
+    public static <T> T parseTypeReferenceObject(Object object, TypeReference<T> typeReference) {
+        if (object == null) {
+            return null;
+        }
+        return convertValue(object, typeReference);
+    }
+
+    public static <T> T parseTypeReferenceObject(byte[] text, TypeReference<T> typeReference) {
+        try {
+            return OBJECT_MAPPER.readValue(text, typeReference);
+        } catch (IOException e) {
+            throw new JsonException("deserialize json string to typeReference error", e);
+        }
+    }
+
+>>>>>>> upstream/master
     public static JsonNode getJsonNode(String text) {
         if (StringUtils.isEmpty(text)) {
             return null;

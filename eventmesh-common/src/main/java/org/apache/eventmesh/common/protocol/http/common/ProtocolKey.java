@@ -32,6 +32,10 @@ public class ProtocolKey {
     public static final String PROTOCOL_VERSION = "protocolversion";
 
     public static final String PROTOCOL_DESC = "protocoldesc";
+<<<<<<< HEAD
+=======
+    public static final String TOPIC = "topic";
+>>>>>>> upstream/master
 
     public static final String CONTENT_TYPE = "contenttype";
 

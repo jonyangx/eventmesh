@@ -26,7 +26,11 @@ pubSubConfig:
     passWord: kafkaPassWord
 connectorConfig:
     connectorName: kafkaSink
+<<<<<<< HEAD
     bootstrapServers:
+=======
+    bootstrapServers: 127.0.0.1:9092
+>>>>>>> upstream/master
     topic: TopicTest
     keyConverter: org.apache.kafka.common.serialization.StringSerializer
     valueConverter: org.apache.kafka.common.serialization.StringSerializer

@@ -23,7 +23,10 @@ import org.apache.eventmesh.common.ThreadPoolFactory;
 import org.apache.eventmesh.common.protocol.tcp.Package;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
 import org.apache.eventmesh.common.protocol.tcp.codec.Codec;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 
 import java.io.Closeable;
 import java.net.InetSocketAddress;
@@ -61,7 +64,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class TcpClient implements Closeable {
 
+<<<<<<< HEAD
     protected static transient int CLIENTNO = 0;
+=======
+    protected static int CLIENTNO = 0;
+>>>>>>> upstream/master
 
     static {
         try {
@@ -118,13 +125,18 @@ public abstract class TcpClient implements Closeable {
         ChannelFuture f = bootstrap.connect(host, port).sync();
         InetSocketAddress localAddress = (InetSocketAddress) f.channel().localAddress();
         channel = f.channel();
+<<<<<<< HEAD
         LogUtils.info(log, "connected|local={}:{}|server={}", localAddress.getAddress().getHostAddress(),
             localAddress.getPort(), host + ":" + port);
+=======
+        log.info("connected|local={}:{}|server={}", localAddress.getAddress().getHostAddress(), localAddress.getPort(), host + ":" + port);
+>>>>>>> upstream/master
     }
 
     @Override
     public void close() {
         try {
+<<<<<<< HEAD
             channel.disconnect().sync();
             workers.shutdownGracefully();
             if (heartTask != null) {
@@ -135,6 +147,20 @@ public abstract class TcpClient implements Closeable {
             Thread.currentThread().interrupt();
 
             LogUtils.warn(log, "close tcp client failed.|remote address={}", channel.remoteAddress(), e);
+=======
+
+            goodbye();
+
+            channel.disconnect().sync();
+            workers.shutdownGracefully().sync();
+            if (heartTask != null) {
+                heartTask.cancel(false);
+            }
+
+        } catch (Exception e) {
+            Thread.currentThread().interrupt();
+            log.warn("close tcp client failed.|remote address={}", channel.remoteAddress(), e);
+>>>>>>> upstream/master
         }
     }
 
@@ -148,7 +174,11 @@ public abstract class TcpClient implements Closeable {
                         }
                         Package msg = MessageUtils.heartBeat();
                         io(msg, EventMeshCommon.DEFAULT_TIME_OUT_MILLS);
+<<<<<<< HEAD
                         LogUtils.debug(log, "heart beat start {}", msg);
+=======
+                        log.debug("heart beat start {}", msg);
+>>>>>>> upstream/master
                     } catch (Exception e) {
                         // ignore
                     }
@@ -170,7 +200,11 @@ public abstract class TcpClient implements Closeable {
         if (channel.isWritable()) {
             channel.writeAndFlush(msg).addListener((ChannelFutureListener) future -> {
                 if (!future.isSuccess()) {
+<<<<<<< HEAD
                     LogUtils.warn(log, "send msg failed", future.cause());
+=======
+                    log.warn("send msg failed", future.cause());
+>>>>>>> upstream/master
                 }
             });
         } else {
@@ -181,10 +215,16 @@ public abstract class TcpClient implements Closeable {
     protected Package io(Package msg, long timeout) throws Exception {
         Object key = RequestContext.key(msg);
         RequestContext context = RequestContext.context(key, msg);
+<<<<<<< HEAD
         if (!contexts.containsValue(context)) {
             contexts.put(key, context);
         } else {
             LogUtils.info(log, "duplicate key : {}", key);
+=======
+        RequestContext previousContext = contexts.putIfAbsent(key, context);
+        if (previousContext != null) {
+            log.info("duplicate key : {}", key);
+>>>>>>> upstream/master
         }
         send(msg);
         Supplier<Package> supplier = () -> {
@@ -214,8 +254,12 @@ public abstract class TcpClient implements Closeable {
 
             @Override
             public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+<<<<<<< HEAD
                 LogUtils.info(log, "exceptionCaught, close connection.|remote address={}",
                     ctx.channel().remoteAddress(), cause);
+=======
+                log.info("exceptionCaught, close connection.|remote address={}", ctx.channel().remoteAddress(), cause);
+>>>>>>> upstream/master
                 ctx.close();
             }
         };

@@ -17,7 +17,11 @@
 
 package org.apache.eventmesh.openconnect.api.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.api.config.SinkConfig;
+=======
+import org.apache.eventmesh.common.config.connector.SinkConfig;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.sink.Sink;
 
 public abstract class SinkConnector implements Sink {

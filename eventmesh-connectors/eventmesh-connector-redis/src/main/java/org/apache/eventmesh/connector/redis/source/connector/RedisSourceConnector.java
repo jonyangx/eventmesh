@@ -17,9 +17,15 @@
 
 package org.apache.eventmesh.connector.redis.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.redis.cloudevent.CloudEventCodec;
 import org.apache.eventmesh.connector.redis.source.config.RedisSourceConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.redis.RedisSourceConfig;
+import org.apache.eventmesh.connector.redis.cloudevent.CloudEventCodec;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
@@ -40,8 +46,11 @@ import io.cloudevents.CloudEvent;
 
 public class RedisSourceConnector implements Source {
 
+<<<<<<< HEAD
     private static final int DEFAULT_BATCH_SIZE = 10;
 
+=======
+>>>>>>> upstream/master
     private RTopic topic;
 
     private RedisSourceConfig sourceConfig;
@@ -50,6 +59,13 @@ public class RedisSourceConnector implements Source {
 
     private BlockingQueue<CloudEvent> queue;
 
+<<<<<<< HEAD
+=======
+    private int maxBatchSize;
+
+    private long maxPollWaitTime;
+
+>>>>>>> upstream/master
     @Override
     public Class<? extends Config> configClass() {
         return RedisSourceConfig.class;
@@ -73,7 +89,13 @@ public class RedisSourceConnector implements Source {
         redisConfig.useSingleServer().setAddress(sourceConfig.connectorConfig.getServer());
         redisConfig.setCodec(CloudEventCodec.getInstance());
         this.redissonClient = Redisson.create(redisConfig);
+<<<<<<< HEAD
         this.queue = new LinkedBlockingQueue<>(1000);
+=======
+        this.queue = new LinkedBlockingQueue<>(sourceConfig.getPollConfig().getCapacity());
+        this.maxBatchSize = sourceConfig.getPollConfig().getMaxBatchSize();
+        this.maxPollWaitTime = sourceConfig.getPollConfig().getMaxWaitTime();
+>>>>>>> upstream/master
     }
 
     @Override
@@ -95,6 +117,14 @@ public class RedisSourceConnector implements Source {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() throws Exception {
         this.topic.removeAllListeners();
         this.redissonClient.shutdown();
@@ -102,6 +132,7 @@ public class RedisSourceConnector implements Source {
 
     @Override
     public List<ConnectRecord> poll() {
+<<<<<<< HEAD
         List<ConnectRecord> connectRecords = new ArrayList<>(DEFAULT_BATCH_SIZE);
         for (int count = 0; count < DEFAULT_BATCH_SIZE; ++count) {
             try {
@@ -111,6 +142,23 @@ public class RedisSourceConnector implements Source {
                 }
 
                 connectRecords.add(CloudEventUtil.convertEventToRecord(event));
+=======
+        long startTime = System.currentTimeMillis();
+        long remainingTime = maxPollWaitTime;
+
+        List<ConnectRecord> connectRecords = new ArrayList<>(maxBatchSize);
+        for (int count = 0; count < maxBatchSize; ++count) {
+            try {
+                CloudEvent event = queue.poll(remainingTime, TimeUnit.MILLISECONDS);
+                if (event == null) {
+                    break;
+                }
+                connectRecords.add(CloudEventUtil.convertEventToRecord(event));
+
+                // calculate elapsed time and update remaining time for next poll
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                remainingTime = maxPollWaitTime > elapsedTime ? maxPollWaitTime - elapsedTime : 0;
+>>>>>>> upstream/master
             } catch (InterruptedException e) {
                 break;
             }

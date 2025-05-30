@@ -236,10 +236,18 @@ public class MessageQueue {
      * @return The MessageEntity object at the head of the queue.
      */
     private MessageEntity dequeue() {
+<<<<<<< HEAD
         MessageEntity item = items[takeIndex++];
         if (takeIndex == items.length) {
             takeIndex = 0;
         }
+=======
+        final MessageEntity item = items[takeIndex++];
+        if (takeIndex == items.length) {
+            takeIndex = 0;
+        }
+        count--;
+>>>>>>> upstream/master
         notFull.signalAll();
         return item;
     }

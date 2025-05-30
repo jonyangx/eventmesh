@@ -23,10 +23,19 @@ import org.apache.eventmesh.common.config.ConfigService;
 import org.apache.eventmesh.common.utils.ConfigurationContextUtil;
 import org.apache.eventmesh.runtime.configuration.EventMeshGrpcConfiguration;
 
+<<<<<<< HEAD
+=======
+import lombok.Getter;
+
+>>>>>>> upstream/master
 public class EventMeshGrpcBootstrap implements EventMeshBootstrap {
 
     private final EventMeshGrpcConfiguration eventMeshGrpcConfiguration;
 
+<<<<<<< HEAD
+=======
+    @Getter
+>>>>>>> upstream/master
     private EventMeshGrpcServer eventMeshGrpcServer;
 
     private final EventMeshServer eventMeshServer;
@@ -62,6 +71,7 @@ public class EventMeshGrpcBootstrap implements EventMeshBootstrap {
             eventMeshGrpcServer.shutdown();
         }
     }
+<<<<<<< HEAD
 
     public EventMeshGrpcServer getEventMeshGrpcServer() {
         return eventMeshGrpcServer;
@@ -70,4 +80,6 @@ public class EventMeshGrpcBootstrap implements EventMeshBootstrap {
     public void setEventMeshGrpcServer(EventMeshGrpcServer eventMeshGrpcServer) {
         this.eventMeshGrpcServer = eventMeshGrpcServer;
     }
+=======
+>>>>>>> upstream/master
 }

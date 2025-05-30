@@ -20,7 +20,10 @@ package org.apache.eventmesh.runtime.core.protocol.tcp.client.rebalance;
 import org.apache.eventmesh.common.EventMeshThreadFactory;
 import org.apache.eventmesh.common.ThreadPoolFactory;
 import org.apache.eventmesh.runtime.boot.EventMeshTCPServer;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
+=======
+>>>>>>> upstream/master
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -67,7 +70,12 @@ public class EventMeshRebalanceService {
         log.info("rebalance service shutdown......");
     }
 
+<<<<<<< HEAD
     public void printRebalanceThreadPoolState() {
         EventMeshUtil.printState((ThreadPoolExecutor) serviceRebalanceScheduler);
+=======
+    public int getRebalanceThreadPoolQueueSize() {
+        return ((ThreadPoolExecutor) serviceRebalanceScheduler).getQueue().size();
+>>>>>>> upstream/master
     }
 }

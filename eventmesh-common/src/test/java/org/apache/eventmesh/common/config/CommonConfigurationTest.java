@@ -45,7 +45,10 @@ public class CommonConfigurationTest {
         Assertions.assertEquals("cluster-succeed!!!", config.getEventMeshCluster());
         Assertions.assertEquals("name-succeed!!!", config.getEventMeshName());
         Assertions.assertEquals("816", config.getSysID());
+<<<<<<< HEAD
         // Assertions.assertEquals("connector-succeed!!!", config.getEventMeshConnectorPluginType());
+=======
+>>>>>>> upstream/master
         Assertions.assertEquals("storage-succeed!!!", config.getEventMeshStoragePluginType());
         Assertions.assertEquals("storage-succeed!!!", config.getEventMeshStoragePluginType());
         Assertions.assertEquals("security-succeed!!!", config.getEventMeshSecurityPluginType());
@@ -55,9 +58,12 @@ public class CommonConfigurationTest {
         Assertions.assertEquals("username-succeed!!!", config.getEventMeshMetaStoragePluginUsername());
         Assertions.assertEquals("password-succeed!!!", config.getEventMeshMetaStoragePluginPassword());
 
+<<<<<<< HEAD
         Assertions.assertEquals(Integer.valueOf(816), config.getEventMeshMetaStorageIntervalInMills());
         Assertions.assertEquals(Integer.valueOf(1816), config.getEventMeshFetchMetaStorageAddrInterval());
 
+=======
+>>>>>>> upstream/master
         List<String> list = new ArrayList<>();
         list.add("metrics-succeed1!!!");
         list.add("metrics-succeed2!!!");
@@ -73,7 +79,10 @@ public class CommonConfigurationTest {
         Assertions.assertTrue(config.isEventMeshServerSecurityEnable());
         Assertions.assertTrue(config.isEventMeshServerMetaStorageEnable());
         Assertions.assertTrue(config.isEventMeshServerTraceEnable());
+<<<<<<< HEAD
 
         Assertions.assertEquals("eventmesh.idc-succeed!!!", config.getEventMeshWebhookOrigin());
+=======
+>>>>>>> upstream/master
     }
 }

@@ -63,7 +63,11 @@ public class HeartbeatRequestHeader extends Header {
     private String username = "username";
 
     // PASSWD of the requester
+<<<<<<< HEAD
     private String passwd = "user@123";
+=======
+    private String passwd = "default";
+>>>>>>> upstream/master
 
     @Override
     public Map<String, Object> toMap() {

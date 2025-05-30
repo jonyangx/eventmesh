@@ -72,7 +72,11 @@ public class PushConsumerImpl {
         }
         this.rocketmqPushConsumer.setNamesrvAddr(accessPoints.replace(',', ';'));
         String consumerGroup = clientConfig.getConsumerId();
+<<<<<<< HEAD
         if (null == consumerGroup || consumerGroup.isEmpty()) {
+=======
+        if (consumerGroup == null || consumerGroup.isEmpty()) {
+>>>>>>> upstream/master
             throw new StorageRuntimeException(
                 "Consumer Group is necessary for RocketMQ, please set it.");
         }

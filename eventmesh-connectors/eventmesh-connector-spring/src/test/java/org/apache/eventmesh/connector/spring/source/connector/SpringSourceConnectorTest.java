@@ -17,7 +17,13 @@
 
 package org.apache.eventmesh.connector.spring.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.spring.source.config.SpringSourceConfig;
+=======
+import static org.mockito.Mockito.doReturn;
+
+import org.apache.eventmesh.common.config.connector.spring.SpringSourceConfig;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 
 import java.util.List;
@@ -25,17 +31,37 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+<<<<<<< HEAD
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+=======
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MutablePropertySources;
+>>>>>>> upstream/master
 
 @ExtendWith(MockitoExtension.class)
 public class SpringSourceConnectorTest {
 
+<<<<<<< HEAD
     @Spy
+=======
+>>>>>>> upstream/master
     private SpringSourceConnector connector;
 
     @Test
     public void testSpringSourceConnector() throws Exception {
+<<<<<<< HEAD
+=======
+        ConfigurableApplicationContext context = Mockito.mock(ConfigurableApplicationContext.class);
+        ConfigurableEnvironment environment = Mockito.mock(ConfigurableEnvironment.class);
+        doReturn(new MutablePropertySources()).when(environment).getPropertySources();
+        doReturn(environment).when(context).getEnvironment();
+        connector = new SpringSourceConnector();
+        connector.setApplicationContext(context);
+>>>>>>> upstream/master
         SpringSourceConfig sourceConfig = new SpringSourceConfig();
         connector.init(sourceConfig);
         connector.start();
@@ -51,7 +77,11 @@ public class SpringSourceConnectorTest {
         }
     }
 
+<<<<<<< HEAD
     private void writeMockedRecords(int count, String message) throws Exception {
+=======
+    private void writeMockedRecords(int count, String message) {
+>>>>>>> upstream/master
         for (int i = 0; i < count; i++) {
             connector.send(message + i);
         }

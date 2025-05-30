@@ -17,8 +17,13 @@
 
 package org.apache.eventmesh.connector.file.sink.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.file.sink.config.FileSinkConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.file.FileSinkConfig;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SinkConnectorContext;
 import org.apache.eventmesh.openconnect.api.sink.Sink;
@@ -104,6 +109,14 @@ public class FileSinkConnector implements Sink {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         outputStream.flush();
         outputStream.close();

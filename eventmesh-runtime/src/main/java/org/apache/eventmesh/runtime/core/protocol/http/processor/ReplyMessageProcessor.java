@@ -31,8 +31,11 @@ import org.apache.eventmesh.common.protocol.http.common.RequestCode;
 import org.apache.eventmesh.common.protocol.http.header.message.ReplyMessageRequestHeader;
 import org.apache.eventmesh.common.protocol.http.header.message.ReplyMessageResponseHeader;
 import org.apache.eventmesh.common.utils.IPUtils;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
 import org.apache.eventmesh.metrics.api.model.HttpSummaryMetrics;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.protocol.api.ProtocolAdaptor;
 import org.apache.eventmesh.protocol.api.ProtocolPluginFactory;
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
@@ -40,15 +43,25 @@ import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
 import org.apache.eventmesh.runtime.core.protocol.http.async.CompleteHandler;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.HttpRequestProcessor;
 import org.apache.eventmesh.runtime.core.protocol.http.producer.EventMeshProducer;
 import org.apache.eventmesh.runtime.core.protocol.http.producer.SendMessageContext;
+=======
+import org.apache.eventmesh.runtime.core.protocol.producer.EventMeshProducer;
+import org.apache.eventmesh.runtime.core.protocol.producer.SendMessageContext;
+import org.apache.eventmesh.runtime.metrics.http.HttpMetrics;
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 import org.apache.eventmesh.runtime.util.RemotingHelper;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
+<<<<<<< HEAD
+=======
+import java.util.concurrent.Executor;
+>>>>>>> upstream/master
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -58,9 +71,15 @@ import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;
 import io.netty.channel.ChannelHandlerContext;
 
+<<<<<<< HEAD
 public class ReplyMessageProcessor implements HttpRequestProcessor {
 
     public final Logger messageLogger = LoggerFactory.getLogger(EventMeshConstants.MESSAGE);
+=======
+public class ReplyMessageProcessor extends AbstractHttpRequestProcessor {
+
+    public static final Logger MESSAGE_LOGGER = LoggerFactory.getLogger(EventMeshConstants.MESSAGE);
+>>>>>>> upstream/master
 
     public final Logger cmdLogger = LoggerFactory.getLogger(EventMeshConstants.CMD);
 
@@ -74,12 +93,21 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
 
     @Override
     public void processRequest(ChannelHandlerContext ctx, AsyncContext<HttpCommand> asyncContext) throws Exception {
+<<<<<<< HEAD
         HttpCommand responseEventMeshCommand;
         String localAddress = IPUtils.getLocalAddress();
         HttpCommand request = asyncContext.getRequest();
         cmdLogger.info("cmd={}|{}|client2eventMesh|from={}|to={}", RequestCode.get(Integer.valueOf(request.getRequestCode())),
             EventMeshConstants.PROTOCOL_HTTP,
             RemotingHelper.parseChannelRemoteAddr(ctx.channel()), localAddress);
+=======
+        String localAddress = IPUtils.getLocalAddress();
+        HttpCommand request = asyncContext.getRequest();
+        final String channelRemoteAddr = RemotingHelper.parseChannelRemoteAddr(ctx.channel());
+        cmdLogger.info("cmd={}|{}|client2eventMesh|from={}|to={}", RequestCode.get(Integer.valueOf(request.getRequestCode())),
+            EventMeshConstants.PROTOCOL_HTTP,
+            channelRemoteAddr, localAddress);
+>>>>>>> upstream/master
 
         ReplyMessageRequestHeader replyMessageRequestHeader = (ReplyMessageRequestHeader) request.getHeader();
 
@@ -126,7 +154,11 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
         }
 
         // control flow rate limit
+<<<<<<< HEAD
         HttpSummaryMetrics summaryMetrics = eventMeshHTTPServer.getMetrics().getSummaryMetrics();
+=======
+        HttpMetrics summaryMetrics = eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics();
+>>>>>>> upstream/master
         if (!eventMeshHTTPServer.getMsgRateLimiter()
             .tryAcquire(EventMeshConstants.DEFAULT_FASTFAIL_TIMEOUT_IN_MILLISECONDS, TimeUnit.MILLISECONDS)) {
             summaryMetrics.recordHTTPDiscard();
@@ -168,7 +200,10 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
 
         try {
             // body
+<<<<<<< HEAD
             // omsMsg.setBody(replyMessageRequestBody.getContent().getBytes(EventMeshConstants.DEFAULT_CHARSET));
+=======
+>>>>>>> upstream/master
             event = CloudEventBuilder.from(event)
                 .withSubject(replyTopic)
                 .withExtension(EventMeshConstants.MSG_TYPE, EventMeshConstants.PERSISTENT)
@@ -176,10 +211,17 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
                 .withExtension(EventMeshConstants.REQ_C2EVENTMESH_TIMESTAMP, String.valueOf(System.currentTimeMillis()))
                 .build();
 
+<<<<<<< HEAD
             LogUtils.debug(messageLogger, "msg2MQMsg suc, bizSeqNo={}, topic={}", bizNo, replyTopic);
 
         } catch (Exception e) {
             messageLogger.error("msg2MQMsg err, bizSeqNo={}, topic={}", bizNo, replyTopic, e);
+=======
+            MESSAGE_LOGGER.debug("msg2MQMsg suc, bizSeqNo={}, topic={}", bizNo, replyTopic);
+
+        } catch (Exception e) {
+            MESSAGE_LOGGER.error("msg2MQMsg err, bizSeqNo={}, topic={}", bizNo, replyTopic, e);
+>>>>>>> upstream/master
             completeResponse(request, asyncContext, replyMessageResponseHeader,
                 EventMeshRetCode.EVENTMESH_PACKAGE_MSG_ERR,
                 EventMeshRetCode.EVENTMESH_PACKAGE_MSG_ERR.getErrMsg() + EventMeshUtil.stackTrace(e, 2),
@@ -191,7 +233,11 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
         summaryMetrics.recordReplyMsg();
         CompleteHandler<HttpCommand> handler = httpCommand -> {
             try {
+<<<<<<< HEAD
                 LogUtils.debug(httpLogger, "{}", httpCommand);
+=======
+                httpLogger.debug("{}", httpCommand);
+>>>>>>> upstream/master
                 eventMeshHTTPServer.sendResponse(ctx, httpCommand.httpResponse());
                 summaryMetrics.recordHTTPReqResTimeCost(
                     System.currentTimeMillis() - request.getReqTime());
@@ -215,7 +261,11 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
                     asyncContext.onComplete(succ, handler);
                     long endTime = System.currentTimeMillis();
                     summaryMetrics.recordReplyMsgCost(endTime - startTime);
+<<<<<<< HEAD
                     messageLogger.info("message|eventMesh2mq|RSP|SYNC|reply2MQCost={}|topic={}|origTopic={}|bizSeqNo={}|uniqueId={}",
+=======
+                    MESSAGE_LOGGER.info("message|eventMesh2mq|RSP|SYNC|reply2MQCost={}|topic={}|origTopic={}|bizSeqNo={}|uniqueId={}",
+>>>>>>> upstream/master
                         endTime - startTime, replyMQCluster + "-" + EventMeshConstants.RR_REPLY_TOPIC,
                         origTopic, bizNo, uniqueId);
                 }
@@ -231,7 +281,11 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
                     long endTime = System.currentTimeMillis();
                     summaryMetrics.recordReplyMsgFailed();
                     summaryMetrics.recordReplyMsgCost(endTime - startTime);
+<<<<<<< HEAD
                     messageLogger.error("message|eventMesh2mq|RSP|SYNC|reply2MQCost={}|topic={}|origTopic={}|bizSeqNo={}|uniqueId={}",
+=======
+                    MESSAGE_LOGGER.error("message|eventMesh2mq|RSP|SYNC|reply2MQCost={}|topic={}|origTopic={}|bizSeqNo={}|uniqueId={}",
+>>>>>>> upstream/master
                         endTime - startTime, replyMQCluster + "-" + EventMeshConstants.RR_REPLY_TOPIC,
                         origTopic, bizNo, uniqueId, context.getException());
                 }
@@ -242,10 +296,22 @@ public class ReplyMessageProcessor implements HttpRequestProcessor {
                 EventMeshRetCode.EVENTMESH_REPLY_MSG_ERR.getErrMsg() + EventMeshUtil.stackTrace(ex, 2),
                 ReplyMessageResponseBody.class);
             long endTime = System.currentTimeMillis();
+<<<<<<< HEAD
             messageLogger.error("message|eventMesh2mq|RSP|SYNC|reply2MQCost={}|topic={}|origTopic={}|bizSeqNo={}|uniqueId={}",
+=======
+            MESSAGE_LOGGER.error("message|eventMesh2mq|RSP|SYNC|reply2MQCost={}|topic={}|origTopic={}|bizSeqNo={}|uniqueId={}",
+>>>>>>> upstream/master
                 endTime - startTime, replyTopic, origTopic, bizNo, uniqueId, ex);
             summaryMetrics.recordReplyMsgFailed();
             summaryMetrics.recordReplyMsgCost(endTime - startTime);
         }
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Executor executor() {
+        return eventMeshHTTPServer.getHttpThreadPoolGroup().getReplyMsgExecutor();
+    }
+>>>>>>> upstream/master
 }

@@ -18,12 +18,20 @@
 package org.apache.eventmesh.runtime.core.protocol.grpc.consumer;
 
 import org.apache.eventmesh.common.protocol.SubscriptionMode;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.JsonUtils;
 import org.apache.eventmesh.common.utils.LogUtils;
 import org.apache.eventmesh.runtime.boot.EventMeshGrpcServer;
 import org.apache.eventmesh.runtime.common.ServiceState;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.ConsumerGroupClient;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.GrpcType;
+=======
+import org.apache.eventmesh.common.protocol.grpc.common.GrpcType;
+import org.apache.eventmesh.common.utils.JsonUtils;
+import org.apache.eventmesh.runtime.boot.EventMeshGrpcServer;
+import org.apache.eventmesh.runtime.common.ServiceState;
+import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.ConsumerGroupClient;
+>>>>>>> upstream/master
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -65,12 +73,20 @@ public class ConsumerManager {
     }
 
     public void init() throws Exception {
+<<<<<<< HEAD
         LogUtils.info(log, "Grpc ConsumerManager initialized.");
+=======
+        log.info("Grpc ConsumerManager initialized.");
+>>>>>>> upstream/master
     }
 
     public void start() throws Exception {
         startClientCheck();
+<<<<<<< HEAD
         LogUtils.info(log, "Grpc ConsumerManager started.");
+=======
+        log.info("Grpc ConsumerManager started.");
+>>>>>>> upstream/master
     }
 
     public void shutdown() throws Exception {
@@ -78,7 +94,11 @@ public class ConsumerManager {
             consumer.shutdown();
         }
         scheduledExecutorService.shutdown();
+<<<<<<< HEAD
         LogUtils.info(log, "Grpc ConsumerManager shutdown.");
+=======
+        log.info("Grpc ConsumerManager shutdown.");
+>>>>>>> upstream/master
     }
 
     public EventMeshConsumer getEventMeshConsumer(final String consumerGroup) {
@@ -198,12 +218,20 @@ public class ConsumerManager {
         final int clientTimeout = eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshSessionExpiredInMills();
         if (clientTimeout > 0) {
             scheduledExecutorService.scheduleAtFixedRate(() -> {
+<<<<<<< HEAD
                 LogUtils.debug(log, "grpc client info check");
+=======
+                log.debug("grpc client info check");
+>>>>>>> upstream/master
 
                 final List<ConsumerGroupClient> clientList = new ArrayList<>();
                 clientTable.values().forEach(clientList::addAll);
 
+<<<<<<< HEAD
                 LogUtils.debug(log, "total number of ConsumerGroupClients: {}", clientList.size());
+=======
+                log.debug("total number of ConsumerGroupClients: {}", clientList.size());
+>>>>>>> upstream/master
 
                 if (CollectionUtils.isEmpty(clientList)) {
                     return;
@@ -212,7 +240,11 @@ public class ConsumerManager {
                 final Set<String> consumerGroupRestart = new HashSet<>();
                 clientList.forEach(client -> {
                     if (System.currentTimeMillis() - client.getLastUpTime().getTime() > clientTimeout) {
+<<<<<<< HEAD
                         LogUtils.warn(log, "client {} lastUpdate time {} over three heartbeat cycles. Removing it",
+=======
+                        log.warn("client {} lastUpdate time {} over three heartbeat cycles. Removing it",
+>>>>>>> upstream/master
                             JsonUtils.toJSONString(client), client.getLastUpTime());
 
                         deregisterClient(client);
@@ -227,7 +259,11 @@ public class ConsumerManager {
                     try {
                         restartEventMeshConsumer(consumerGroup);
                     } catch (Exception e) {
+<<<<<<< HEAD
                         LogUtils.error(log, "Error in restarting EventMeshConsumer [{}]", consumerGroup, e);
+=======
+                        log.error("Error in restarting EventMeshConsumer [{}]", consumerGroup, e);
+>>>>>>> upstream/master
                     }
                 });
             }, 10_000, 10_000, TimeUnit.MILLISECONDS);

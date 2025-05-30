@@ -20,7 +20,10 @@ package org.apache.eventmesh.runtime.util;
 import org.apache.eventmesh.common.EventMeshThreadFactory;
 import org.apache.eventmesh.common.protocol.tcp.EventMeshMessage;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.common.utils.RandomStringUtils;
 import org.apache.eventmesh.common.utils.ThreadUtils;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
@@ -172,7 +175,11 @@ public class EventMeshUtil {
     public static String getLocalAddr() {
         // priority of networkInterface when generating client ip
         final String priority = System.getProperty("networkInterface.priority", "bond1<eth1<eth0");
+<<<<<<< HEAD
         LogUtils.debug(log, "networkInterface.priority: {}", priority);
+=======
+        log.debug("networkInterface.priority: {}", priority);
+>>>>>>> upstream/master
 
         final List<String> preferList = new ArrayList<>();
         preferList.addAll(Arrays.asList(priority.split("<")));
@@ -196,11 +203,19 @@ public class EventMeshUtil {
             final ArrayList<String> ipv6Result = new ArrayList<>();
 
             if (preferNetworkInterface != null) {
+<<<<<<< HEAD
                 LogUtils.debug(log, "use preferNetworkInterface:{}", preferNetworkInterface);
                 final Enumeration<InetAddress> en = preferNetworkInterface.getInetAddresses();
                 getIpResult(ipv4Result, ipv6Result, en);
             } else {
                 LogUtils.debug(log, "no preferNetworkInterface");
+=======
+                log.debug("use preferNetworkInterface:{}", preferNetworkInterface);
+                final Enumeration<InetAddress> en = preferNetworkInterface.getInetAddresses();
+                getIpResult(ipv4Result, ipv6Result, en);
+            } else {
+                log.debug("no preferNetworkInterface");
+>>>>>>> upstream/master
                 final Enumeration<NetworkInterface> enumeration = NetworkInterface.getNetworkInterfaces();
                 while (enumeration.hasMoreElements()) {
                     final NetworkInterface networkInterface = enumeration.nextElement();
@@ -273,8 +288,13 @@ public class EventMeshUtil {
     }
 
     public static void printState(final ThreadPoolExecutor scheduledExecutorService) {
+<<<<<<< HEAD
         LogUtils.info(log, "{} [{} {} {} {}]", ((EventMeshThreadFactory) scheduledExecutorService.getThreadFactory())
             .getThreadNamePrefix(), scheduledExecutorService.getQueue().size(), scheduledExecutorService.getPoolSize(),
+=======
+        log.info("{} [{} {} {} {}]", ((EventMeshThreadFactory) scheduledExecutorService.getThreadFactory()).getThreadNamePrefix(),
+            scheduledExecutorService.getQueue().size(), scheduledExecutorService.getPoolSize(),
+>>>>>>> upstream/master
             scheduledExecutorService.getActiveCount(), scheduledExecutorService.getCompletedTaskCount());
     }
 

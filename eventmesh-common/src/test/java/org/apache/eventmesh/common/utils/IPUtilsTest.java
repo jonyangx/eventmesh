@@ -19,17 +19,23 @@ package org.apache.eventmesh.common.utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
 import org.junitpioneer.jupiter.SetEnvironmentVariable;
+=======
+>>>>>>> upstream/master
 
 public class IPUtilsTest {
 
     @Test
+<<<<<<< HEAD
     @SetEnvironmentVariable(key = "docker_host_ip", value = "dockHostIP")
     public void testDockerIP() {
         Assertions.assertEquals("dockHostIP", IPUtils.getLocalAddress());
     }
 
     @Test
+=======
+>>>>>>> upstream/master
     public void testLocalhostIP() {
         Assertions.assertNotNull(IPUtils.getLocalAddress());
     }

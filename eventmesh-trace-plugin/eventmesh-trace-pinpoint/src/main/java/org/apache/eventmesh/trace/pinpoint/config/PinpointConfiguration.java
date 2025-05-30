@@ -19,7 +19,11 @@ package org.apache.eventmesh.trace.pinpoint.config;
 
 import org.apache.eventmesh.common.Constants;
 import org.apache.eventmesh.common.config.Config;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.config.ConfigFiled;
+=======
+import org.apache.eventmesh.common.config.ConfigField;
+>>>>>>> upstream/master
 import org.apache.eventmesh.common.exception.JsonException;
 import org.apache.eventmesh.common.utils.RandomStringUtils;
 
@@ -37,6 +41,7 @@ import lombok.Data;
 @Config(prefix = "eventmesh.trace.pinpoint", path = "classPath://pinpoint.properties")
 public final class PinpointConfiguration {
 
+<<<<<<< HEAD
     @ConfigFiled(field = "agentId", reload = true)
     private String agentId;
 
@@ -47,6 +52,18 @@ public final class PinpointConfiguration {
     private String applicationName;
 
     @ConfigFiled(field = "", reload = true)
+=======
+    @ConfigField(field = "agentId", reload = true)
+    private String agentId;
+
+    @ConfigField(field = "agentName", reload = true)
+    private String agentName;
+
+    @ConfigField(field = "applicationName", findEnv = true, notNull = true)
+    private String applicationName;
+
+    @ConfigField(field = "", reload = true)
+>>>>>>> upstream/master
     private Properties grpcTransportProperties;
 
     private GrpcTransportConfig grpcTransportConfig;

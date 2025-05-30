@@ -17,13 +17,22 @@
 
 package org.apache.eventmesh.connector.pulsar.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.pulsar.source.config.PulsarSourceConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.mq.pulsar.PulsarSourceConfig;
+import org.apache.eventmesh.common.remote.offset.pulsar.PulsarRecordPartition;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+>>>>>>> upstream/master
 
 import org.apache.pulsar.client.api.Consumer;
 import org.apache.pulsar.client.api.Message;
@@ -33,9 +42,13 @@ import org.apache.pulsar.client.api.PulsarClientException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> upstream/master
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -90,6 +103,14 @@ public class PulsarSourceConnector implements Source {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         try {
             consumer.close();
@@ -108,10 +129,16 @@ public class PulsarSourceConnector implements Source {
                 Message message = (Message) msg;
                 byte[] body = message.getData();
                 String bodyStr = new String(body, StandardCharsets.UTF_8);
+<<<<<<< HEAD
                 Map<String, String> map = new HashMap<>();
                 map.put("topic", consumer.getTopic());
                 map.put("queueId", String.valueOf(message.getSequenceId()));
                 RecordPartition partition = new RecordPartition(map);
+=======
+                PulsarRecordPartition partition = new PulsarRecordPartition();
+                partition.setTopic(consumer.getTopic());
+                partition.setQueueId(message.getSequenceId());
+>>>>>>> upstream/master
                 ConnectRecord connectRecord = new ConnectRecord(partition, null, timestamp, bodyStr);
                 connectRecord.addExtension("topic", consumer.getTopic());
                 connectRecords.add(connectRecord);

@@ -18,9 +18,15 @@
 package org.apache.eventmesh.connector.jdbc.source;
 
 import org.apache.eventmesh.common.ThreadWrapper;
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.jdbc.DatabaseDialect;
 import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
 import org.apache.eventmesh.connector.jdbc.source.config.SourceConnectorConfig;
+=======
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.SourceConnectorConfig;
+import org.apache.eventmesh.connector.jdbc.dialect.DatabaseDialect;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 
 import org.apache.commons.collections4.CollectionUtils;

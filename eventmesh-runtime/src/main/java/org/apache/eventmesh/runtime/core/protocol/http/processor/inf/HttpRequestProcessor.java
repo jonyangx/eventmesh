@@ -27,6 +27,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
+<<<<<<< HEAD
+=======
+import java.util.concurrent.Executor;
+>>>>>>> upstream/master
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,4 +71,12 @@ public interface HttpRequestProcessor {
         return Objects.isNull(extension) ? "" : extension.toString();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return {@link Executor}
+     */
+    Executor executor();
+
+>>>>>>> upstream/master
 }

@@ -18,7 +18,11 @@
 package org.apache.eventmesh.meta.zookeeper.config;
 
 import org.apache.eventmesh.common.config.Config;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.config.ConfigFiled;
+=======
+import org.apache.eventmesh.common.config.ConfigField;
+>>>>>>> upstream/master
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Config(prefix = "eventMesh.registry.zookeeper")
 public class ZKRegistryConfiguration {
 
+<<<<<<< HEAD
     @ConfigFiled(field = "scheme")
     private String scheme;
 
@@ -60,6 +65,40 @@ public class ZKRegistryConfiguration {
     private Integer retryNTimes = 10;
 
     @ConfigFiled(field = "retryPolicy.sleepMsBetweenRetries")
+=======
+    @ConfigField(field = "scheme")
+    private String scheme;
+
+    @ConfigField(field = "auth")
+    private String auth;
+
+    @ConfigField(field = "connectionTimeoutMs")
+    private Integer connectionTimeoutMs = 5000;
+
+    @ConfigField(field = "sessionTimeoutMs")
+    private Integer sessionTimeoutMs = 40000;
+
+    // Fully qualified name of RetryPolicy implementation
+    @ConfigField(field = "retryPolicy.class")
+    private String retryPolicyClass;
+
+    @ConfigField(field = "retryPolicy.baseSleepTimeMs")
+    private Integer baseSleepTimeMs = 1000;
+
+    @ConfigField(field = "retryPolicy.maxRetries")
+    private Integer maxRetries = 5;
+
+    @ConfigField(field = "retryPolicy.maxSleepTimeMs")
+    private Integer maxSleepTimeMs = 5000;
+
+    @ConfigField(field = "retryPolicy.retryIntervalMs")
+    private Integer retryIntervalTimeMs = 1000;
+
+    @ConfigField(field = "retryPolicy.nTimes")
+    private Integer retryNTimes = 10;
+
+    @ConfigField(field = "retryPolicy.sleepMsBetweenRetries")
+>>>>>>> upstream/master
     private Integer sleepMsBetweenRetries = 1000;
 
 }

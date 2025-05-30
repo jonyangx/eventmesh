@@ -17,7 +17,10 @@
 
 package org.apache.eventmesh.runtime.core.protocol.tcp.client.group.dispatch;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.session.Session;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -50,7 +53,11 @@ public class FreePriorityDispatchStrategy implements DownstreamDispatchStrategy 
 
             if (session.isIsolated()) {
                 isolatedSessions.add(session);
+<<<<<<< HEAD
                 LogUtils.info(log, "session is not available because session is isolated,isolateTime:{},client:{}",
+=======
+                log.info("session is not available because session is isolated,isolateTime:{},client:{}",
+>>>>>>> upstream/master
                     session.getIsolateTime(), session.getClient());
                 continue;
             }
@@ -60,10 +67,17 @@ public class FreePriorityDispatchStrategy implements DownstreamDispatchStrategy 
 
         if (CollectionUtils.isEmpty(filtered)) {
             if (CollectionUtils.isEmpty(isolatedSessions)) {
+<<<<<<< HEAD
                 LogUtils.warn(log, "all sessions can't downstream msg");
                 return null;
             } else {
                 LogUtils.warn(log, "all sessions are isolated,group:{},topic:{}", group, topic);
+=======
+                log.warn("all sessions can't downstream msg");
+                return null;
+            } else {
+                log.warn("all sessions are isolated,group:{},topic:{}", group, topic);
+>>>>>>> upstream/master
                 filtered.addAll(isolatedSessions);
             }
         }

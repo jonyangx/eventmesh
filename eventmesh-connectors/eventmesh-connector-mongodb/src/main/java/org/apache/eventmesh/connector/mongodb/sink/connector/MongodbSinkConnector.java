@@ -17,11 +17,19 @@
 
 package org.apache.eventmesh.connector.mongodb.sink.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.mongodb.sink.client.Impl.MongodbSinkClient;
 import org.apache.eventmesh.connector.mongodb.sink.client.MongodbReplicaSetSinkClient;
 import org.apache.eventmesh.connector.mongodb.sink.client.MongodbStandaloneSinkClient;
 import org.apache.eventmesh.connector.mongodb.sink.config.MongodbSinkConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.rdb.mongodb.MongodbSinkConfig;
+import org.apache.eventmesh.connector.mongodb.sink.client.Impl.MongodbSinkClient;
+import org.apache.eventmesh.connector.mongodb.sink.client.MongodbReplicaSetSinkClient;
+import org.apache.eventmesh.connector.mongodb.sink.client.MongodbStandaloneSinkClient;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SinkConnectorContext;
 import org.apache.eventmesh.openconnect.api.sink.Sink;
@@ -88,6 +96,14 @@ public class MongodbSinkConnector implements Sink {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() throws Exception {
         this.client.stop();
     }

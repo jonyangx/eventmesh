@@ -26,7 +26,10 @@ import org.apache.eventmesh.common.protocol.SubscriptionMode;
 import org.apache.eventmesh.common.protocol.SubscriptionType;
 import org.apache.eventmesh.common.protocol.tcp.EventMeshMessage;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.tcp.common.EventMeshTestUtils;
 import org.apache.eventmesh.util.Utils;
 
@@ -66,7 +69,11 @@ public class AsyncSubscribe implements ReceiveMsgHook<EventMeshMessage> {
 
     @Override
     public Optional<EventMeshMessage> handle(final EventMeshMessage msg) {
+<<<<<<< HEAD
         LogUtils.info(log, "receive async msg: {}", msg);
+=======
+        log.info("receive async msg: {}", msg);
+>>>>>>> upstream/master
         return Optional.empty();
     }
 }

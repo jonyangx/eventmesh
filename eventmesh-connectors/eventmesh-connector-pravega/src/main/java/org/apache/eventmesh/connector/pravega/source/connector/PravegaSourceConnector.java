@@ -18,9 +18,15 @@
 package org.apache.eventmesh.connector.pravega.source.connector;
 
 import org.apache.eventmesh.common.ThreadPoolFactory;
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.pravega.client.PravegaEvent;
 import org.apache.eventmesh.connector.pravega.source.config.PravegaSourceConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.pravega.PravegaSourceConfig;
+import org.apache.eventmesh.connector.pravega.client.PravegaEvent;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
@@ -57,8 +63,11 @@ public class PravegaSourceConnector implements Source {
 
     private static final AtomicBoolean started = new AtomicBoolean(false);
 
+<<<<<<< HEAD
     private static final int DEFAULT_BATCH_SIZE = 10;
 
+=======
+>>>>>>> upstream/master
     private PravegaSourceConfig sourceConfig;
 
     private StreamManager streamManager;
@@ -71,6 +80,13 @@ public class PravegaSourceConnector implements Source {
 
     private BlockingQueue<CloudEvent> queue;
 
+<<<<<<< HEAD
+=======
+    private int maxBatchSize;
+
+    private long maxPollWaitTime;
+
+>>>>>>> upstream/master
     private final ThreadPoolExecutor executor = ThreadPoolFactory.createThreadPoolExecutor(
         Runtime.getRuntime().availableProcessors() * 2,
         Runtime.getRuntime().availableProcessors() * 2,
@@ -89,7 +105,13 @@ public class PravegaSourceConnector implements Source {
     public void init(ConnectorContext connectorContext) throws Exception {
         SourceConnectorContext sourceConnectorContext = (SourceConnectorContext) connectorContext;
         this.sourceConfig = (PravegaSourceConfig) sourceConnectorContext.getSourceConfig();
+<<<<<<< HEAD
         this.queue = new LinkedBlockingQueue<>(1000);
+=======
+        this.queue = new LinkedBlockingQueue<>(sourceConfig.getPollConfig().getCapacity());
+        this.maxBatchSize = sourceConfig.getPollConfig().getMaxBatchSize();
+        this.maxPollWaitTime = sourceConfig.getPollConfig().getMaxWaitTime();
+>>>>>>> upstream/master
 
         streamManager = StreamManager.create(sourceConfig.getConnectorConfig().getControllerURI());
         ClientConfig.ClientConfigBuilder clientConfigBuilder =
@@ -149,6 +171,14 @@ public class PravegaSourceConnector implements Source {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         sourceHandlerMap.forEach((topic, handler) -> {
             readerGroupManager.deleteReaderGroup(topic);
@@ -163,6 +193,7 @@ public class PravegaSourceConnector implements Source {
 
     @Override
     public List<ConnectRecord> poll() {
+<<<<<<< HEAD
         List<ConnectRecord> connectRecords = new ArrayList<>(DEFAULT_BATCH_SIZE);
         for (int count = 0; count < DEFAULT_BATCH_SIZE; ++count) {
             try {
@@ -172,6 +203,23 @@ public class PravegaSourceConnector implements Source {
                 }
 
                 connectRecords.add(CloudEventUtil.convertEventToRecord(event));
+=======
+        long startTime = System.currentTimeMillis();
+        long remainingTime = maxPollWaitTime;
+
+        List<ConnectRecord> connectRecords = new ArrayList<>(maxBatchSize);
+        for (int count = 0; count < maxBatchSize; ++count) {
+            try {
+                CloudEvent event = queue.poll(remainingTime, TimeUnit.MILLISECONDS);
+                if (event == null) {
+                    break;
+                }
+                connectRecords.add(CloudEventUtil.convertEventToRecord(event));
+
+                // calculate elapsed time and update remaining time for next poll
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                remainingTime = maxPollWaitTime > elapsedTime ? maxPollWaitTime - elapsedTime : 0;
+>>>>>>> upstream/master
             } catch (InterruptedException e) {
                 break;
             }

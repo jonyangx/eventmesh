@@ -17,14 +17,26 @@
 
 package org.apache.eventmesh.connector.kafka.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.kafka.source.config.KafkaSourceConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.mq.kafka.KafkaSourceConfig;
+import org.apache.eventmesh.common.remote.offset.RecordOffset;
+import org.apache.eventmesh.common.remote.offset.RecordPartition;
+import org.apache.eventmesh.common.remote.offset.kafka.KafkaRecordOffset;
+import org.apache.eventmesh.common.remote.offset.kafka.KafkaRecordPartition;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+>>>>>>> upstream/master
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -34,9 +46,13 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> upstream/master
 import java.util.Properties;
 
 public class KafkaSourceConnector implements Source {
@@ -45,7 +61,11 @@ public class KafkaSourceConnector implements Source {
 
     private KafkaConsumer<String, String> kafkaConsumer;
 
+<<<<<<< HEAD
     private int pollTimeOut = 100;
+=======
+    private long maxPollWaitTime;
+>>>>>>> upstream/master
 
     @Override
     public Class<? extends Config> configClass() {
@@ -75,8 +95,13 @@ public class KafkaSourceConnector implements Source {
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, sourceConfig.getConnectorConfig().getMaxPollRecords());
         props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, sourceConfig.getConnectorConfig().getAutoCommitIntervalMS());
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, sourceConfig.getConnectorConfig().getSessionTimeoutMS());
+<<<<<<< HEAD
         this.pollTimeOut = sourceConfig.getConnectorConfig().getPollTimeOut();
         this.kafkaConsumer = new KafkaConsumer<String, String>(props);
+=======
+        this.maxPollWaitTime = sourceConfig.getPollConfig().getMaxWaitTime();
+        this.kafkaConsumer = new KafkaConsumer<>(props);
+>>>>>>> upstream/master
     }
 
     @Override
@@ -95,13 +120,25 @@ public class KafkaSourceConnector implements Source {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         kafkaConsumer.unsubscribe();
     }
 
     @Override
     public List<ConnectRecord> poll() {
+<<<<<<< HEAD
         ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(pollTimeOut));
+=======
+        ConsumerRecords<String, String> records = kafkaConsumer.poll(Duration.ofMillis(maxPollWaitTime));
+>>>>>>> upstream/master
         List<ConnectRecord> connectRecords = new ArrayList<>(records.count());
         for (ConsumerRecord<String, String> record : records) {
             Long timestamp = System.currentTimeMillis();
@@ -118,6 +155,7 @@ public class KafkaSourceConnector implements Source {
     }
 
     public static RecordOffset convertToRecordOffset(Long offset) {
+<<<<<<< HEAD
         Map<String, String> offsetMap = new HashMap<>();
         offsetMap.put("queueOffset", offset + "");
         return new RecordOffset(offsetMap);
@@ -128,5 +166,17 @@ public class KafkaSourceConnector implements Source {
         map.put("topic", topic);
         map.put("partition", String.valueOf(partition));
         return new RecordPartition(map);
+=======
+        KafkaRecordOffset recordOffset = new KafkaRecordOffset();
+        recordOffset.setOffset(offset);
+        return recordOffset;
+    }
+
+    public static RecordPartition convertToRecordPartition(String topic, int partition) {
+        KafkaRecordPartition recordPartition = new KafkaRecordPartition();
+        recordPartition.setTopic(topic);
+        recordPartition.setPartition(partition);
+        return recordPartition;
+>>>>>>> upstream/master
     }
 }

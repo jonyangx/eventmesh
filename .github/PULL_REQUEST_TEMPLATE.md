@@ -23,21 +23,31 @@
 (If this PR fixes a GitHub issue, please add `Fixes #<XXX>` or `Closes #<XXX>`.)
 -->
 
+<<<<<<< HEAD
 Fixes #<XXXX>.
+=======
+Fixes #issue_id
+>>>>>>> upstream/master
 
 ### Motivation
 
 *Explain the content here.*
 *Explain why you want to make the changes and what problem you're trying to solve.*
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> upstream/master
 ### Modifications
 
 *Describe the modifications you've done.*
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> upstream/master
 ### Documentation
 
 - Does this pull request introduce a new feature? (yes / no)

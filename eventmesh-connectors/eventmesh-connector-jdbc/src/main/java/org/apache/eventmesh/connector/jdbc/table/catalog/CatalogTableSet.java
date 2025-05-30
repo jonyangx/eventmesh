@@ -51,6 +51,10 @@ public final class CatalogTableSet {
             return;
         }
         tableSchemaMap.putTableSchema(tableSchema);
+<<<<<<< HEAD
+=======
+        tableIdSet.addTableId(tableSchema.getTableId());
+>>>>>>> upstream/master
     }
 
     public TableSchema getTableSchema(TableId tableId) {
@@ -65,6 +69,13 @@ public final class CatalogTableSet {
             values = new HashSet<>(32);
         }
 
+<<<<<<< HEAD
+=======
+        public void addTableId(TableId tableId) {
+            values.add(tableId);
+        }
+
+>>>>>>> upstream/master
         public void removeDatabase(String catalogName, String schemaName) {
             values.removeIf(
                 entry -> StringUtils.equals(entry.getCatalogName(), catalogName) && StringUtils.equals(entry.getSchemaName(), schemaName));

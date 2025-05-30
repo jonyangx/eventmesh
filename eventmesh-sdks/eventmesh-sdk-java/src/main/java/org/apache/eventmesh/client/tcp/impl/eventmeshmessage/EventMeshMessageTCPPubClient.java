@@ -31,7 +31,10 @@ import org.apache.eventmesh.common.protocol.tcp.Command;
 import org.apache.eventmesh.common.protocol.tcp.EventMeshMessage;
 import org.apache.eventmesh.common.protocol.tcp.Package;
 import org.apache.eventmesh.common.utils.JsonUtils;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -80,7 +83,11 @@ class EventMeshMessageTCPPubClient extends TcpClient implements EventMeshTCPPubC
     public Package rr(EventMeshMessage eventMeshMessage, long timeout) throws EventMeshException {
         try {
             Package msg = MessageUtils.buildPackage(eventMeshMessage, Command.REQUEST_TO_SERVER);
+<<<<<<< HEAD
             LogUtils.info(log, "{}|rr|send|type={}|msg={}", CLIENTNO, msg, msg);
+=======
+            log.info("{}|rr|send|type={}|msg={}", CLIENTNO, msg, msg);
+>>>>>>> upstream/master
             return io(msg, timeout);
         } catch (Exception e) {
             throw new EventMeshException("rr error", e);

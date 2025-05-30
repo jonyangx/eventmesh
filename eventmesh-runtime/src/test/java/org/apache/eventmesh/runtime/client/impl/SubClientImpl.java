@@ -24,7 +24,10 @@ import org.apache.eventmesh.common.protocol.tcp.Command;
 import org.apache.eventmesh.common.protocol.tcp.OPStatus;
 import org.apache.eventmesh.common.protocol.tcp.Package;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.client.api.SubClient;
 import org.apache.eventmesh.runtime.client.common.ClientConstants;
 import org.apache.eventmesh.runtime.client.common.MessageUtils;
@@ -70,7 +73,11 @@ public class SubClientImpl extends TCPClient implements SubClient {
     public void init() throws Exception {
         open(new Handler());
         hello();
+<<<<<<< HEAD
         LogUtils.info(log, "SubClientImpl|{}|started!", clientNo);
+=======
+        log.info("SubClientImpl|{}|started!", clientNo);
+>>>>>>> upstream/master
     }
 
     public void reconnect() throws Exception {
@@ -101,8 +108,12 @@ public class SubClientImpl extends TCPClient implements SubClient {
                     SubClientImpl.this.reconnect();
                 }
                 Package msg = MessageUtils.heartBeat();
+<<<<<<< HEAD
                 LogUtils.debug(log, "SubClientImpl|{}|send heartbeat|Command={}|msg={}", clientNo,
                     msg.getHeader().getCommand(), msg);
+=======
+                log.debug("SubClientImpl|{}|send heartbeat|Command={}|msg={}", clientNo, msg.getHeader().getCommand(), msg);
+>>>>>>> upstream/master
                 SubClientImpl.this.dispatcher(msg, ClientConstants.DEFAULT_TIMEOUT_IN_MILLISECONDS);
             } catch (Exception e) {
                 // ignore
@@ -200,8 +211,12 @@ public class SubClientImpl extends TCPClient implements SubClient {
         @SuppressWarnings("Duplicates")
         @Override
         protected void channelRead0(ChannelHandlerContext ctx, Package msg) throws Exception {
+<<<<<<< HEAD
             LogUtils.info(log, SubClientImpl.class.getSimpleName() + "|receive|command={}|msg={}",
                 msg.getHeader().getCommand(), msg);
+=======
+            log.info(SubClientImpl.class.getSimpleName() + "|receive|command={}|msg={}", msg.getHeader().getCommand(), msg);
+>>>>>>> upstream/master
             Command cmd = msg.getHeader().getCommand();
             if (callback != null) {
                 callback.handle(msg, ctx);
@@ -239,7 +254,11 @@ public class SubClientImpl extends TCPClient implements SubClient {
                     contexts.remove(context.getKey());
                     context.finish(msg);
                 } else {
+<<<<<<< HEAD
                     log.error("msg ignored,context not found.|{}|{}", cmd, msg);
+=======
+                    log.warn("msg ignored,context not found.|{}|{}", cmd, msg);
+>>>>>>> upstream/master
                 }
             }
         }

@@ -17,21 +17,28 @@
 
 package org.apache.eventmesh.common.utils;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.common.enums.HttpMethod;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+=======
+import java.net.InetSocketAddress;
+>>>>>>> upstream/master
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+<<<<<<< HEAD
 import org.mockito.Mockito;
 
 import com.sun.net.httpserver.HttpExchange;
+=======
+>>>>>>> upstream/master
 
 public class NetUtilsTest {
 
@@ -58,6 +65,7 @@ public class NetUtilsTest {
         Assertions.assertEquals(localAddress + "|", result);
     }
 
+<<<<<<< HEAD
     @Test
     public void testParsePostBody() throws Exception {
 
@@ -79,4 +87,6 @@ public class NetUtilsTest {
         Mockito.verify(exchange, Mockito.times(1))
             .sendResponseHeaders(Mockito.anyInt(), Mockito.anyLong());
     }
+=======
+>>>>>>> upstream/master
 }

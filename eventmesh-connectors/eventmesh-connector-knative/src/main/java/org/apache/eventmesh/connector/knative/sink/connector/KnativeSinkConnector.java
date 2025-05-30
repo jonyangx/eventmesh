@@ -19,10 +19,17 @@ package org.apache.eventmesh.connector.knative.sink.connector;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.knative.cloudevent.KnativeHeaders;
 import org.apache.eventmesh.connector.knative.cloudevent.KnativeMessageFactory;
 import org.apache.eventmesh.connector.knative.sink.config.KnativeSinkConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.knative.KnativeSinkConfig;
+import org.apache.eventmesh.connector.knative.cloudevent.KnativeHeaders;
+import org.apache.eventmesh.connector.knative.cloudevent.KnativeMessageFactory;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SinkConnectorContext;
 import org.apache.eventmesh.openconnect.api.sink.Sink;
@@ -83,6 +90,14 @@ public class KnativeSinkConnector implements Sink {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         started.compareAndSet(true, false);
     }

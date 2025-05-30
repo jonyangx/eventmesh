@@ -66,6 +66,7 @@ public class HeartbeatRequestBody extends Body {
         return map;
     }
 
+<<<<<<< HEAD
     @ToString
     public static class HeartbeatEntity {
 
@@ -74,4 +75,18 @@ public class HeartbeatRequestBody extends Body {
         public String url;
         public String instanceId;
     }
+=======
+    @Data
+    public static class HeartbeatEntity {
+
+        private String topic;
+        private String serviceId;
+        private String url;
+        private String instanceId;
+
+
+    }
+
+
+>>>>>>> upstream/master
 }

@@ -23,8 +23,16 @@ import org.apache.eventmesh.common.config.ConfigService;
 import org.apache.eventmesh.common.utils.ConfigurationContextUtil;
 import org.apache.eventmesh.runtime.configuration.EventMeshTCPConfiguration;
 
+<<<<<<< HEAD
 public class EventMeshTcpBootstrap implements EventMeshBootstrap {
 
+=======
+import lombok.Getter;
+
+public class EventMeshTcpBootstrap implements EventMeshBootstrap {
+
+    @Getter
+>>>>>>> upstream/master
     private EventMeshTCPServer eventMeshTcpServer;
 
     private final EventMeshTCPConfiguration eventMeshTcpConfiguration;
@@ -63,6 +71,7 @@ public class EventMeshTcpBootstrap implements EventMeshBootstrap {
             eventMeshTcpServer.shutdown();
         }
     }
+<<<<<<< HEAD
 
     public EventMeshTCPServer getEventMeshTcpServer() {
         return eventMeshTcpServer;
@@ -72,4 +81,6 @@ public class EventMeshTcpBootstrap implements EventMeshBootstrap {
         this.eventMeshTcpServer = eventMeshTcpServer;
     }
 
+=======
+>>>>>>> upstream/master
 }

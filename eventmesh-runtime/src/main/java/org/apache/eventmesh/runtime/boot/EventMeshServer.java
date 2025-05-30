@@ -25,6 +25,7 @@ import org.apache.eventmesh.common.config.CommonConfiguration;
 import org.apache.eventmesh.common.config.ConfigService;
 import org.apache.eventmesh.common.utils.AssertUtils;
 import org.apache.eventmesh.common.utils.ConfigurationContextUtil;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.admin.controller.ClientManageController;
@@ -39,19 +40,53 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+=======
+import org.apache.eventmesh.metrics.api.MetricsPluginFactory;
+import org.apache.eventmesh.metrics.api.MetricsRegistry;
+import org.apache.eventmesh.runtime.acl.Acl;
+import org.apache.eventmesh.runtime.common.ServiceState;
+import org.apache.eventmesh.runtime.core.protocol.http.producer.ProducerTopicManager;
+import org.apache.eventmesh.runtime.meta.MetaStorage;
+import org.apache.eventmesh.runtime.metrics.EventMeshMetricsManager;
+import org.apache.eventmesh.runtime.metrics.MetricsManager;
+import org.apache.eventmesh.runtime.storage.StorageResource;
+import org.apache.eventmesh.runtime.trace.Trace;
+
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
+
+import lombok.Getter;
+import lombok.Setter;
+>>>>>>> upstream/master
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class EventMeshServer {
 
+<<<<<<< HEAD
     private final Acl acl;
 
     private MetaStorage metaStorage;
 
+=======
+    @Getter
+    private final Acl acl;
+
+    @Getter
+    @Setter
+    private MetaStorage metaStorage;
+
+    @Getter
+>>>>>>> upstream/master
     private static Trace trace;
 
     private final StorageResource storageResource;
 
+<<<<<<< HEAD
     private ServiceState serviceState;
 
     private ProducerTopicManager producerTopicManager;
@@ -59,6 +94,18 @@ public class EventMeshServer {
     private final CommonConfiguration configuration;
 
     private transient ClientManageController clientManageController;
+=======
+    @Getter
+    private ServiceState serviceState;
+
+    @Getter
+    private ProducerTopicManager producerTopicManager;
+
+    @Getter
+    private final CommonConfiguration configuration;
+
+    //  private transient ClientManageController clientManageController;
+>>>>>>> upstream/master
 
     private static final List<EventMeshBootstrap> BOOTSTRAP_LIST = new CopyOnWriteArrayList<>();
 
@@ -66,6 +113,23 @@ public class EventMeshServer {
 
     private static final ConfigService configService = ConfigService.getInstance();
 
+<<<<<<< HEAD
+=======
+    @Getter
+    private EventMeshTCPServer eventMeshTCPServer = null;
+
+    @Getter
+    private EventMeshHTTPServer eventMeshHTTPServer = null;
+
+    @Getter
+    private EventMeshGrpcServer eventMeshGrpcServer = null;
+
+    @Getter
+    private EventMeshAdminServer eventMeshAdminServer = null;
+
+    private EventMeshMetricsManager eventMeshMetricsManager;
+
+>>>>>>> upstream/master
     public EventMeshServer() {
 
         // Initialize configuration
@@ -91,8 +155,12 @@ public class EventMeshServer {
                 case GRPC:
                     BOOTSTRAP_LIST.add(new EventMeshGrpcBootstrap(this));
                     break;
+<<<<<<< HEAD
                 default:
                     // nothing to do
+=======
+                default: // nothing to do
+>>>>>>> upstream/master
             }
         }
 
@@ -100,6 +168,19 @@ public class EventMeshServer {
         if (BOOTSTRAP_LIST.isEmpty()) {
             BOOTSTRAP_LIST.add(new EventMeshTcpBootstrap(this));
         }
+<<<<<<< HEAD
+=======
+
+        // HTTP Admin Server always enabled
+        BOOTSTRAP_LIST.add(new EventMeshAdminBootstrap(this));
+
+        List<String> metricsPluginTypes = configuration.getEventMeshMetricsPluginType();
+        if (CollectionUtils.isNotEmpty(metricsPluginTypes)) {
+            List<MetricsRegistry> metricsRegistries = metricsPluginTypes.stream().map(metric -> MetricsPluginFactory.getMetricsRegistry(metric))
+                .collect(Collectors.toList());
+            eventMeshMetricsManager = new EventMeshMetricsManager(metricsRegistries);
+        }
+>>>>>>> upstream/master
     }
 
     public void init() throws Exception {
@@ -114,12 +195,15 @@ public class EventMeshServer {
             trace.init();
         }
 
+<<<<<<< HEAD
         EventMeshTCPServer eventMeshTCPServer = null;
 
         EventMeshGrpcServer eventMeshGrpcServer = null;
 
         EventMeshHTTPServer eventMeshHTTPServer = null;
 
+=======
+>>>>>>> upstream/master
         // server init
         for (final EventMeshBootstrap eventMeshBootstrap : BOOTSTRAP_LIST) {
             eventMeshBootstrap.init();
@@ -132,6 +216,7 @@ public class EventMeshServer {
             if (eventMeshBootstrap instanceof EventMeshGrpcBootstrap) {
                 eventMeshGrpcServer = ((EventMeshGrpcBootstrap) eventMeshBootstrap).getEventMeshGrpcServer();
             }
+<<<<<<< HEAD
         }
 
         if (Objects.nonNull(eventMeshTCPServer) && Objects.nonNull(eventMeshHTTPServer) && Objects.nonNull(eventMeshGrpcServer)) {
@@ -148,6 +233,44 @@ public class EventMeshServer {
         serviceState = ServiceState.INITED;
 
         LogUtils.info(log, SERVER_STATE_MSG, serviceState);
+=======
+            if (eventMeshBootstrap instanceof EventMeshAdminBootstrap) {
+                eventMeshAdminServer = ((EventMeshAdminBootstrap) eventMeshBootstrap).getEventMeshAdminServer();
+            }
+        }
+
+        if (Objects.nonNull(eventMeshTCPServer)) {
+            MetricsManager metricsManager = eventMeshTCPServer.getEventMeshTcpMetricsManager();
+            addMetricsManagerAndMetrics(metricsManager);
+        }
+
+        if (Objects.nonNull(eventMeshGrpcServer)) {
+            MetricsManager metricsManager = eventMeshGrpcServer.getEventMeshGrpcMetricsManager();
+            addMetricsManagerAndMetrics(metricsManager);
+        }
+
+        if (Objects.nonNull(eventMeshHTTPServer)) {
+            MetricsManager metricsManager = eventMeshHTTPServer.getEventMeshHttpMetricsManager();
+            addMetricsManagerAndMetrics(metricsManager);
+        }
+
+        if (Objects.nonNull(eventMeshMetricsManager)) {
+            eventMeshMetricsManager.init();
+        }
+
+        producerTopicManager = new ProducerTopicManager(this);
+        producerTopicManager.init();
+
+        serviceState = ServiceState.INITED;
+        log.info(SERVER_STATE_MSG, serviceState);
+    }
+
+    private void addMetricsManagerAndMetrics(MetricsManager metricsManager) {
+        if (Objects.nonNull(metricsManager)) {
+            this.eventMeshMetricsManager.addMetricManager(metricsManager);
+            this.eventMeshMetricsManager.addMetrics(metricsManager.getMetrics());
+        }
+>>>>>>> upstream/master
     }
 
     public void start() throws Exception {
@@ -165,6 +288,7 @@ public class EventMeshServer {
             eventMeshBootstrap.start();
         }
 
+<<<<<<< HEAD
         if (Objects.nonNull(clientManageController)) {
             clientManageController.start();
         }
@@ -172,11 +296,21 @@ public class EventMeshServer {
         serviceState = ServiceState.RUNNING;
         LogUtils.info(log, SERVER_STATE_MSG, serviceState);
 
+=======
+        producerTopicManager.start();
+
+        serviceState = ServiceState.RUNNING;
+        log.info(SERVER_STATE_MSG, serviceState);
+>>>>>>> upstream/master
     }
 
     public void shutdown() throws Exception {
         serviceState = ServiceState.STOPPING;
+<<<<<<< HEAD
         LogUtils.info(log, SERVER_STATE_MSG, serviceState);
+=======
+        log.info(SERVER_STATE_MSG, serviceState);
+>>>>>>> upstream/master
 
         for (final EventMeshBootstrap eventMeshBootstrap : BOOTSTRAP_LIST) {
             eventMeshBootstrap.shutdown();
@@ -197,6 +331,7 @@ public class EventMeshServer {
         }
         producerTopicManager.shutdown();
         ConfigurationContextUtil.clear();
+<<<<<<< HEAD
         serviceState = ServiceState.STOPPED;
 
         LogUtils.info(log, SERVER_STATE_MSG, serviceState);
@@ -228,5 +363,10 @@ public class EventMeshServer {
 
     public CommonConfiguration getConfiguration() {
         return configuration;
+=======
+
+        serviceState = ServiceState.STOPPED;
+        log.info(SERVER_STATE_MSG, serviceState);
+>>>>>>> upstream/master
     }
 }

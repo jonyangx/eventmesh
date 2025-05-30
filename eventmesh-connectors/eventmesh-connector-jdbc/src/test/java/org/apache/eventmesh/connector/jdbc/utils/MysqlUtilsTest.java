@@ -30,11 +30,20 @@ public class MysqlUtilsTest {
     @Test
     public void testWrapperWithTableId() {
         TableId mockTableId = mock(TableId.class);
+<<<<<<< HEAD
         when(mockTableId.toString()).thenReturn("test_table");
 
         String wrapped = MysqlUtils.wrapper(mockTableId);
 
         assertEquals("`test_table`", wrapped);
+=======
+        when(mockTableId.getTableName()).thenReturn("test_table");
+        when(mockTableId.getCatalogName()).thenReturn("test_table");
+
+        String wrapped = MysqlUtils.wrapper(mockTableId);
+
+        assertEquals("`test_table`.`test_table`", wrapped);
+>>>>>>> upstream/master
     }
 
     @Test

@@ -29,7 +29,10 @@ import org.apache.eventmesh.common.ExampleConstants;
 import org.apache.eventmesh.common.enums.EventMeshProtocolType;
 import org.apache.eventmesh.common.protocol.workflow.protos.ExecuteRequest;
 import org.apache.eventmesh.common.protocol.workflow.protos.ExecuteResponse;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.common.utils.ThreadUtils;
 import org.apache.eventmesh.grpc.GrpcAbstractDemo;
 import org.apache.eventmesh.selector.NacosSelector;
@@ -81,7 +84,11 @@ public class WorkflowPaymentAsyncSubscribe extends GrpcAbstractDemo implements R
 
     @Override
     public Optional<EventMeshMessage> handle(final EventMeshMessage msg) throws Exception {
+<<<<<<< HEAD
         LogUtils.info(log, "receive async msg: {}", msg);
+=======
+        log.info("receive async msg: {}", msg);
+>>>>>>> upstream/master
         if (msg == null) {
             log.info("async msg is null, workflow end.");
             return Optional.empty();
@@ -95,7 +102,11 @@ public class WorkflowPaymentAsyncSubscribe extends GrpcAbstractDemo implements R
             .setTaskInstanceId(taskInstanceId)
             .setInstanceId(workflowInstanceId).build();
         final ExecuteResponse response = workflowClient.getWorkflowClient().execute(executeRequest);
+<<<<<<< HEAD
         LogUtils.info(log, "receive workflow msg: {}", response.getInstanceId());
+=======
+        log.info("receive workflow msg: {}", response.getInstanceId());
+>>>>>>> upstream/master
         return Optional.empty();
     }
 

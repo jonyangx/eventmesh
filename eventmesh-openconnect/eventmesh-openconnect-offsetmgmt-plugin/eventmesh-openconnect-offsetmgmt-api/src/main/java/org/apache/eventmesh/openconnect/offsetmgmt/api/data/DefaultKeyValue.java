@@ -17,10 +17,16 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.data;
 
+<<<<<<< HEAD
+=======
+import java.net.URI;
+import java.time.OffsetDateTime;
+>>>>>>> upstream/master
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+<<<<<<< HEAD
 public class DefaultKeyValue implements KeyValue {
 
     private Map<String, Object> properties = new ConcurrentHashMap<>();
@@ -70,18 +76,65 @@ public class DefaultKeyValue implements KeyValue {
     @Override
     public KeyValue put(String key, int value) {
         properties.put(key, String.valueOf(value));
+=======
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class DefaultKeyValue implements KeyValue {
+
+    private final Map<String, Object> properties;
+
+    public DefaultKeyValue() {
+        properties = new ConcurrentHashMap<>();
+    }
+
+    @Override
+    public KeyValue put(String key, Boolean value) {
+        properties.put(key, value);
+>>>>>>> upstream/master
         return this;
     }
 
     @Override
+<<<<<<< HEAD
     public KeyValue put(String key, long value) {
         properties.put(key, String.valueOf(value));
+=======
+    public KeyValue put(String key, Number value) {
+        properties.put(key, value);
+        return this;
+
+    }
+
+    @Override
+    public KeyValue put(String key, byte[] value) {
+        properties.put(key, value);
+>>>>>>> upstream/master
         return this;
     }
 
     @Override
+<<<<<<< HEAD
     public KeyValue put(String key, double value) {
         properties.put(key, String.valueOf(value));
+=======
+    public KeyValue put(String key, String value) {
+        properties.put(key, value);
+        return this;
+    }
+
+    @Override
+    public KeyValue put(String key, URI value) {
+        properties.put(key, value);
+        return this;
+    }
+
+    @Override
+    public KeyValue put(String key, OffsetDateTime value) {
+        properties.put(key, value);
+>>>>>>> upstream/master
         return this;
     }
 
@@ -92,11 +145,74 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public boolean getBoolean(String key) {
+        if (!properties.containsKey(key)) {
+            return false;
+        }
+        Object val = properties.get(key);
+        if (val instanceof Boolean) {
+            return (Boolean) val;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean getBoolean(String key, boolean defaultValue) {
+        return properties.containsKey(key) ? getBoolean(key) : defaultValue;
+    }
+
+    @Override
+    public byte getByte(String key) {
+        if (!properties.containsKey(key)) {
+            return 0;
+        }
+        Object val = properties.get(key);
+        if (val instanceof Byte) {
+            return (Byte) val;
+        }
+        return 0;
+    }
+
+    @Override
+    public byte getByte(String key, byte defaultValue) {
+        return properties.containsKey(key) ? getByte(key) : defaultValue;
+
+    }
+
+    @Override
+    public short getShort(String key) {
+        if (!properties.containsKey(key)) {
+            return 0;
+        }
+        Object val = properties.get(key);
+        if (val instanceof Short) {
+            return (Short) val;
+        }
+        return 0;
+    }
+
+    @Override
+    public short getShort(String key, short defaultValue) {
+        return properties.containsKey(key) ? getShort(key) : defaultValue;
+    }
+
+    @Override
+>>>>>>> upstream/master
     public int getInt(String key) {
         if (!properties.containsKey(key)) {
             return 0;
         }
+<<<<<<< HEAD
         return Integer.parseInt(String.valueOf(properties.get(key)));
+=======
+        Object val = properties.get(key);
+        if (val instanceof Integer) {
+            return (Integer) val;
+        }
+        return 0;
+>>>>>>> upstream/master
     }
 
     @Override
@@ -109,7 +225,15 @@ public class DefaultKeyValue implements KeyValue {
         if (!properties.containsKey(key)) {
             return 0;
         }
+<<<<<<< HEAD
         return Long.parseLong(String.valueOf(properties.get(key)));
+=======
+        Object val = properties.get(key);
+        if (val instanceof Long) {
+            return (Long) val;
+        }
+        return 0;
+>>>>>>> upstream/master
     }
 
     @Override
@@ -118,11 +242,39 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public float getFloat(String key) {
+        if (!properties.containsKey(key)) {
+            return 0;
+        }
+        Object val = properties.get(key);
+        if (val instanceof Float) {
+            return (Float) val;
+        }
+        return 0;
+    }
+
+    @Override
+    public float getFloat(String key, float defaultValue) {
+        return properties.containsKey(key) ? getFloat(key) : defaultValue;
+    }
+
+    @Override
+>>>>>>> upstream/master
     public double getDouble(String key) {
         if (!properties.containsKey(key)) {
             return 0;
         }
+<<<<<<< HEAD
         return Double.parseDouble(String.valueOf(properties.get(key)));
+=======
+        Object val = properties.get(key);
+        if (val instanceof Double) {
+            return (Double) val;
+        }
+        return 0;
+>>>>>>> upstream/master
     }
 
     @Override
@@ -131,13 +283,41 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
+<<<<<<< HEAD
     public Object getObject(String key) {
         return properties.get(key);
+=======
+    public byte[] getBytes(String key) {
+        if (!properties.containsKey(key)) {
+            return new byte[]{};
+        }
+        Object val = properties.get(key);
+        if (val instanceof byte[]) {
+            return (byte[]) val;
+        }
+        return new byte[]{};
+    }
+
+    @Override
+    public byte[] getBytes(String key, byte[] defaultValue) {
+        return properties.containsKey(key) ? getBytes(key) : defaultValue;
+>>>>>>> upstream/master
     }
 
     @Override
     public String getString(String key) {
+<<<<<<< HEAD
         return String.valueOf(properties.get(key));
+=======
+        if (!properties.containsKey(key)) {
+            return "";
+        }
+        Object val = properties.get(key);
+        if (val instanceof String) {
+            return (String) val;
+        }
+        return "";
+>>>>>>> upstream/master
     }
 
     @Override
@@ -146,6 +326,71 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public URI getURI(String key) {
+        if (!properties.containsKey(key)) {
+            return null;
+        }
+        Object val = properties.get(key);
+        if (val instanceof URI) {
+            return (URI) val;
+        }
+        return null;
+    }
+
+    @Override
+    public URI getURI(String key, URI defaultValue) {
+        return properties.containsKey(key) ? getURI(key) : defaultValue;
+    }
+
+    @Override
+    public OffsetDateTime getOffsetDateTime(String key) {
+        if (!properties.containsKey(key)) {
+            return null;
+        }
+        Object val = properties.get(key);
+        if (val instanceof OffsetDateTime) {
+            return (OffsetDateTime) val;
+        }
+        return null;
+    }
+
+    @Override
+    public OffsetDateTime getOffsetDateTime(String key, OffsetDateTime defaultValue) {
+        return properties.containsKey(key) ? getOffsetDateTime(key) : defaultValue;
+    }
+
+    @Override
+    public Object getObject(String key) {
+        return properties.getOrDefault(key, null);
+    }
+
+    @Override
+    public Object getObject(String key, Object defaultValue) {
+        return properties.getOrDefault(key, defaultValue);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> T getObject(String key, Class<T> c) {
+        if (!properties.containsKey(key)) {
+            return null;
+        }
+        Object val = properties.get(key);
+        if (val.getClass() == c) {
+            return (T) val;
+        }
+        return null;
+    }
+
+    @Override
+    public <T> T getObject(String key, T defaultValue, Class<T> c) {
+        return properties.containsKey(key) ? getObject(key, c) : defaultValue;
+    }
+
+    @Override
+>>>>>>> upstream/master
     public Set<String> keySet() {
         return properties.keySet();
     }

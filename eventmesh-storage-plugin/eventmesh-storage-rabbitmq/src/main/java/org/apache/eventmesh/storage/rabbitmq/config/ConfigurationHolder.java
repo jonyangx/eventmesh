@@ -18,7 +18,11 @@
 package org.apache.eventmesh.storage.rabbitmq.config;
 
 import org.apache.eventmesh.common.config.Config;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.config.ConfigFiled;
+=======
+import org.apache.eventmesh.common.config.ConfigField;
+>>>>>>> upstream/master
 
 import com.rabbitmq.client.BuiltinExchangeType;
 
@@ -28,6 +32,7 @@ import lombok.Data;
 @Config(prefix = "eventMesh.server.rabbitmq", path = "classPath://rabbitmq-client.properties")
 public class ConfigurationHolder {
 
+<<<<<<< HEAD
     @ConfigFiled(field = "host")
     private String host;
 
@@ -62,5 +67,41 @@ public class ConfigurationHolder {
     private int mgmtPort;
 
     @ConfigFiled(field = "mgmt.protocol")
+=======
+    @ConfigField(field = "host")
+    private String host;
+
+    @ConfigField(field = "port")
+    private int port;
+
+    @ConfigField(field = "username")
+    private String username;
+
+    @ConfigField(field = "passwd")
+    private String passwd;
+
+    @ConfigField(field = "virtualHost")
+    private String virtualHost;
+
+    @ConfigField(field = "exchangeType")
+    private BuiltinExchangeType exchangeType;
+
+    @ConfigField(field = "exchangeName")
+    private String exchangeName;
+
+    @ConfigField(field = "routingKey")
+    private String routingKey;
+
+    @ConfigField(field = "queueName")
+    private String queueName;
+
+    @ConfigField(field = "autoAck")
+    private boolean autoAck;
+
+    @ConfigField(field = "mgmt.port")
+    private int mgmtPort;
+
+    @ConfigField(field = "mgmt.protocol")
+>>>>>>> upstream/master
     private String mgmtProtocol;
 }

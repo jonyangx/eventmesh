@@ -17,7 +17,11 @@
 
 package org.apache.eventmesh.openconnect.api.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.api.config.SourceConfig;
+=======
+import org.apache.eventmesh.common.config.connector.SourceConfig;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.source.Source;
 
 public abstract class SourceConnector implements Source {

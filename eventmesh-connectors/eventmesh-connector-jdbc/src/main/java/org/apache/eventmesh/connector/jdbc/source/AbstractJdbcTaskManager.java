@@ -17,7 +17,11 @@
 
 package org.apache.eventmesh.connector.jdbc.source;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
+=======
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 
 import java.util.ArrayList;

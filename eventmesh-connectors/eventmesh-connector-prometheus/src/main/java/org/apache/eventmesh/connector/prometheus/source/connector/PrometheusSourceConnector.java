@@ -17,16 +17,30 @@
 
 package org.apache.eventmesh.connector.prometheus.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.prometheus.model.QueryPrometheusReq;
 import org.apache.eventmesh.connector.prometheus.model.QueryPrometheusRsp;
 import org.apache.eventmesh.connector.prometheus.source.config.PrometheusSourceConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.prometheus.PrometheusSourceConfig;
+import org.apache.eventmesh.common.remote.offset.RecordOffset;
+import org.apache.eventmesh.common.remote.offset.RecordPartition;
+import org.apache.eventmesh.common.remote.offset.prometheus.PrometheusRecordOffset;
+import org.apache.eventmesh.common.remote.offset.prometheus.PrometheusRecordPartition;
+import org.apache.eventmesh.connector.prometheus.model.QueryPrometheusReq;
+import org.apache.eventmesh.connector.prometheus.model.QueryPrometheusRsp;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+>>>>>>> upstream/master
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -44,8 +58,13 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+<<<<<<< HEAD
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+=======
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+>>>>>>> upstream/master
 import com.github.rholder.retry.Attempt;
 import com.github.rholder.retry.RetryListener;
 import com.github.rholder.retry.Retryer;
@@ -144,6 +163,14 @@ public class PrometheusSourceConnector implements Source {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         log.info("prometheus source connector stop.");
     }
@@ -185,8 +212,13 @@ public class PrometheusSourceConnector implements Source {
 
     private ConnectRecord assembleRecord(String data) {
         Long timestamp = System.currentTimeMillis();
+<<<<<<< HEAD
         RecordPartition recordPartition = new RecordPartition();
         RecordOffset recordOffset = new RecordOffset();
+=======
+        RecordPartition recordPartition = new PrometheusRecordPartition();
+        RecordOffset recordOffset = new PrometheusRecordOffset();
+>>>>>>> upstream/master
 
         return new ConnectRecord(recordPartition, recordOffset, timestamp, data);
     }

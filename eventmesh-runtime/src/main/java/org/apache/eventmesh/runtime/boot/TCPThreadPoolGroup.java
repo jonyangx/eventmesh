@@ -30,6 +30,12 @@ public class TCPThreadPoolGroup implements ThreadPoolGroup {
     private final EventMeshTCPConfiguration eventMeshTCPConfiguration;
     private ScheduledExecutorService scheduler;
     private ThreadPoolExecutor taskHandleExecutorService;
+<<<<<<< HEAD
+=======
+    private ThreadPoolExecutor sendExecutorService;
+    private ThreadPoolExecutor ackExecutorService;
+    private ThreadPoolExecutor replyExecutorService;
+>>>>>>> upstream/master
     private ThreadPoolExecutor broadcastMsgDownstreamExecutorService;
 
     public TCPThreadPoolGroup(EventMeshTCPConfiguration eventMeshTCPConfiguration) {
@@ -45,9 +51,33 @@ public class TCPThreadPoolGroup implements ThreadPoolGroup {
         taskHandleExecutorService = ThreadPoolFactory.createThreadPoolExecutor(
             eventMeshTCPConfiguration.getEventMeshTcpTaskHandleExecutorPoolSize(),
             eventMeshTCPConfiguration.getEventMeshTcpTaskHandleExecutorPoolSize(),
+<<<<<<< HEAD
             new LinkedBlockingQueue<>(10_000),
             new EventMeshThreadFactory("eventMesh-tcp-task-handle", true));
 
+=======
+            new LinkedBlockingQueue<>(eventMeshTCPConfiguration.getEventMeshTcpTaskHandleExecutorQueueSize()),
+            new EventMeshThreadFactory("eventMesh-tcp-task-handle", true));
+
+        sendExecutorService = ThreadPoolFactory.createThreadPoolExecutor(
+            eventMeshTCPConfiguration.getEventMeshTcpMsgSendExecutorPoolSize(),
+            eventMeshTCPConfiguration.getEventMeshTcpMsgSendExecutorPoolSize(),
+            new LinkedBlockingQueue<>(eventMeshTCPConfiguration.getEventMeshTcpMsgSendExecutorQueueSize()),
+            new EventMeshThreadFactory("eventMesh-tcp-msg-send", true));
+
+        replyExecutorService = ThreadPoolFactory.createThreadPoolExecutor(
+            eventMeshTCPConfiguration.getEventMeshTcpMsgReplyExecutorPoolSize(),
+            eventMeshTCPConfiguration.getEventMeshTcpMsgReplyExecutorPoolSize(),
+            new LinkedBlockingQueue<>(eventMeshTCPConfiguration.getEventMeshTcpMsgReplyExecutorQueueSize()),
+            new EventMeshThreadFactory("eventMesh-tcp-msg-reply", true));
+
+        ackExecutorService = ThreadPoolFactory.createThreadPoolExecutor(
+            eventMeshTCPConfiguration.getEventMeshTcpMsgAckExecutorPoolSize(),
+            eventMeshTCPConfiguration.getEventMeshTcpMsgAckExecutorPoolSize(),
+            new LinkedBlockingQueue<>(eventMeshTCPConfiguration.getEventMeshTcpMsgAckExecutorQueueSize()),
+            new EventMeshThreadFactory("eventMesh-tcp-msg-ack", true));
+
+>>>>>>> upstream/master
         broadcastMsgDownstreamExecutorService = ThreadPoolFactory.createThreadPoolExecutor(
             eventMeshTCPConfiguration.getEventMeshTcpMsgDownStreamExecutorPoolSize(),
             eventMeshTCPConfiguration.getEventMeshTcpMsgDownStreamExecutorPoolSize(),
@@ -59,6 +89,12 @@ public class TCPThreadPoolGroup implements ThreadPoolGroup {
     public void shutdownThreadPool() {
         scheduler.shutdown();
         taskHandleExecutorService.shutdown();
+<<<<<<< HEAD
+=======
+        sendExecutorService.shutdown();;
+        replyExecutorService.shutdown();
+        ackExecutorService.shutdown();
+>>>>>>> upstream/master
         broadcastMsgDownstreamExecutorService.shutdown();
     }
 
@@ -73,4 +109,19 @@ public class TCPThreadPoolGroup implements ThreadPoolGroup {
     public ThreadPoolExecutor getBroadcastMsgDownstreamExecutorService() {
         return broadcastMsgDownstreamExecutorService;
     }
+<<<<<<< HEAD
+=======
+
+    public ThreadPoolExecutor getSendExecutorService() {
+        return sendExecutorService;
+    }
+
+    public ThreadPoolExecutor getAckExecutorService() {
+        return ackExecutorService;
+    }
+
+    public ThreadPoolExecutor getReplyExecutorService() {
+        return replyExecutorService;
+    }
+>>>>>>> upstream/master
 }

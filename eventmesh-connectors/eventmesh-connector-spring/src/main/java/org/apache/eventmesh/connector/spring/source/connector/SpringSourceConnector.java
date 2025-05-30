@@ -17,6 +17,7 @@
 
 package org.apache.eventmesh.connector.spring.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.spring.source.MessageSendingOperations;
 import org.apache.eventmesh.connector.spring.source.config.SpringSourceConfig;
 import org.apache.eventmesh.openconnect.SourceWorker;
@@ -28,6 +29,21 @@ import org.apache.eventmesh.openconnect.api.source.Source;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.spring.SpringSourceConfig;
+import org.apache.eventmesh.common.remote.offset.RecordOffset;
+import org.apache.eventmesh.common.remote.offset.RecordPartition;
+import org.apache.eventmesh.common.remote.offset.spring.SpringRecordOffset;
+import org.apache.eventmesh.common.remote.offset.spring.SpringRecordPartition;
+import org.apache.eventmesh.connector.spring.source.MessageSendingOperations;
+import org.apache.eventmesh.openconnect.SourceWorker;
+import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
+import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
+import org.apache.eventmesh.openconnect.api.source.Source;
+import org.apache.eventmesh.openconnect.offsetmgmt.api.callback.SendMessageCallback;
+import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
+>>>>>>> upstream/master
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +51,43 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
+<<<<<<< HEAD
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SpringSourceConnector implements Source, MessageSendingOperations {
 
     private static final int DEFAULT_BATCH_SIZE = 10;
+=======
+import org.springframework.beans.BeansException;
+import org.springframework.boot.env.OriginTrackedMapPropertySource;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.PropertySource;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class SpringSourceConnector implements Source, MessageSendingOperations, ApplicationContextAware {
+
+    private static final String CONNECTOR_PROPERTY_PREFIX = "eventmesh.connector.";
+
+    private ApplicationContext applicationContext;
+>>>>>>> upstream/master
 
     private SpringSourceConfig sourceConfig;
 
     private BlockingQueue<ConnectRecord> queue;
 
+<<<<<<< HEAD
+=======
+    private int maxBatchSize;
+
+    private long maxPollWaitTime;
+
+>>>>>>> upstream/master
     @Override
     public Class<? extends Config> configClass() {
         return SpringSourceConfig.class;
@@ -55,7 +97,11 @@ public class SpringSourceConnector implements Source, MessageSendingOperations {
     public void init(Config config) throws Exception {
         // init config for spring source connector
         this.sourceConfig = (SpringSourceConfig) config;
+<<<<<<< HEAD
         this.queue = new LinkedBlockingQueue<>(1000);
+=======
+        doInit();
+>>>>>>> upstream/master
     }
 
     @Override
@@ -63,7 +109,17 @@ public class SpringSourceConnector implements Source, MessageSendingOperations {
         SourceConnectorContext sourceConnectorContext = (SourceConnectorContext) connectorContext;
         // init config for spring source connector
         this.sourceConfig = (SpringSourceConfig) sourceConnectorContext.getSourceConfig();
+<<<<<<< HEAD
         this.queue = new LinkedBlockingQueue<>(1000);
+=======
+        doInit();
+    }
+
+    private void doInit() {
+        this.queue = new LinkedBlockingQueue<>(sourceConfig.getPollConfig().getCapacity());
+        this.maxBatchSize = sourceConfig.getPollConfig().getMaxBatchSize();
+        this.maxPollWaitTime = sourceConfig.getPollConfig().getMaxWaitTime();
+>>>>>>> upstream/master
     }
 
     @Override
@@ -82,21 +138,46 @@ public class SpringSourceConnector implements Source, MessageSendingOperations {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() throws Exception {
 
     }
 
     @Override
     public List<ConnectRecord> poll() {
+<<<<<<< HEAD
         List<ConnectRecord> connectRecords = new ArrayList<>(DEFAULT_BATCH_SIZE);
 
         for (int count = 0; count < DEFAULT_BATCH_SIZE; ++count) {
             try {
                 ConnectRecord connectRecord = queue.poll(3, TimeUnit.SECONDS);
+=======
+        long startTime = System.currentTimeMillis();
+        long remainingTime = maxPollWaitTime;
+
+        List<ConnectRecord> connectRecords = new ArrayList<>(maxBatchSize);
+        for (int count = 0; count < maxBatchSize; ++count) {
+            try {
+                ConnectRecord connectRecord = queue.poll(remainingTime, TimeUnit.MILLISECONDS);
+>>>>>>> upstream/master
                 if (connectRecord == null) {
                     break;
                 }
                 connectRecords.add(connectRecord);
+<<<<<<< HEAD
+=======
+
+                // calculate elapsed time and update remaining time for next poll
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                remainingTime = maxPollWaitTime > elapsedTime ? maxPollWaitTime - elapsedTime : 0;
+>>>>>>> upstream/master
             } catch (InterruptedException e) {
                 Thread currentThread = Thread.currentThread();
                 log.warn("[SpringSourceConnector] Interrupting thread {} due to exception {}",
@@ -109,18 +190,30 @@ public class SpringSourceConnector implements Source, MessageSendingOperations {
 
     /**
      * Send message.
+<<<<<<< HEAD
+=======
+     *
+>>>>>>> upstream/master
      * @param message message to send
      */
     @Override
     public void send(Object message) {
+<<<<<<< HEAD
         RecordPartition partition = new RecordPartition();
         RecordOffset offset = new RecordOffset();
         ConnectRecord record = new ConnectRecord(partition, offset, System.currentTimeMillis(), message);
+=======
+        RecordPartition partition = new SpringRecordPartition();
+        RecordOffset offset = new SpringRecordOffset();
+        ConnectRecord record = new ConnectRecord(partition, offset, System.currentTimeMillis(), message);
+        addSpringEnvironmentPropertyExtensions(record);
+>>>>>>> upstream/master
         queue.offer(record);
     }
 
     /**
      * Send message with a callback.
+<<<<<<< HEAD
      * @param message message to send.
      * @param workerCallback After the user sends the message to the Connector,
      *                       the SourceWorker will fetch message and invoke.
@@ -133,4 +226,52 @@ public class SpringSourceConnector implements Source, MessageSendingOperations {
         record.addExtension(SourceWorker.CALLBACK_EXTENSION, workerCallback);
         queue.offer(record);
     }
+=======
+     *
+     * @param message        message to send.
+     * @param workerCallback After the user sends the message to the Connector, the SourceWorker will fetch message and invoke.
+     */
+    @Override
+    public void send(Object message, SendMessageCallback workerCallback) {
+        RecordPartition partition = new SpringRecordPartition();
+        RecordOffset offset = new SpringRecordOffset();
+        ConnectRecord record = new ConnectRecord(partition, offset, System.currentTimeMillis(), message);
+        record.addExtension(SourceWorker.CALLBACK_EXTENSION, workerCallback);
+        addSpringEnvironmentPropertyExtensions(record);
+        queue.offer(record);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+    private void addSpringEnvironmentPropertyExtensions(ConnectRecord connectRecord) {
+        ConfigurableApplicationContext context = (ConfigurableApplicationContext) applicationContext;
+        MutablePropertySources propertySources = context.getEnvironment().getPropertySources();
+        for (PropertySource<?> propertySource : propertySources) {
+            if (!(propertySource instanceof OriginTrackedMapPropertySource)) {
+                continue;
+            }
+            OriginTrackedMapPropertySource originTrackedMapPropertySource =
+                (OriginTrackedMapPropertySource) propertySource;
+            String[] keys = originTrackedMapPropertySource.getPropertyNames();
+            for (String key : keys) {
+                if (!key.startsWith(CONNECTOR_PROPERTY_PREFIX)) {
+                    continue;
+                }
+                Object value = null;
+                try {
+                    value = originTrackedMapPropertySource.getProperty(key);
+                    if (value != null) {
+                        connectRecord.addExtension(key.replaceAll(CONNECTOR_PROPERTY_PREFIX, "").toLowerCase(),
+                            String.valueOf(value));
+                    }
+                } catch (Throwable e) {
+                    log.error("Put spring environment property to extension failed, key=[{}], value=[{}]", key, value);
+                }
+            }
+        }
+    }
+>>>>>>> upstream/master
 }

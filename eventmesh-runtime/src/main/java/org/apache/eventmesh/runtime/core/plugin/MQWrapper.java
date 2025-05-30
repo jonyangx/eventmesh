@@ -17,14 +17,18 @@
 
 package org.apache.eventmesh.runtime.core.plugin;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 
 import org.apache.commons.lang3.StringUtils;
 
+=======
+>>>>>>> upstream/master
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class MQWrapper {
 
+<<<<<<< HEAD
     public static final String EVENT_STORE_DEFIBUS = "defibus";
 
     public static String CURRENT_EVENT_STORE = EVENT_STORE_DEFIBUS;
@@ -42,4 +46,9 @@ public abstract class MQWrapper {
 
     public AtomicBoolean inited = new AtomicBoolean(Boolean.FALSE);
 
+=======
+    public AtomicBoolean started = new AtomicBoolean(Boolean.FALSE);
+
+    public AtomicBoolean inited = new AtomicBoolean(Boolean.FALSE);
+>>>>>>> upstream/master
 }

@@ -19,10 +19,15 @@ package org.apache.eventmesh.connector.spring.sink.connector;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.spring.sink.config.SpringSinkConfig;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+import org.apache.eventmesh.common.config.connector.spring.SpringSinkConfig;
+import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
+>>>>>>> upstream/master
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +76,13 @@ public class SpringSinkConnectorTest {
     private void writeMockedRecords(int count, String message) throws Exception {
         List<ConnectRecord> records = new ArrayList<>();
         for (int i = 0; i < count; i++) {
+<<<<<<< HEAD
             RecordPartition partition = new RecordPartition();
             RecordOffset offset = new RecordOffset();
             records.add(new ConnectRecord(partition, offset, System.currentTimeMillis(), message + i));
+=======
+            records.add(new ConnectRecord(null, null, System.currentTimeMillis(), message + i));
+>>>>>>> upstream/master
         }
         connector.put(records);
     }

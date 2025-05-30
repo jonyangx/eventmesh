@@ -17,9 +17,15 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.nacos;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.offsetmgmt.api.config.OffsetStorageConfig;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.storage.ConnectorRecordPartition;
+=======
+import org.apache.eventmesh.common.config.connector.offset.OffsetStorageConfig;
+import org.apache.eventmesh.common.remote.offset.RecordOffset;
+import org.apache.eventmesh.common.remote.offset.RecordPartition;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.offsetmgmt.api.storage.KeyValueStore;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.storage.MemoryBasedKeyValueStore;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.storage.OffsetManagementService;
@@ -56,7 +62,11 @@ public class NacosConfigService implements OffsetManagementService {
 
     private Listener listener;
 
+<<<<<<< HEAD
     public KeyValueStore<ConnectorRecordPartition, RecordOffset> positionStore;
+=======
+    public KeyValueStore<RecordPartition, RecordOffset> positionStore;
+>>>>>>> upstream/master
 
     @Override
     public void start() {
@@ -68,6 +78,7 @@ public class NacosConfigService implements OffsetManagementService {
     }
 
     // merge the updated connectorRecord & recordOffset to memory store
+<<<<<<< HEAD
     public void mergeOffset(ConnectorRecordPartition connectorRecordPartition, RecordOffset recordOffset) {
         if (null == connectorRecordPartition || connectorRecordPartition.getPartition().isEmpty()) {
             return;
@@ -81,6 +92,21 @@ public class NacosConfigService implements OffsetManagementService {
         } else {
             // add new position
             positionStore.put(connectorRecordPartition, recordOffset);
+=======
+    public void mergeOffset(RecordPartition recordPartition, RecordOffset recordOffset) {
+        if (recordPartition == null) {
+            return;
+        }
+        if (positionStore.getKVMap().containsKey(recordPartition)) {
+            RecordOffset existedOffset = positionStore.getKVMap().get(recordPartition);
+            // update
+            if (!recordOffset.equals(existedOffset)) {
+                positionStore.put(recordPartition, recordOffset);
+            }
+        } else {
+            // add new position
+            positionStore.put(recordPartition, recordOffset);
+>>>>>>> upstream/master
         }
     }
 
@@ -108,12 +134,21 @@ public class NacosConfigService implements OffsetManagementService {
     @Override
     public void synchronize() {
         try {
+<<<<<<< HEAD
             Map<ConnectorRecordPartition, RecordOffset> recordMap = positionStore.getKVMap();
 
             List<Map<String, Object>> recordToSyncList = new ArrayList<>();
             for (Map.Entry<ConnectorRecordPartition, RecordOffset> entry : recordMap.entrySet()) {
                 Map<String, Object> synchronizeMap = new HashMap<>();
                 synchronizeMap.put("connectorRecordPartition", entry.getKey());
+=======
+            Map<RecordPartition, RecordOffset> recordMap = positionStore.getKVMap();
+
+            List<Map<String, Object>> recordToSyncList = new ArrayList<>();
+            for (Map.Entry<RecordPartition, RecordOffset> entry : recordMap.entrySet()) {
+                Map<String, Object> synchronizeMap = new HashMap<>();
+                synchronizeMap.put("recordPartition", entry.getKey());
+>>>>>>> upstream/master
                 synchronizeMap.put("recordOffset", entry.getValue());
                 recordToSyncList.add(synchronizeMap);
             }
@@ -125,6 +160,7 @@ public class NacosConfigService implements OffsetManagementService {
     }
 
     @Override
+<<<<<<< HEAD
     public Map<ConnectorRecordPartition, RecordOffset> getPositionMap() {
         // get from memory storage first
         if (positionStore.getKVMap() == null || positionStore.getKVMap().isEmpty()) {
@@ -132,6 +168,16 @@ public class NacosConfigService implements OffsetManagementService {
                 Map<ConnectorRecordPartition, RecordOffset> configMap = JacksonUtils.toObj(configService.getConfig(dataId, group, 5000L),
                     new TypeReference<Map<ConnectorRecordPartition, RecordOffset>>() {
                     });
+=======
+    public Map<RecordPartition, RecordOffset> getPositionMap() {
+        // get from memory storage first
+        if (positionStore.getKVMap() == null || positionStore.getKVMap().isEmpty()) {
+            try {
+                Map<RecordPartition, RecordOffset> configMap = JacksonUtils.toObj(configService.getConfig(dataId, group, 5000L),
+                    new TypeReference<Map<RecordPartition, RecordOffset>>() {
+                    });
+                positionStore.putAll(configMap);
+>>>>>>> upstream/master
                 log.info("nacos position map {}", configMap);
                 return configMap;
             } catch (NacosException e) {
@@ -143,12 +189,21 @@ public class NacosConfigService implements OffsetManagementService {
     }
 
     @Override
+<<<<<<< HEAD
     public RecordOffset getPosition(ConnectorRecordPartition partition) {
         // get from memory storage first
         if (positionStore.get(partition) == null) {
             try {
                 Map<ConnectorRecordPartition, RecordOffset> recordMap = JacksonUtils.toObj(configService.getConfig(dataId, group, 5000L),
                     new TypeReference<Map<ConnectorRecordPartition, RecordOffset>>() {
+=======
+    public RecordOffset getPosition(RecordPartition partition) {
+        // get from memory storage first
+        if (positionStore.get(partition) == null) {
+            try {
+                Map<RecordPartition, RecordOffset> recordMap = JacksonUtils.toObj(configService.getConfig(dataId, group, 5000L),
+                    new TypeReference<Map<RecordPartition, RecordOffset>>() {
+>>>>>>> upstream/master
                     });
                 log.info("nacos record position {}", recordMap.get(partition));
                 return recordMap.get(partition);
@@ -161,21 +216,37 @@ public class NacosConfigService implements OffsetManagementService {
     }
 
     @Override
+<<<<<<< HEAD
     public void putPosition(Map<ConnectorRecordPartition, RecordOffset> positions) {
+=======
+    public void putPosition(Map<RecordPartition, RecordOffset> positions) {
+>>>>>>> upstream/master
         positionStore.putAll(positions);
     }
 
     @Override
+<<<<<<< HEAD
     public void putPosition(ConnectorRecordPartition partition, RecordOffset position) {
+=======
+    public void putPosition(RecordPartition partition, RecordOffset position) {
+>>>>>>> upstream/master
         positionStore.put(partition, position);
     }
 
     @Override
+<<<<<<< HEAD
     public void removePosition(List<ConnectorRecordPartition> partitions) {
         if (null == partitions) {
             return;
         }
         for (ConnectorRecordPartition partition : partitions) {
+=======
+    public void removePosition(List<RecordPartition> partitions) {
+        if (partitions == null) {
+            return;
+        }
+        for (RecordPartition partition : partitions) {
+>>>>>>> upstream/master
             positionStore.remove(partition);
         }
     }
@@ -206,6 +277,7 @@ public class NacosConfigService implements OffsetManagementService {
                     });
 
                 for (Map<String, Object> recordPartitionOffsetMap : recordOffsetList) {
+<<<<<<< HEAD
                     ConnectorRecordPartition connectorRecordPartition = JacksonUtils.toObj(
                         JacksonUtils.toJson(recordPartitionOffsetMap.get("connectorRecordPartition")),
                         ConnectorRecordPartition.class);
@@ -213,6 +285,15 @@ public class NacosConfigService implements OffsetManagementService {
                         RecordOffset.class);
                     // update the offset in memory store
                     mergeOffset(connectorRecordPartition, recordOffset);
+=======
+                    RecordPartition recordPartition = JacksonUtils.toObj(
+                        JacksonUtils.toJson(recordPartitionOffsetMap.get("recordPartition")),
+                        RecordPartition.class);
+                    RecordOffset recordOffset = JacksonUtils.toObj(JacksonUtils.toJson(recordPartitionOffsetMap.get("recordOffset")),
+                        RecordOffset.class);
+                    // update the offset in memory store
+                    mergeOffset(recordPartition, recordOffset);
+>>>>>>> upstream/master
                 }
             }
         };

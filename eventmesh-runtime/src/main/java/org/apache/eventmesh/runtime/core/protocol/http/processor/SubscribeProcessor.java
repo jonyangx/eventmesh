@@ -27,8 +27,11 @@ import org.apache.eventmesh.common.protocol.http.header.client.SubscribeRequestH
 import org.apache.eventmesh.common.protocol.http.header.client.SubscribeResponseHeader;
 import org.apache.eventmesh.common.utils.IPUtils;
 import org.apache.eventmesh.common.utils.JsonUtils;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
 import org.apache.eventmesh.metrics.api.model.HttpSummaryMetrics;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
@@ -37,22 +40,35 @@ import org.apache.eventmesh.runtime.core.consumer.ClientInfo;
 import org.apache.eventmesh.runtime.core.consumer.SubscriptionManager;
 import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
 import org.apache.eventmesh.runtime.core.protocol.http.async.CompleteHandler;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.HttpRequestProcessor;
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 import org.apache.eventmesh.runtime.util.RemotingHelper;
 import org.apache.eventmesh.runtime.util.WebhookUtil;
+=======
+import org.apache.eventmesh.runtime.util.EventMeshUtil;
+import org.apache.eventmesh.runtime.util.RemotingHelper;
+>>>>>>> upstream/master
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.concurrent.Executor;
+>>>>>>> upstream/master
 
 import io.netty.channel.ChannelHandlerContext;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+<<<<<<< HEAD
 public class SubscribeProcessor implements HttpRequestProcessor {
+=======
+public class SubscribeProcessor extends AbstractHttpRequestProcessor {
+>>>>>>> upstream/master
 
     private final transient EventMeshHTTPServer eventMeshHTTPServer;
 
@@ -71,7 +87,11 @@ public class SubscribeProcessor implements HttpRequestProcessor {
         final Integer requestCode = Integer.valueOf(request.getRequestCode());
         final String localAddress = IPUtils.getLocalAddress();
         final String remoteAddr = RemotingHelper.parseChannelRemoteAddr(ctx.channel());
+<<<<<<< HEAD
         LogUtils.info(log, "cmd={}|{}|client2eventMesh|from={}|to={}",
+=======
+        log.info("cmd={}|{}|client2eventMesh|from={}|to={}",
+>>>>>>> upstream/master
             RequestCode.get(requestCode), EventMeshConstants.PROTOCOL_HTTP, remoteAddr, localAddress);
 
         final SubscribeRequestHeader subscribeRequestHeader = (SubscribeRequestHeader) request.getHeader();
@@ -115,7 +135,11 @@ public class SubscribeProcessor implements HttpRequestProcessor {
                 } catch (Exception e) {
                     completeResponse(request, asyncContext, subscribeResponseHeader,
                         EventMeshRetCode.EVENTMESH_ACL_ERR, e.getMessage(), SubscribeResponseBody.class);
+<<<<<<< HEAD
                     LogUtils.warn(log, "CLIENT HAS NO PERMISSION,SubscribeProcessor subscribe failed", e);
+=======
+                    log.warn("CLIENT HAS NO PERMISSION,SubscribeProcessor subscribe failed", e);
+>>>>>>> upstream/master
                     return;
                 }
             }
@@ -136,7 +160,11 @@ public class SubscribeProcessor implements HttpRequestProcessor {
                 return;
             }
         } catch (Exception e) {
+<<<<<<< HEAD
             LogUtils.error(log, "subscriber url:{} is invalid.", url, e);
+=======
+            log.error("subscriber url:{} is invalid.", url, e);
+>>>>>>> upstream/master
             completeResponse(request, asyncContext, subscribeResponseHeader,
                 EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR,
                 EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR.getErrMsg() + " invalid URL: " + url,
@@ -144,6 +172,7 @@ public class SubscribeProcessor implements HttpRequestProcessor {
             return;
         }
 
+<<<<<<< HEAD
         // obtain webhook delivery agreement for Abuse Protection
         if (!WebhookUtil.obtainDeliveryAgreement(eventMeshHTTPServer.getHttpClientPool().getClient(),
             url, eventMeshHttpConfiguration.getEventMeshWebhookOrigin())) {
@@ -155,6 +184,8 @@ public class SubscribeProcessor implements HttpRequestProcessor {
             return;
         }
 
+=======
+>>>>>>> upstream/master
         SubscriptionManager subscriptionManager = eventMeshHTTPServer.getSubscriptionManager();
         synchronized (subscriptionManager.getLocalClientInfoMapping()) {
             ClientInfo clientInfo = getClientInfo(subscribeRequestHeader);
@@ -162,7 +193,10 @@ public class SubscribeProcessor implements HttpRequestProcessor {
             subscriptionManager.updateSubscription(clientInfo, consumerGroup, url, subTopicList);
 
             final long startTime = System.currentTimeMillis();
+<<<<<<< HEAD
             HttpSummaryMetrics summaryMetrics = eventMeshHTTPServer.getMetrics().getSummaryMetrics();
+=======
+>>>>>>> upstream/master
             try {
                 // subscription relationship change notification
                 eventMeshHTTPServer.getConsumerManager().notifyConsumerManager(consumerGroup,
@@ -170,10 +204,18 @@ public class SubscribeProcessor implements HttpRequestProcessor {
 
                 final CompleteHandler<HttpCommand> handler = httpCommand -> {
                     try {
+<<<<<<< HEAD
                         LogUtils.debug(log, "{}", httpCommand);
                         eventMeshHTTPServer.sendResponse(ctx, httpCommand.httpResponse());
 
                         summaryMetrics.recordHTTPReqResTimeCost(System.currentTimeMillis() - request.getReqTime());
+=======
+                        log.debug("{}", httpCommand);
+                        eventMeshHTTPServer.sendResponse(ctx, httpCommand.httpResponse());
+
+                        eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordHTTPReqResTimeCost(
+                            System.currentTimeMillis() - request.getReqTime());
+>>>>>>> upstream/master
                     } catch (Exception ex) {
                         log.error("onResponse error", ex);
                     }
@@ -187,6 +229,7 @@ public class SubscribeProcessor implements HttpRequestProcessor {
                     EventMeshRetCode.EVENTMESH_SUBSCRIBE_ERR.getErrMsg() + EventMeshUtil.stackTrace(e, 2),
                     SubscribeResponseBody.class);
                 final long endTime = System.currentTimeMillis();
+<<<<<<< HEAD
                 LogUtils.error(log, "message|eventMesh2mq|REQ|ASYNC|send2MQCost={}ms|topic={}"
                     + "|bizSeqNo={}|uniqueId={}",
                     endTime - startTime,
@@ -194,11 +237,27 @@ public class SubscribeProcessor implements HttpRequestProcessor {
                     subscribeRequestBody.getUrl(), e);
                 summaryMetrics.recordSendMsgFailed();
                 summaryMetrics.recordSendMsgCost(endTime - startTime);
+=======
+
+                log.error("message|eventMesh2mq|REQ|ASYNC|send2MQCost={}ms|topic={}|bizSeqNo={}|uniqueId={}",
+                    endTime - startTime, JsonUtils.toJSONString(subscribeRequestBody.getTopics()), subscribeRequestBody.getUrl(), e);
+
+                eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgFailed();
+                eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgCost(endTime - startTime);
+>>>>>>> upstream/master
             }
             eventMeshHTTPServer.getSubscriptionManager().updateMetaData();
         }
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public Executor executor() {
+        return eventMeshHTTPServer.getHttpThreadPoolGroup().getClientManageExecutor();
+    }
+
+>>>>>>> upstream/master
     private ClientInfo getClientInfo(final SubscribeRequestHeader subscribeRequestHeader) {
         ClientInfo clientInfo = new ClientInfo();
         clientInfo.setEnv(subscribeRequestHeader.getEnv());
@@ -208,4 +267,9 @@ public class SubscribeProcessor implements HttpRequestProcessor {
         clientInfo.setPid(subscribeRequestHeader.getPid());
         return clientInfo;
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> upstream/master
 }

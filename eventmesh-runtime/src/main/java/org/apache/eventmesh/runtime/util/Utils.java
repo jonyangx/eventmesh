@@ -20,6 +20,10 @@ package org.apache.eventmesh.runtime.util;
 import org.apache.eventmesh.common.protocol.tcp.EventMeshMessage;
 import org.apache.eventmesh.common.protocol.tcp.Package;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.common.utils.IPUtils;
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.session.Session;
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.session.SessionState;
@@ -63,8 +67,13 @@ public class Utils {
                     new Exception("the session has been closed"));
                 return;
             }
+<<<<<<< HEAD
             ctx.writeAndFlush(pkg).addListener(
                 (ChannelFutureListener) future -> {
+=======
+            ctx.channel().eventLoop().execute(() -> {
+                ctx.writeAndFlush(pkg).addListener((ChannelFutureListener) future -> {
+>>>>>>> upstream/master
                     if (!future.isSuccess()) {
                         logFailedMessageFlow(future, pkg, user, startTime, taskExecuteTime);
                     } else {
@@ -72,10 +81,18 @@ public class Utils {
 
                         if (session != null) {
                             Objects.requireNonNull(session.getClientGroupWrapper().get())
+<<<<<<< HEAD
                                 .getEventMeshTcpMonitor().getTcpSummaryMetrics().getEventMesh2clientMsgNum().incrementAndGet();
                         }
                     }
                 });
+=======
+                                .getEventMeshTcpMetricsManager().eventMesh2clientMsgNumIncrement(IPUtils.parseChannelRemoteAddr(ctx.channel()));
+                        }
+                    }
+                });
+            });
+>>>>>>> upstream/master
         } catch (Exception e) {
             log.error("exception while sending message to client", e);
         }

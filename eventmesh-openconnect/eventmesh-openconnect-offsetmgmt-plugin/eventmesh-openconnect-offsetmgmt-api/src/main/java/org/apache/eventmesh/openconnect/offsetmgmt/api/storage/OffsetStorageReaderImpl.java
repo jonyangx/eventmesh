@@ -17,8 +17,13 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.storage;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+import org.apache.eventmesh.common.remote.offset.RecordOffset;
+import org.apache.eventmesh.common.remote.offset.RecordPartition;
+>>>>>>> upstream/master
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,29 +31,46 @@ import java.util.Map;
 
 public class OffsetStorageReaderImpl implements OffsetStorageReader {
 
+<<<<<<< HEAD
     private final String connectorName;
 
     private OffsetManagementService offsetManagementService;
 
     public OffsetStorageReaderImpl(String connectorName, OffsetManagementService offsetManagementService) {
         this.connectorName = connectorName;
+=======
+    private OffsetManagementService offsetManagementService;
+
+    public OffsetStorageReaderImpl(OffsetManagementService offsetManagementService) {
+>>>>>>> upstream/master
         this.offsetManagementService = offsetManagementService;
     }
 
     @Override
     public RecordOffset readOffset(RecordPartition partition) {
+<<<<<<< HEAD
         ConnectorRecordPartition connectorRecordPartition = new ConnectorRecordPartition(connectorName, partition.getPartition());
         return offsetManagementService.getPositionMap().get(connectorRecordPartition);
+=======
+        return offsetManagementService.getPositionMap().get(partition);
+>>>>>>> upstream/master
     }
 
     @Override
     public Map<RecordPartition, RecordOffset> readOffsets(Collection<RecordPartition> partitions) {
         Map<RecordPartition, RecordOffset> result = new HashMap<>();
+<<<<<<< HEAD
         Map<ConnectorRecordPartition, RecordOffset> allData = offsetManagementService.getPositionMap();
         for (RecordPartition key : partitions) {
             ConnectorRecordPartition connectorRecordPartition = new ConnectorRecordPartition(connectorName, key.getPartition());
             if (allData.containsKey(connectorRecordPartition)) {
                 result.put(key, allData.get(connectorRecordPartition));
+=======
+        Map<RecordPartition, RecordOffset> allData = offsetManagementService.getPositionMap();
+        for (RecordPartition key : partitions) {
+            if (allData.containsKey(key)) {
+                result.put(key, allData.get(key));
+>>>>>>> upstream/master
             }
         }
         return result;

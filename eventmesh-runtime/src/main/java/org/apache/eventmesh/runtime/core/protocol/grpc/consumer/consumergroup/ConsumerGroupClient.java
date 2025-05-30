@@ -19,6 +19,10 @@ package org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup;
 
 import org.apache.eventmesh.common.protocol.SubscriptionMode;
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.CloudEvent;
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.common.protocol.grpc.common.GrpcType;
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
 
 import java.util.Date;

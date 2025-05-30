@@ -54,7 +54,13 @@ public interface MetaService {
 
     void registerMetadata(Map<String, String> metadataMap);
 
+<<<<<<< HEAD
     String getMetaData(String key);
+=======
+    Map<String, String> getMetaData(String key, boolean fuzzyEnabled);
+
+    void getMetaDataWithListener(MetaServiceListener metaServiceListener, String key);
+>>>>>>> upstream/master
 
     void updateMetaData(Map<String, String> metadataMap);
 

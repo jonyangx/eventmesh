@@ -15,11 +15,14 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 configurations {
     implementation.exclude group: 'ch.qos.logback', module: 'logback-classic'
     implementation.exclude group: 'log4j', module: 'log4j'
 }
 
+=======
+>>>>>>> upstream/master
 List rocketmq = [
         "org.apache.rocketmq:rocketmq-client:$rocketmq_version",
         "org.apache.rocketmq:rocketmq-broker:$rocketmq_version",
@@ -39,7 +42,19 @@ List rocketmq = [
 dependencies {
     implementation project(":eventmesh-common")
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
+<<<<<<< HEAD
     implementation rocketmq
+=======
+    /*
+     * The exclusions can be removed after this issue is fixed:
+     * https://github.com/apache/rocketmq/issues/5347
+     */
+    rocketmq.each {
+        implementation(it) {
+            exclude group: 'ch.qos.logback', module: 'logback-classic'
+        }
+    }
+>>>>>>> upstream/master
 
     testImplementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     testImplementation project(":eventmesh-common")
@@ -47,8 +62,11 @@ dependencies {
     testImplementation "org.mockito:mockito-core"
     testImplementation "org.mockito:mockito-junit-jupiter"
 
+<<<<<<< HEAD
     testImplementation rocketmq
 
+=======
+>>>>>>> upstream/master
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 

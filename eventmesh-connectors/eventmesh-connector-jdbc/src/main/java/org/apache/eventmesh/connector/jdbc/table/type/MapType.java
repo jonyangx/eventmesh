@@ -19,10 +19,16 @@ package org.apache.eventmesh.connector.jdbc.table.type;
 
 import java.util.Arrays;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Map;
 import java.util.Objects;
 
 public class MapType<K, V> implements EventMeshDataType<Map<K, V>> {
+=======
+import java.util.Objects;
+
+public class MapType<K, V> {
+>>>>>>> upstream/master
 
     private static final List<SQLType> SUPPORTED_KEY_TYPES =
         Arrays.asList(
@@ -40,11 +46,19 @@ public class MapType<K, V> implements EventMeshDataType<Map<K, V>> {
             SQLType.STRING,
             SQLType.DECIMAL);
 
+<<<<<<< HEAD
     private final EventMeshDataType<K> keyType;
 
     private final EventMeshDataType<V> valueType;
 
     public MapType(EventMeshDataType<K> keyType, EventMeshDataType<V> valueType) {
+=======
+    private final EventMeshDataType keyType;
+
+    private final EventMeshDataType valueType;
+
+    public MapType(EventMeshDataType keyType, EventMeshDataType valueType) {
+>>>>>>> upstream/master
         Objects.requireNonNull(keyType, "The key type is required.");
         Objects.requireNonNull(valueType, "The value type is required.");
 
@@ -56,6 +70,7 @@ public class MapType<K, V> implements EventMeshDataType<Map<K, V>> {
         this.valueType = valueType;
     }
 
+<<<<<<< HEAD
     /**
      * Returns the type class of the data.
      *
@@ -77,6 +92,8 @@ public class MapType<K, V> implements EventMeshDataType<Map<K, V>> {
         return SQLType.MAP;
     }
 
+=======
+>>>>>>> upstream/master
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,11 +111,19 @@ public class MapType<K, V> implements EventMeshDataType<Map<K, V>> {
         return Objects.hash(keyType, valueType);
     }
 
+<<<<<<< HEAD
     public EventMeshDataType<K> keyType() {
         return this.keyType;
     }
 
     public EventMeshDataType<V> valueType() {
+=======
+    public EventMeshDataType keyType() {
+        return this.keyType;
+    }
+
+    public EventMeshDataType valueType() {
+>>>>>>> upstream/master
         return this.valueType;
     }
 }

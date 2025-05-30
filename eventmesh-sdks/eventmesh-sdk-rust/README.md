@@ -4,6 +4,15 @@ Eventmesh rust sdk
 
 ## Quickstart
 
+<<<<<<< HEAD
+=======
+### Requirements
+
+1. rust toolchain, eventmesh's MSRV is 1.75.
+2. protoc 3.15.0+
+3. setup eventmesh runtime
+
+>>>>>>> upstream/master
 ### Add Dependency
 
 ```toml

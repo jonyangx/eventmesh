@@ -17,8 +17,13 @@
 
 package org.apache.eventmesh.connector.mongodb.source.client;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.mongodb.source.client.Impl.MongodbSourceClient;
 import org.apache.eventmesh.connector.mongodb.source.config.SourceConnectorConfig;
+=======
+import org.apache.eventmesh.common.config.connector.rdb.mongodb.SourceConnectorConfig;
+import org.apache.eventmesh.connector.mongodb.source.client.Impl.MongodbSourceClient;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.mongodb.utils.MongodbCloudEventUtil;
 
 import java.util.concurrent.BlockingQueue;

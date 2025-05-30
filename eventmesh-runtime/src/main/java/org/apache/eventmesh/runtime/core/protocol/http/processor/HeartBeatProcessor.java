@@ -25,8 +25,11 @@ import org.apache.eventmesh.common.protocol.http.common.RequestCode;
 import org.apache.eventmesh.common.protocol.http.header.client.HeartbeatRequestHeader;
 import org.apache.eventmesh.common.protocol.http.header.client.HeartbeatResponseHeader;
 import org.apache.eventmesh.common.utils.IPUtils;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
 import org.apache.eventmesh.metrics.api.model.HttpSummaryMetrics;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
@@ -34,7 +37,10 @@ import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
 import org.apache.eventmesh.runtime.core.protocol.http.async.CompleteHandler;
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.Client;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.HttpRequestProcessor;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 import org.apache.eventmesh.runtime.util.RemotingHelper;
 
@@ -47,13 +53,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+<<<<<<< HEAD
+=======
+import java.util.concurrent.Executor;
+>>>>>>> upstream/master
 
 import io.netty.channel.ChannelHandlerContext;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+<<<<<<< HEAD
 public class HeartBeatProcessor implements HttpRequestProcessor {
+=======
+public class HeartBeatProcessor extends AbstractHttpRequestProcessor {
+>>>>>>> upstream/master
 
     private final transient EventMeshHTTPServer eventMeshHTTPServer;
 
@@ -69,10 +83,15 @@ public class HeartBeatProcessor implements HttpRequestProcessor {
         HttpCommand responseEventMeshCommand;
         final String localAddress = IPUtils.getLocalAddress();
         HttpCommand request = asyncContext.getRequest();
+<<<<<<< HEAD
         LogUtils.info(log, "cmd={}|{}|client2eventMesh|from={}|to={}",
             RequestCode.get(Integer.valueOf(request.getRequestCode())),
             EventMeshConstants.PROTOCOL_HTTP,
             RemotingHelper.parseChannelRemoteAddr(ctx.channel()), localAddress);
+=======
+        log.info("cmd={}|{}|client2eventMesh|from={}|to={}", RequestCode.get(Integer.valueOf(request.getRequestCode())),
+            EventMeshConstants.PROTOCOL_HTTP, RemotingHelper.parseChannelRemoteAddr(ctx.channel()), localAddress);
+>>>>>>> upstream/master
         final HeartbeatRequestHeader heartbeatRequestHeader = (HeartbeatRequestHeader) request.getHeader();
         final HeartbeatRequestBody heartbeatRequestBody = (HeartbeatRequestBody) request.getBody();
         EventMeshHTTPConfiguration httpConfiguration = eventMeshHTTPServer.getEventMeshHttpConfiguration();
@@ -110,8 +129,13 @@ public class HeartBeatProcessor implements HttpRequestProcessor {
             client.setIp(heartbeatRequestHeader.getIp());
             client.setPid(heartbeatRequestHeader.getPid());
             client.setConsumerGroup(heartbeatRequestBody.getConsumerGroup());
+<<<<<<< HEAD
             client.setTopic(heartbeatEntity.topic);
             client.setUrl(heartbeatEntity.url);
+=======
+            client.setTopic(heartbeatEntity.getTopic());
+            client.setUrl(heartbeatEntity.getUrl());
+>>>>>>> upstream/master
             client.setLastUpTime(new Date());
 
             if (StringUtils.isAnyBlank(client.getTopic(), client.getUrl())) {
@@ -131,7 +155,11 @@ public class HeartBeatProcessor implements HttpRequestProcessor {
                 } catch (Exception e) {
                     completeResponse(request, asyncContext, heartbeatResponseHeader,
                         EventMeshRetCode.EVENTMESH_ACL_ERR, e.getMessage(), HeartbeatResponseBody.class);
+<<<<<<< HEAD
                     LogUtils.warn(log, "CLIENT HAS NO PERMISSION,HeartBeatProcessor subscribe failed", e);
+=======
+                    log.warn("CLIENT HAS NO PERMISSION,HeartBeatProcessor subscribe failed", e);
+>>>>>>> upstream/master
                     return;
                 }
             }
@@ -160,6 +188,7 @@ public class HeartBeatProcessor implements HttpRequestProcessor {
         }
 
         final long startTime = System.currentTimeMillis();
+<<<<<<< HEAD
         HttpSummaryMetrics summaryMetrics = eventMeshHTTPServer.getMetrics().getSummaryMetrics();
         try {
             final CompleteHandler<HttpCommand> handler = httpCommand -> {
@@ -168,6 +197,15 @@ public class HeartBeatProcessor implements HttpRequestProcessor {
                     eventMeshHTTPServer.sendResponse(ctx, httpCommand.httpResponse());
                     summaryMetrics.recordHTTPReqResTimeCost(
                         System.currentTimeMillis() - request.getReqTime());
+=======
+        try {
+            final CompleteHandler<HttpCommand> handler = httpCommand -> {
+                try {
+                    log.debug("{}", httpCommand);
+                    eventMeshHTTPServer.sendResponse(ctx, httpCommand.httpResponse());
+                    eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordHTTPReqResTimeCost(
+                        System.currentTimeMillis() - asyncContext.getRequest().getReqTime());
+>>>>>>> upstream/master
                 } catch (Exception ex) {
                     // ignore
                 }
@@ -180,13 +218,27 @@ public class HeartBeatProcessor implements HttpRequestProcessor {
                 EventMeshRetCode.EVENTMESH_HEARTBEAT_ERR.getErrMsg() + EventMeshUtil.stackTrace(e, 2),
                 HeartbeatResponseBody.class);
             final long elapsedTime = System.currentTimeMillis() - startTime;
+<<<<<<< HEAD
             LogUtils.error(log, "message|eventMesh2mq|REQ|ASYNC|heartBeatMessageCost={}ms", elapsedTime, e);
             summaryMetrics.recordSendMsgFailed();
             summaryMetrics.recordSendMsgCost(elapsedTime);
+=======
+            log.error("message|eventMesh2mq|REQ|ASYNC|heartBeatMessageCost={}ms", elapsedTime, e);
+            eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgFailed();
+            eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgCost(elapsedTime);
+>>>>>>> upstream/master
         }
 
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public Executor executor() {
+        return eventMeshHTTPServer.getHttpThreadPoolGroup().getClientManageExecutor();
+    }
+
+>>>>>>> upstream/master
     private void supplyClientInfoList(final List<Client> tmpClientList, final List<Client> localClientList) {
         Objects.requireNonNull(tmpClientList, "tmpClientList can not be null");
         Objects.requireNonNull(localClientList, "localClientList can not be null");

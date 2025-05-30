@@ -18,12 +18,21 @@
 package org.apache.eventmesh.connector.rabbitmq.source.connector;
 
 import org.apache.eventmesh.common.ThreadPoolFactory;
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.rabbitmq.client.RabbitmqClient;
 import org.apache.eventmesh.connector.rabbitmq.client.RabbitmqConnectionFactory;
 import org.apache.eventmesh.connector.rabbitmq.cloudevent.RabbitmqCloudEvent;
 import org.apache.eventmesh.connector.rabbitmq.source.config.RabbitMQSourceConfig;
 import org.apache.eventmesh.connector.rabbitmq.source.config.SourceConnectorConfig;
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.config.connector.Config;
+import org.apache.eventmesh.common.config.connector.mq.rabbitmq.RabbitMQSourceConfig;
+import org.apache.eventmesh.common.config.connector.mq.rabbitmq.SourceConnectorConfig;
+import org.apache.eventmesh.connector.rabbitmq.client.RabbitmqClient;
+import org.apache.eventmesh.connector.rabbitmq.client.RabbitmqConnectionFactory;
+import org.apache.eventmesh.connector.rabbitmq.cloudevent.RabbitmqCloudEvent;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
@@ -40,6 +49,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.cloudevents.CloudEvent;
 
+<<<<<<< HEAD
+=======
+import com.rabbitmq.client.BuiltinExchangeType;
+>>>>>>> upstream/master
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.GetResponse;
@@ -53,10 +66,19 @@ public class RabbitMQSourceConnector implements Source {
 
     private volatile boolean started = false;
 
+<<<<<<< HEAD
     private static final int DEFAULT_BATCH_SIZE = 10;
 
     private BlockingQueue<CloudEvent> queue;
 
+=======
+    private BlockingQueue<CloudEvent> queue;
+
+    private int maxBatchSize;
+
+    private long maxPollWaitTime;
+
+>>>>>>> upstream/master
     private final RabbitmqConnectionFactory rabbitmqConnectionFactory = new RabbitmqConnectionFactory();
 
     private RabbitMQSourceHandler rabbitMQSourceHandler;
@@ -83,7 +105,13 @@ public class RabbitMQSourceConnector implements Source {
 
     @Override
     public void init(ConnectorContext connectorContext) throws Exception {
+<<<<<<< HEAD
         this.queue = new LinkedBlockingQueue<>(1000);
+=======
+        this.queue = new LinkedBlockingQueue<>(sourceConfig.getPollConfig().getCapacity());
+        this.maxBatchSize = sourceConfig.getPollConfig().getMaxBatchSize();
+        this.maxPollWaitTime = sourceConfig.getPollConfig().getMaxWaitTime();
+>>>>>>> upstream/master
         this.sourceConfig = (RabbitMQSourceConfig) ((SourceConnectorContext) connectorContext).getSourceConfig();
         this.rabbitmqClient = new RabbitmqClient(rabbitmqConnectionFactory);
         this.connection = rabbitmqClient.getConnection(sourceConfig.getConnectorConfig().getHost(),
@@ -98,7 +126,12 @@ public class RabbitMQSourceConnector implements Source {
     @Override
     public void start() throws Exception {
         if (!started) {
+<<<<<<< HEAD
             rabbitmqClient.binding(channel, sourceConfig.getConnectorConfig().getExchangeType(), sourceConfig.getConnectorConfig().getExchangeName(),
+=======
+            BuiltinExchangeType builtinExchangeType = BuiltinExchangeType.valueOf(sourceConfig.getConnectorConfig().getExchangeType());
+            rabbitmqClient.binding(channel, builtinExchangeType, sourceConfig.getConnectorConfig().getExchangeName(),
+>>>>>>> upstream/master
                 sourceConfig.getConnectorConfig().getRoutingKey(), sourceConfig.getConnectorConfig().getQueueName());
             executor.execute(this.rabbitMQSourceHandler);
             started = true;
@@ -116,6 +149,14 @@ public class RabbitMQSourceConnector implements Source {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void onException(ConnectRecord record) {
+
+    }
+
+    @Override
+>>>>>>> upstream/master
     public void stop() {
         if (started) {
             try {
@@ -132,6 +173,7 @@ public class RabbitMQSourceConnector implements Source {
 
     @Override
     public List<ConnectRecord> poll() {
+<<<<<<< HEAD
         List<ConnectRecord> connectRecords = new ArrayList<>(DEFAULT_BATCH_SIZE);
         for (int count = 0; count < DEFAULT_BATCH_SIZE; ++count) {
             try {
@@ -141,6 +183,23 @@ public class RabbitMQSourceConnector implements Source {
                 }
 
                 connectRecords.add(CloudEventUtil.convertEventToRecord(event));
+=======
+        long startTime = System.currentTimeMillis();
+        long remainingTime = maxPollWaitTime;
+
+        List<ConnectRecord> connectRecords = new ArrayList<>(maxBatchSize);
+        for (int count = 0; count < maxBatchSize; ++count) {
+            try {
+                CloudEvent event = queue.poll(remainingTime, TimeUnit.MILLISECONDS);
+                if (event == null) {
+                    break;
+                }
+                connectRecords.add(CloudEventUtil.convertEventToRecord(event));
+
+                // calculate elapsed time and update remaining time for next poll
+                long elapsedTime = System.currentTimeMillis() - startTime;
+                remainingTime = maxPollWaitTime > elapsedTime ? maxPollWaitTime - elapsedTime : 0;
+>>>>>>> upstream/master
             } catch (InterruptedException e) {
                 break;
             }

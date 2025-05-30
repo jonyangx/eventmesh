@@ -17,8 +17,13 @@
 
 package org.apache.eventmesh.runtime.core.protocol.http.retry;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.core.protocol.AbstractRetryer;
+=======
+import org.apache.eventmesh.retry.api.AbstractRetryer;
+import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
+>>>>>>> upstream/master
 
 import lombok.extern.slf4j.Slf4j;
 

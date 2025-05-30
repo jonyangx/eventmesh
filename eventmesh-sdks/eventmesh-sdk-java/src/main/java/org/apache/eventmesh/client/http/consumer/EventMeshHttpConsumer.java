@@ -37,7 +37,10 @@ import org.apache.eventmesh.common.protocol.http.common.ProtocolKey;
 import org.apache.eventmesh.common.protocol.http.common.ProtocolVersion;
 import org.apache.eventmesh.common.protocol.http.common.RequestCode;
 import org.apache.eventmesh.common.utils.JsonUtils;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -115,8 +118,13 @@ public class EventMeshHttpConsumer extends AbstractHttpClient implements AutoClo
             try {
                 final List<HeartbeatRequestBody.HeartbeatEntity> heartbeatEntities = topicList.stream().map(subscriptionItem -> {
                     final HeartbeatRequestBody.HeartbeatEntity heartbeatEntity = new HeartbeatRequestBody.HeartbeatEntity();
+<<<<<<< HEAD
                     heartbeatEntity.topic = subscriptionItem.getTopic();
                     heartbeatEntity.url = subscribeUrl;
+=======
+                    heartbeatEntity.setTopic(subscriptionItem.getTopic());
+                    heartbeatEntity.setUrl(subscribeUrl);
+>>>>>>> upstream/master
                     return heartbeatEntity;
                 }).collect(Collectors.toList());
 
@@ -167,7 +175,11 @@ public class EventMeshHttpConsumer extends AbstractHttpClient implements AutoClo
 
     @Override
     public void close() throws EventMeshException {
+<<<<<<< HEAD
         LogUtils.info(log, "LiteConsumer shutdown begin.");
+=======
+        log.info("LiteConsumer shutdown begin.");
+>>>>>>> upstream/master
         super.close();
 
         if (consumeExecutor != null) {
@@ -175,7 +187,11 @@ public class EventMeshHttpConsumer extends AbstractHttpClient implements AutoClo
         }
         scheduler.shutdown();
 
+<<<<<<< HEAD
         LogUtils.info(log, "LiteConsumer shutdown end.");
+=======
+        log.info("LiteConsumer shutdown end.");
+>>>>>>> upstream/master
     }
 
     private RequestParam buildCommonRequestParam() {

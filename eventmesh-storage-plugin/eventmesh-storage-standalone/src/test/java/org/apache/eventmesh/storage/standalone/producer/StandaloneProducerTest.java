@@ -17,8 +17,18 @@
 
 package org.apache.eventmesh.storage.standalone.producer;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.api.SendResult;
 import org.apache.eventmesh.storage.standalone.TestUtils;
+=======
+import static org.apache.eventmesh.storage.standalone.TestUtils.TEST_TOPIC;
+import static org.apache.eventmesh.storage.standalone.TestUtils.createSubscribe;
+
+import org.apache.eventmesh.api.SendResult;
+import org.apache.eventmesh.storage.standalone.TestUtils;
+import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
+import org.apache.eventmesh.storage.standalone.broker.task.Subscribe;
+>>>>>>> upstream/master
 
 import java.util.Properties;
 
@@ -28,10 +38,19 @@ import org.junit.jupiter.api.Test;
 
 import io.cloudevents.CloudEvent;
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> upstream/master
 public class StandaloneProducerTest {
 
     private StandaloneProducer standaloneProducer;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
     @BeforeEach
     public void setUp() {
         standaloneProducer = new StandaloneProducer(new Properties());
@@ -61,7 +80,15 @@ public class StandaloneProducerTest {
 
     @Test
     public void testPublish() {
+<<<<<<< HEAD
         CloudEvent cloudEvent = TestUtils.createDefaultCloudEvent();
+=======
+        StandaloneBroker standaloneBroker = StandaloneBroker.getInstance();
+        standaloneBroker.createTopicIfAbsent(TEST_TOPIC);
+        CloudEvent cloudEvent = TestUtils.createDefaultCloudEvent();
+        Subscribe subscribe = createSubscribe(standaloneBroker);
+        subscribe.subscribe();
+>>>>>>> upstream/master
         SendResult sendResult = standaloneProducer.publish(cloudEvent);
         Assertions.assertNotNull(sendResult);
     }

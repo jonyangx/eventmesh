@@ -28,11 +28,19 @@ import org.apache.eventmesh.common.protocol.grpc.common.StatusCode;
 import org.apache.eventmesh.protocol.api.ProtocolAdaptor;
 import org.apache.eventmesh.protocol.api.ProtocolPluginFactory;
 import org.apache.eventmesh.runtime.boot.EventMeshGrpcServer;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.core.protocol.grpc.producer.EventMeshProducer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.producer.ProducerManager;
 import org.apache.eventmesh.runtime.core.protocol.grpc.producer.SendMessageContext;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.ServiceUtils;
+=======
+import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
+import org.apache.eventmesh.runtime.core.protocol.grpc.service.ServiceUtils;
+import org.apache.eventmesh.runtime.core.protocol.producer.EventMeshProducer;
+import org.apache.eventmesh.runtime.core.protocol.producer.ProducerManager;
+import org.apache.eventmesh.runtime.core.protocol.producer.SendMessageContext;
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +69,11 @@ public class PublishCloudEventsProcessor extends AbstractPublishCloudEventProces
 
         SendMessageContext sendMessageContext = new SendMessageContext(seqNum, cloudEvent, eventMeshProducer, eventMeshGrpcServer);
 
+<<<<<<< HEAD
         eventMeshGrpcServer.getMetricsMonitor().recordSendMsgToQueue();
+=======
+        eventMeshGrpcServer.getEventMeshGrpcMetricsManager().recordSendMsgToQueue();
+>>>>>>> upstream/master
         long startTime = System.currentTimeMillis();
         eventMeshProducer.send(sendMessageContext, new SendCallback() {
 
@@ -71,7 +83,11 @@ public class PublishCloudEventsProcessor extends AbstractPublishCloudEventProces
                 long endTime = System.currentTimeMillis();
                 log.info("message|eventMesh2mq|REQ|ASYNC|send2MQCost={}ms|topic={}|bizSeqNo={}|uniqueId={}",
                     endTime - startTime, topic, seqNum, uniqueId);
+<<<<<<< HEAD
                 eventMeshGrpcServer.getMetricsMonitor().recordSendMsgToClient();
+=======
+                eventMeshGrpcServer.getEventMeshGrpcMetricsManager().recordSendMsgToClient(EventMeshCloudEventUtils.getIp(message));
+>>>>>>> upstream/master
             }
 
             @Override

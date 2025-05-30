@@ -18,7 +18,10 @@
 package org.apache.eventmesh.runtime.boot;
 
 import org.apache.eventmesh.common.config.ConfigService;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.util.BannerUtil;
 
@@ -41,12 +44,20 @@ public class EventMeshStartup {
             server.start();
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 try {
+<<<<<<< HEAD
                     LogUtils.info(log, "eventMesh shutting down hook begin.");
+=======
+                    log.info("eventMesh shutting down hook begin.");
+>>>>>>> upstream/master
                     long start = System.currentTimeMillis();
                     server.shutdown();
                     long end = System.currentTimeMillis();
 
+<<<<<<< HEAD
                     LogUtils.info(log, "eventMesh shutdown cost {}ms", end - start);
+=======
+                    log.info("eventMesh shutdown cost {}ms", end - start);
+>>>>>>> upstream/master
                 } catch (Exception e) {
                     log.error("exception when shutdown.", e);
                 }

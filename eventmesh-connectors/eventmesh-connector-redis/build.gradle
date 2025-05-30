@@ -15,10 +15,36 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 dependencies {
     implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
 
     implementation 'org.redisson:redisson:3.17.3'
+=======
+<<<<<<<< HEAD:eventmesh-security-plugin/eventmesh-security-auth-token/build.gradle
+
+def jwtVersion = '0.11.1'
+
+dependencies {
+
+    implementation project(":eventmesh-common")
+    implementation "io.jsonwebtoken:jjwt-api:${jwtVersion}"
+    implementation "io.jsonwebtoken:jjwt-impl:${jwtVersion}"
+    implementation "io.jsonwebtoken:jjwt-jackson:${jwtVersion}"
+
+    implementation project(":eventmesh-security-plugin:eventmesh-security-api")
+
+    testImplementation project(":eventmesh-security-plugin:eventmesh-security-api")
+
+
+}
+========
+dependencies {
+    implementation project(":eventmesh-common")
+    implementation project(":eventmesh-openconnect:eventmesh-openconnect-java")
+
+    implementation 'org.redisson:redisson:3.38.1'
+>>>>>>> upstream/master
 
     api 'io.cloudevents:cloudevents-json-jackson'
 
@@ -27,4 +53,9 @@ dependencies {
 
     testImplementation 'ai.grakn:redis-mock:0.1.6'
     testImplementation project(":eventmesh-common")
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>>> upstream/master:eventmesh-connectors/eventmesh-connector-redis/build.gradle
+>>>>>>> upstream/master

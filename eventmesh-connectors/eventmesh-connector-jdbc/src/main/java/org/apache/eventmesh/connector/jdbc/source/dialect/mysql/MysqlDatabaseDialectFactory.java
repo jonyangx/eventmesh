@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+<<<<<<<< HEAD:eventmesh-connectors/eventmesh-connector-jdbc/src/main/java/org/apache/eventmesh/connector/jdbc/source/dialect/mysql/MysqlDatabaseDialectFactory.java
 package org.apache.eventmesh.connector.jdbc.source.dialect.mysql;
 
 import org.apache.eventmesh.connector.jdbc.DatabaseDialect;
@@ -28,5 +29,20 @@ public class MysqlDatabaseDialectFactory implements DatabaseDialectFactory {
     public DatabaseDialect createDatabaseDialect(SourceConfig config) {
         DatabaseDialect databaseDialect = new MysqlDatabaseDialect((JdbcSourceConfig) config);
         return databaseDialect;
+========
+package org.apache.eventmesh.grpc.sub.app;
+
+import org.apache.eventmesh.connector.spring.config.EventMeshAutoConfiguration;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, EventMeshAutoConfiguration.class})
+public class SpringBootDemoApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootDemoApplication.class, args);
+>>>>>>>> upstream/master:eventmesh-examples/src/main/java/org/apache/eventmesh/grpc/sub/app/SpringBootDemoApplication.java
     }
 }

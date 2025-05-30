@@ -50,7 +50,10 @@ public class EventMeshGrpcConfigurationTest {
         Assertions.assertEquals(5816, config.getEventMeshServerReplyMsgThreadNum());
         Assertions.assertEquals(6816, config.getEventMeshServerSubscribeMsgThreadNum());
         Assertions.assertEquals(7816, config.getEventMeshServerMetaStorageThreadNum());
+<<<<<<< HEAD
         Assertions.assertEquals(8816, config.getEventMeshServerAdminThreadNum());
+=======
+>>>>>>> upstream/master
         Assertions.assertEquals(9816, config.getEventMeshServerRetryThreadNum());
         Assertions.assertEquals(11816, config.getEventMeshServerPullMetaStorageInterval());
         Assertions.assertEquals(12816, config.getEventMeshServerAsyncAccumulationThreshold());
@@ -72,7 +75,10 @@ public class EventMeshGrpcConfigurationTest {
         Assertions.assertEquals("cluster-succeed!!!", config.getEventMeshCluster());
         Assertions.assertEquals("name-succeed!!!", config.getEventMeshName());
         Assertions.assertEquals("816", config.getSysID());
+<<<<<<< HEAD
         Assertions.assertEquals("connector-succeed!!!", config.getEventMeshConnectorPluginType());
+=======
+>>>>>>> upstream/master
         Assertions.assertEquals("storage-succeed!!!", config.getEventMeshStoragePluginType());
         Assertions.assertEquals("security-succeed!!!", config.getEventMeshSecurityPluginType());
         Assertions.assertEquals("metaStorage-succeed!!!", config.getEventMeshMetaStoragePluginType());
@@ -88,7 +94,10 @@ public class EventMeshGrpcConfigurationTest {
         Assertions.assertTrue(config.isEventMeshServerSecurityEnable());
         Assertions.assertTrue(config.isEventMeshServerMetaStorageEnable());
         Assertions.assertTrue(config.isEventMeshServerTraceEnable());
+<<<<<<< HEAD
 
         Assertions.assertEquals("eventmesh.idc-succeed!!!", config.getEventMeshWebhookOrigin());
+=======
+>>>>>>> upstream/master
     }
 }

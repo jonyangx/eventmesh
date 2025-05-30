@@ -17,6 +17,7 @@
 
 package org.apache.eventmesh.common.utils;
 
+<<<<<<< HEAD
 import static org.apache.eventmesh.common.Constants.SUCCESS_CODE;
 
 import org.apache.eventmesh.common.Constants;
@@ -26,6 +27,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+=======
+import org.apache.eventmesh.common.Constants;
+
+import org.apache.commons.lang3.StringUtils;
+
+>>>>>>> upstream/master
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
@@ -34,8 +41,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+<<<<<<< HEAD
 import com.sun.net.httpserver.HttpExchange;
 
+=======
+>>>>>>> upstream/master
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -81,6 +91,7 @@ public class NetUtils {
         }
         return sb.toString();
     }
+<<<<<<< HEAD
 
     public static String parsePostBody(HttpExchange exchange)
         throws IOException {
@@ -103,4 +114,6 @@ public class NetUtils {
     public static void sendSuccessResponseHeaders(HttpExchange httpExchange) throws IOException {
         httpExchange.sendResponseHeaders(SUCCESS_CODE, 0);
     }
+=======
+>>>>>>> upstream/master
 }

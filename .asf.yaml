@@ -43,7 +43,15 @@ github:
   protected_branches:
     master:
       required_status_checks:
+<<<<<<< HEAD
         strict: true
+=======
+        strict: false
+        contexts:
+          - dependency-review
+          - Build (ubuntu-latest, 8, java)
+          - Build (ubuntu-latest, 11, java)
+>>>>>>> upstream/master
       required_pull_request_reviews:
         dismiss_stale_reviews: true
         required_approving_review_count: 2

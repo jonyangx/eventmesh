@@ -25,7 +25,10 @@ import org.apache.eventmesh.common.ExampleConstants;
 import org.apache.eventmesh.common.protocol.SubscriptionMode;
 import org.apache.eventmesh.common.protocol.SubscriptionType;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.tcp.common.EventMeshTestUtils;
 import org.apache.eventmesh.util.Utils;
 
@@ -74,7 +77,11 @@ public class SyncResponse implements ReceiveMsgHook<CloudEvent> {
         }
 
         final String content = new String(event.getData().toBytes(), StandardCharsets.UTF_8);
+<<<<<<< HEAD
         LogUtils.info(log, "receive sync rr msg: {}|{}", event, content);
+=======
+        log.info("receive sync rr msg: {}|{}", event, content);
+>>>>>>> upstream/master
         return Optional.of(event);
     }
 

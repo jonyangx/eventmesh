@@ -17,6 +17,7 @@
 
 package org.apache.eventmesh.connector.jdbc.source.dialect.antlr4.mysql;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.jdbc.antlr4.Antlr4DdlParser;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlLexer;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser;
@@ -26,6 +27,20 @@ import org.apache.eventmesh.connector.jdbc.event.Event;
 import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
 import org.apache.eventmesh.connector.jdbc.source.dialect.antlr4.mysql.listener.MySqlAntlr4DdlParserListener;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
+=======
+import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
+import org.apache.eventmesh.connector.jdbc.antlr4.Antlr4DdlParser;
+import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlLexer;
+import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser;
+import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.CharsetNameContext;
+import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.CollationNameContext;
+import org.apache.eventmesh.connector.jdbc.antlr4.listener.Antlr4DdlParserListener;
+import org.apache.eventmesh.connector.jdbc.ddl.DdlParserCallback;
+import org.apache.eventmesh.connector.jdbc.event.Event;
+import org.apache.eventmesh.connector.jdbc.source.dialect.antlr4.mysql.listener.MySqlAntlr4DdlParserListener;
+import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
+import org.apache.eventmesh.connector.jdbc.utils.JdbcStringUtils;
+>>>>>>> upstream/master
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -55,6 +70,13 @@ public class MysqlAntlr4DdlParser extends Antlr4DdlParser<MySqlLexer, MySqlParse
         this(skipViews, skipComments, new HashSet<>(), sourceConfig);
     }
 
+<<<<<<< HEAD
+=======
+    public MysqlAntlr4DdlParser(boolean skipViews, boolean skipComments) {
+        this(skipViews, skipComments, new HashSet<>(), null);
+    }
+
+>>>>>>> upstream/master
     @Override
     protected MySqlLexer buildLexerInstance(CharStream charStreams) {
         return new MySqlLexer(charStreams);
@@ -106,7 +128,11 @@ public class MysqlAntlr4DdlParser extends Antlr4DdlParser<MySqlLexer, MySqlParse
      */
     public TableId parseTableId(String fullIdText) {
         // Remove special characters from the full ID text
+<<<<<<< HEAD
         String sanitizedText = StringUtils.replaceEach(fullIdText, new String[]{"'\\''", "\"", "`"}, new String[]{"", "", ""});
+=======
+        String sanitizedText = StringUtils.replaceEach(fullIdText, new String[] {"'\\''", "\"", "`"}, new String[] {"", "", ""});
+>>>>>>> upstream/master
 
         // Split the sanitized text by dot (.) to separate catalog and table name
         String[] split = sanitizedText.split("\\.");
@@ -149,4 +175,28 @@ public class MysqlAntlr4DdlParser extends Antlr4DdlParser<MySqlLexer, MySqlParse
     public JdbcSourceConfig getSourceConfig() {
         return sourceConfig;
     }
+<<<<<<< HEAD
+=======
+
+    public String parseCharset(CharsetNameContext charsetNameContext) {
+        String charsetName = null;
+        if (charsetNameContext != null && charsetNameContext.getText() != null) {
+            charsetName = JdbcStringUtils.withoutWrapper(charsetNameContext.getText());
+        }
+        return charsetName;
+    }
+
+    public String parseCollation(CollationNameContext collationNameContext) {
+        String collationName = null;
+        if (collationNameContext != null && collationNameContext.getText() != null) {
+            collationName = JdbcStringUtils.withoutWrapper(collationNameContext.getText()).toLowerCase();
+            /*
+             * for (int index = 0; index < CharsetMapping.MAP_SIZE; index++) { if
+             * (collationName.equals(CharsetMapping.getStaticCollationNameForCollationIndex(index))) { collationName =
+             * CharsetMapping.getStaticMysqlCharsetNameForCollationIndex(index); break; } }
+             */
+        }
+        return collationName;
+    }
+>>>>>>> upstream/master
 }

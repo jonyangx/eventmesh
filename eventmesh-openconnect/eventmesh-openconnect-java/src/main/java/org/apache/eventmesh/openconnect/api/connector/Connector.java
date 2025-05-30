@@ -17,13 +17,22 @@
 
 package org.apache.eventmesh.openconnect.api.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.openconnect.api.config.Config;
+=======
+import org.apache.eventmesh.common.ComponentLifeCycle;
+import org.apache.eventmesh.common.config.connector.Config;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 
 /**
  * Connector
  */
+<<<<<<< HEAD
 public interface Connector {
+=======
+public interface Connector extends ComponentLifeCycle {
+>>>>>>> upstream/master
 
     /**
      * Returns the class type of the configuration for this Connector.
@@ -33,11 +42,20 @@ public interface Connector {
     Class<? extends Config> configClass();
 
     /**
+<<<<<<< HEAD
+=======
+     * This init method is obsolete. For detailed discussion, please see <a href="https://github.com/apache/eventmesh/issues/4565">here</a>
+     * <p>
+>>>>>>> upstream/master
      * Initializes the Connector with the provided configuration.
      *
      * @param config Configuration object
      * @throws Exception if initialization fails
      */
+<<<<<<< HEAD
+=======
+    @Deprecated
+>>>>>>> upstream/master
     void init(Config config) throws Exception;
 
     /**
@@ -49,6 +67,7 @@ public interface Connector {
     void init(ConnectorContext connectorContext) throws Exception;
 
     /**
+<<<<<<< HEAD
      * Starts the Connector.
      *
      * @throws Exception if the start operation fails
@@ -56,6 +75,8 @@ public interface Connector {
     void start() throws Exception;
 
     /**
+=======
+>>>>>>> upstream/master
      * Commits the specified ConnectRecord object.
      *
      * @param record ConnectRecord object to commit
@@ -70,10 +91,19 @@ public interface Connector {
     String name();
 
     /**
+<<<<<<< HEAD
      * Stops the Connector.
      *
      * @throws Exception if stopping fails
      */
     void stop() throws Exception;
+=======
+     * This method will be called when an exception occurs while processing a ConnectRecord object. This method can be used to handle the exception,
+     * such as logging error information, or stopping the connector's operation when an exception occurs.
+     *
+     * @param record The ConnectRecord object that was being processed when the exception occurred
+     */
+    void onException(ConnectRecord record);
+>>>>>>> upstream/master
 
 }

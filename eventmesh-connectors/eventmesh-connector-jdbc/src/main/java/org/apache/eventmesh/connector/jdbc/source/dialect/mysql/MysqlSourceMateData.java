@@ -17,6 +17,10 @@
 
 package org.apache.eventmesh.connector.jdbc.source.dialect.mysql;
 
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.connector.jdbc.dialect.DatabaseType;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.source.SourceMateData;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 
@@ -61,7 +65,11 @@ public class MysqlSourceMateData extends SourceMateData {
 
     public static class MysqlSourceMateDataBuilder {
 
+<<<<<<< HEAD
         private String connector = "mysql";
+=======
+        private String connector = DatabaseType.MYSQL.getCode();
+>>>>>>> upstream/master
         private String name;
         private long timestamp = System.currentTimeMillis();
         private boolean snapshot;

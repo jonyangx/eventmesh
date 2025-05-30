@@ -18,6 +18,10 @@
 package org.apache.eventmesh.connector.jdbc.server;
 
 import org.apache.eventmesh.connector.jdbc.config.JdbcServerConfig;
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.connector.jdbc.sink.JdbcSinkConnector;
+>>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.source.JdbcSourceConnector;
 import org.apache.eventmesh.openconnect.Application;
 import org.apache.eventmesh.openconnect.util.ConfigUtil;
@@ -36,7 +40,12 @@ public class JdbcConnectorServer {
         }
 
         if (serverConfig.isSinkEnable()) {
+<<<<<<< HEAD
             // TODO support
+=======
+            Application jdbcSinkApp = new Application();
+            jdbcSinkApp.run(JdbcSinkConnector.class);
+>>>>>>> upstream/master
         }
     }
 

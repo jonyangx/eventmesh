@@ -29,7 +29,10 @@ import org.apache.eventmesh.common.ExampleConstants;
 import org.apache.eventmesh.common.protocol.SubscriptionItem;
 import org.apache.eventmesh.common.protocol.SubscriptionMode;
 import org.apache.eventmesh.common.protocol.SubscriptionType;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.grpc.pub.eventmeshmessage.AsyncPublishInstance;
 import org.apache.eventmesh.util.Utils;
 
@@ -96,11 +99,19 @@ public class SubService implements InitializingBean {
             try {
                 countDownLatch.await();
             } catch (InterruptedException e) {
+<<<<<<< HEAD
                 LogUtils.warn(log, "exception occurred when countDownLatch.await ", e);
                 Thread.currentThread().interrupt();
             }
 
             LogUtils.info(log, "stopThread start....");
+=======
+                log.warn("exception occurred when countDownLatch.await ", e);
+                Thread.currentThread().interrupt();
+            }
+
+            log.info("stopThread start....");
+>>>>>>> upstream/master
 
         });
 
@@ -109,7 +120,11 @@ public class SubService implements InitializingBean {
 
     @PreDestroy
     public void cleanup() {
+<<<<<<< HEAD
         LogUtils.info(log, "start destroy....");
+=======
+        log.info("start destroy....");
+>>>>>>> upstream/master
 
         try {
             eventMeshGrpcConsumer.unsubscribe(Collections.singletonList(subscriptionItem), url);
@@ -122,15 +137,25 @@ public class SubService implements InitializingBean {
             log.error("exception occurred when close consumer ", e);
         }
 
+<<<<<<< HEAD
         LogUtils.info(log, "end destroy....");
+=======
+        log.info("end destroy....");
+>>>>>>> upstream/master
     }
 
     /**
      * Count the message already consumed
      */
     public void consumeMessage(final String msg) {
+<<<<<<< HEAD
         LogUtils.info(log, "consume message: {}", msg);
         countDownLatch.countDown();
         LogUtils.info(log, "remaining number of messages to be consumed: {}", countDownLatch.getCount());
+=======
+        log.info("consume message: {}", msg);
+        countDownLatch.countDown();
+        log.info("remaining number of messages to be consumed: {}", countDownLatch.getCount());
+>>>>>>> upstream/master
     }
 }

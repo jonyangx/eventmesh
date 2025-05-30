@@ -27,14 +27,28 @@ dependencies {
     implementation "org.apache.httpcomponents:httpclient"
     implementation 'io.netty:netty-all'
 
+<<<<<<< HEAD
     implementation "com.alibaba:fastjson"
+=======
+    implementation "com.alibaba.fastjson2:fastjson2"
+>>>>>>> upstream/master
 
     implementation 'com.github.seancfoley:ipaddress'
 
     implementation "commons-io:commons-io"
 
+<<<<<<< HEAD
     implementation project(":eventmesh-common")
     implementation project(":eventmesh-spi")
+=======
+    implementation "commons-validator:commons-validator"
+
+    implementation project(":eventmesh-common")
+    implementation project(":eventmesh-spi")
+    implementation project(":eventmesh-function:eventmesh-function-api")
+    implementation project(":eventmesh-function:eventmesh-function-filter")
+    implementation project(":eventmesh-function:eventmesh-function-transformer")
+>>>>>>> upstream/master
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-api")
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-standalone")
     implementation project(":eventmesh-storage-plugin:eventmesh-storage-rocketmq")
@@ -60,7 +74,10 @@ dependencies {
     implementation project(":eventmesh-protocol-plugin:eventmesh-protocol-meshmessage")
     implementation project(":eventmesh-protocol-plugin:eventmesh-protocol-openmessage")
     implementation project(":eventmesh-protocol-plugin:eventmesh-protocol-http")
+<<<<<<< HEAD
     implementation project(":eventmesh-protocol-plugin:eventmesh-protocol-webhook")
+=======
+>>>>>>> upstream/master
 
     implementation project(":eventmesh-metrics-plugin:eventmesh-metrics-api")
     implementation project(":eventmesh-metrics-plugin:eventmesh-metrics-prometheus")
@@ -68,9 +85,13 @@ dependencies {
     implementation project(":eventmesh-trace-plugin:eventmesh-trace-api")
     implementation project(":eventmesh-trace-plugin:eventmesh-trace-zipkin")
 
+<<<<<<< HEAD
     implementation project(":eventmesh-webhook:eventmesh-webhook-admin")
     implementation project(":eventmesh-webhook:eventmesh-webhook-api")
     implementation project(":eventmesh-webhook:eventmesh-webhook-receive")
+=======
+    implementation project(":eventmesh-retry:eventmesh-retry-api")
+>>>>>>> upstream/master
 
     testImplementation "org.mockito:mockito-inline"
     testImplementation "org.mockito:mockito-junit-jupiter"

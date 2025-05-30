@@ -1,4 +1,5 @@
 #
+<<<<<<< HEAD
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -15,15 +16,39 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+=======
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+>>>>>>> upstream/master
 #
 
 name: "Continuous Integration"
 
 on:
   push:
+<<<<<<< HEAD
     branches: [ '*' ]
   pull_request:
     branches: [ '*' ]
+=======
+    branches:
+      - '**'
+      - '!dependabot/**'
+  pull_request:
+    branches: [ '**' ]
+>>>>>>> upstream/master
 
 jobs:
   build:
@@ -33,11 +58,16 @@ jobs:
       matrix:
         os: [ ubuntu-latest, macOS-latest ]
         java: [ 8, 11 ]
+<<<<<<< HEAD
         language: ['java', 'go']
+=======
+        language: [ 'java' ]
+>>>>>>> upstream/master
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout repository
+<<<<<<< HEAD
         uses: actions/checkout@v3
 
       - name: Initialize CodeQL
@@ -67,21 +97,46 @@ jobs:
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
+=======
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Build C SDK
+        if: matrix.language == 'cpp'
+        run: make -C ./eventmesh-sdks/eventmesh-sdk-c
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+>>>>>>> upstream/master
         with:
           distribution: 'zulu'
           java-version: 11
 
       - name: GenerateGrammarSource
+<<<<<<< HEAD
         run: ./gradlew clean generateGrammarSource --parallel --daemon
 
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
+=======
+        run: ./gradlew clean generateGrammarSource --parallel --daemon --scan
+        env:
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v4
+>>>>>>> upstream/master
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
 
       # https://docs.gradle.org/current/userguide/performance.html
       - name: Build
+<<<<<<< HEAD
         run: ./gradlew clean build jar dist jacocoTestReport -x spotlessJava -x generateGrammarSource --parallel --daemon
 
       - name: Install plugin
@@ -109,3 +164,18 @@ jobs:
       - name: Check third party dependencies
         run: |
           ./gradlew clean jar dist -x spotlessJava -x test -x checkstyleMain -x javaDoc && ./gradlew installPlugin && ./gradlew tar && sh tools/dependency-check/check-dependencies.sh && echo "Thirty party dependencies check success"
+=======
+        run: >
+          ./gradlew clean build dist jacocoTestReport --parallel --daemon --scan
+          -x spotlessJava -x generateGrammarSource -x generateDistLicense -x checkDeniedLicense
+        env:
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+      - name: Install plugin
+        run: ./gradlew installPlugin --scan
+        env:
+          DEVELOCITY_ACCESS_KEY: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+
+      - name: Upload coverage report to codecov.io
+        run: bash <(curl -s https://codecov.io/bash) || echo 'Failed to upload coverage report!'
+>>>>>>> upstream/master

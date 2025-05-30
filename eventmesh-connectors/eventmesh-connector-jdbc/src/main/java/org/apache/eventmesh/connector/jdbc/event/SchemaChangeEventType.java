@@ -17,6 +17,11 @@
 
 package org.apache.eventmesh.connector.jdbc.event;
 
+<<<<<<< HEAD
+=======
+import org.apache.commons.lang3.StringUtils;
+
+>>>>>>> upstream/master
 public enum SchemaChangeEventType {
 
     DATABASE_CREATE("D", "C"),
@@ -41,4 +46,17 @@ public enum SchemaChangeEventType {
     public String ofOperationType() {
         return this.operationType;
     }
+<<<<<<< HEAD
+=======
+
+    public static SchemaChangeEventType ofSchemaChangeEventType(String type, String operationType) {
+        SchemaChangeEventType[] types = values();
+        for (SchemaChangeEventType eventType : types) {
+            if (StringUtils.equalsIgnoreCase(eventType.type, type) && StringUtils.equalsIgnoreCase(eventType.operationType, operationType)) {
+                return eventType;
+            }
+        }
+        return null;
+    }
+>>>>>>> upstream/master
 }

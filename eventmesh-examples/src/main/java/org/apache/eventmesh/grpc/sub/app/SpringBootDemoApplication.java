@@ -15,16 +15,46 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD
 package org.apache.eventmesh.grpc.sub.app;
 
+=======
+<<<<<<<< HEAD:eventmesh-connectors/eventmesh-connector-jdbc/src/main/java/org/apache/eventmesh/connector/jdbc/source/dialect/mysql/MysqlDatabaseDialectFactory.java
+package org.apache.eventmesh.connector.jdbc.source.dialect.mysql;
+
+import org.apache.eventmesh.connector.jdbc.DatabaseDialect;
+import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
+import org.apache.eventmesh.connector.jdbc.source.dialect.DatabaseDialectFactory;
+import org.apache.eventmesh.openconnect.api.config.SourceConfig;
+
+public class MysqlDatabaseDialectFactory implements DatabaseDialectFactory {
+
+    @Override
+    public DatabaseDialect createDatabaseDialect(SourceConfig config) {
+        DatabaseDialect databaseDialect = new MysqlDatabaseDialect((JdbcSourceConfig) config);
+        return databaseDialect;
+========
+package org.apache.eventmesh.grpc.sub.app;
+
+import org.apache.eventmesh.connector.spring.config.EventMeshAutoConfiguration;
+
+>>>>>>> upstream/master
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
+<<<<<<< HEAD
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+=======
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, EventMeshAutoConfiguration.class})
+>>>>>>> upstream/master
 public class SpringBootDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringBootDemoApplication.class, args);
+<<<<<<< HEAD
+=======
+>>>>>>>> upstream/master:eventmesh-examples/src/main/java/org/apache/eventmesh/grpc/sub/app/SpringBootDemoApplication.java
+>>>>>>> upstream/master
     }
 }

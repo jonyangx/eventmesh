@@ -15,6 +15,32 @@
  * limitations under the License.
  */
 
+plugins {
+    id 'com.gradle.develocity' version '3.18.2'
+    id 'com.gradle.common-custom-user-data-gradle-plugin' version '2.0.2'
+}
+
+
+def isCiServer = System.getenv().containsKey("CI")
+
+develocity {
+    server = "https://develocity.apache.org"
+    projectId = "eventmesh"
+    buildScan {
+        uploadInBackground = !isCiServer
+        publishing.onlyIf { it.isAuthenticated() }
+        obfuscation {
+            ipAddresses { addresses -> addresses.collect { address -> "0.0.0.0"} }
+        }
+    }
+}
+
+buildCache {
+    remote(develocity.buildCache) {
+        enabled = false
+    }
+}
+
 rootProject.name = 'eventmesh'
 String jdkVersion = "${jdk}"
 include 'eventmesh-runtime'
@@ -23,11 +49,10 @@ include 'eventmesh-common'
 include 'eventmesh-starter'
 include 'eventmesh-examples'
 include 'eventmesh-spi'
-include 'eventmesh-filter'
-include 'eventmesh-transformer'
 
 include 'eventmesh-openconnect:eventmesh-openconnect-java'
 include 'eventmesh-openconnect:eventmesh-openconnect-offsetmgmt-plugin:eventmesh-openconnect-offsetmgmt-api'
+include 'eventmesh-openconnect:eventmesh-openconnect-offsetmgmt-plugin:eventmesh-openconnect-offsetmgmt-admin'
 include 'eventmesh-openconnect:eventmesh-openconnect-offsetmgmt-plugin:eventmesh-openconnect-offsetmgmt-nacos'
 
 include 'eventmesh-connectors:eventmesh-connector-openfunction'
@@ -44,6 +69,14 @@ include 'eventmesh-connectors:eventmesh-connector-jdbc'
 include 'eventmesh-connectors:eventmesh-connector-file'
 include 'eventmesh-connectors:eventmesh-connector-spring'
 include 'eventmesh-connectors:eventmesh-connector-prometheus'
+include 'eventmesh-connectors:eventmesh-connector-dingtalk'
+include 'eventmesh-connectors:eventmesh-connector-lark'
+include 'eventmesh-connectors:eventmesh-connector-wecom'
+include 'eventmesh-connectors:eventmesh-connector-slack'
+include 'eventmesh-connectors:eventmesh-connector-wechat'
+include 'eventmesh-connectors:eventmesh-connector-http'
+include 'eventmesh-connectors:eventmesh-connector-chatgpt'
+include 'eventmesh-connectors:eventmesh-connector-canal'
 
 include 'eventmesh-storage-plugin:eventmesh-storage-api'
 include 'eventmesh-storage-plugin:eventmesh-storage-standalone'
@@ -64,6 +97,7 @@ include 'eventmesh-meta:eventmesh-meta-nacos'
 include 'eventmesh-meta:eventmesh-meta-etcd'
 include 'eventmesh-meta:eventmesh-meta-consul'
 include 'eventmesh-meta:eventmesh-meta-zookeeper'
+include 'eventmesh-meta:eventmesh-meta-raft'
 
 include 'eventmesh-protocol-plugin'
 include 'eventmesh-protocol-plugin:eventmesh-protocol-api'
@@ -71,7 +105,6 @@ include 'eventmesh-protocol-plugin:eventmesh-protocol-openmessage'
 include 'eventmesh-protocol-plugin:eventmesh-protocol-cloudevents'
 include 'eventmesh-protocol-plugin:eventmesh-protocol-meshmessage'
 include 'eventmesh-protocol-plugin:eventmesh-protocol-http'
-include 'eventmesh-protocol-plugin:eventmesh-protocol-webhook'
 include 'eventmesh-protocol-plugin:eventmesh-protocol-grpc'
 include 'eventmesh-protocol-plugin:eventmesh-protocol-grpcmessage'
 
@@ -85,8 +118,16 @@ include 'eventmesh-trace-plugin:eventmesh-trace-zipkin'
 include 'eventmesh-trace-plugin:eventmesh-trace-pinpoint'
 include 'eventmesh-trace-plugin:eventmesh-trace-jaeger'
 
-include 'eventmesh-webhook'
-include 'eventmesh-webhook:eventmesh-webhook-api'
-include 'eventmesh-webhook:eventmesh-webhook-admin'
-include 'eventmesh-webhook:eventmesh-webhook-receive'
+include 'eventmesh-retry'
+include 'eventmesh-retry:eventmesh-retry-api'
+include 'eventmesh-retry:eventmesh-retry-rocketmq'
+include 'eventmesh-runtime-v2'
+include 'eventmesh-admin-server'
+include 'eventmesh-registry'
+include 'eventmesh-registry:eventmesh-registry-api'
+include 'eventmesh-registry:eventmesh-registry-nacos'
 
+include 'eventmesh-function'
+include 'eventmesh-function:eventmesh-function-api'
+include 'eventmesh-function:eventmesh-function-filter'
+include 'eventmesh-function:eventmesh-function-transformer'

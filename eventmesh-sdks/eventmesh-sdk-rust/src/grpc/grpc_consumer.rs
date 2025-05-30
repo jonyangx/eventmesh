@@ -146,6 +146,7 @@ impl EventMeshGrpcConsumer {
                 let handled_msg = listener_inner.handle(eventmesh_message.unwrap());
                 if let Ok(msg_option) = handled_msg {
                     if let Some(_msg) = msg_option {
+<<<<<<< HEAD
                         let properties = HashMap::<String, String>::new();
                         let reply = SubscriptionReply::new(
                             EventMeshCloudEventUtils::get_subject(&received),
@@ -159,6 +160,17 @@ impl EventMeshGrpcConsumer {
                         );
                         received.data =
                             Some(PbData::TextData(serde_json::to_string(&reply).unwrap()));
+=======
+                        received.attributes.insert(
+                            ProtocolKey::SUB_MESSAGE_TYPE.to_string(),
+                            PbCloudEventAttributeValue {
+                                attr: Some(PbAttr::CeString(
+                                    SubscriptionReply::SUB_TYPE.to_string(),
+                                )),
+                            },
+                        );
+                        received.data = None;
+>>>>>>> upstream/master
                         let _ = keeper.sender.send(received).await;
                     }
                 } else {

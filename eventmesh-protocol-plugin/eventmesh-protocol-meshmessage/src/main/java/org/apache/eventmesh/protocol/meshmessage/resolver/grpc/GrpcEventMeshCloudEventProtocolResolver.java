@@ -39,7 +39,11 @@ public class GrpcEventMeshCloudEventProtocolResolver {
     private static final EventFormat eventFormat = EventFormatProvider.getInstance().resolveFormat(ProtobufFormat.PROTO_CONTENT_TYPE);
 
     public static io.cloudevents.CloudEvent buildEvent(CloudEvent cloudEvent) {
+<<<<<<< HEAD
         if (null == cloudEvent) {
+=======
+        if (cloudEvent == null) {
+>>>>>>> upstream/master
             return null;
         }
         io.cloudevents.CloudEvent event = eventFormat.deserialize(cloudEvent.toByteArray());
@@ -47,7 +51,11 @@ public class GrpcEventMeshCloudEventProtocolResolver {
     }
 
     public static EventMeshCloudEventWrapper buildEventMeshCloudEvent(io.cloudevents.CloudEvent cloudEvent) {
+<<<<<<< HEAD
         if (null == cloudEvent) {
+=======
+        if (cloudEvent == null) {
+>>>>>>> upstream/master
             return new EventMeshCloudEventWrapper(null);
         }
         try {

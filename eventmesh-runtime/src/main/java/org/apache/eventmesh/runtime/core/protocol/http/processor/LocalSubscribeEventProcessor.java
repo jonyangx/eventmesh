@@ -25,7 +25,10 @@ import org.apache.eventmesh.common.protocol.http.common.ProtocolKey;
 import org.apache.eventmesh.common.protocol.http.common.RequestURI;
 import org.apache.eventmesh.common.utils.IPUtils;
 import org.apache.eventmesh.common.utils.JsonUtils;
+<<<<<<< HEAD
 import org.apache.eventmesh.common.utils.LogUtils;
+=======
+>>>>>>> upstream/master
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.common.EventMeshTrace;
@@ -34,13 +37,20 @@ import org.apache.eventmesh.runtime.core.consumer.ClientInfo;
 import org.apache.eventmesh.runtime.core.consumer.SubscriptionManager;
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.AbstractEventProcessor;
 import org.apache.eventmesh.runtime.util.RemotingHelper;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.util.WebhookUtil;
+=======
+>>>>>>> upstream/master
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+<<<<<<< HEAD
+=======
+import java.util.concurrent.Executor;
+>>>>>>> upstream/master
 
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.HttpRequest;
@@ -68,8 +78,13 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
         final HttpEventWrapper requestWrapper = handlerSpecific.getAsyncContext().getRequest();
         String localAddress = IPUtils.getLocalAddress();
         String remoteAddr = RemotingHelper.parseChannelRemoteAddr(channel);
+<<<<<<< HEAD
         LogUtils.info(log, "uri={}|{}|client2eventMesh|from={}|to={}", requestWrapper.getRequestURI(),
             EventMeshConstants.PROTOCOL_HTTP, remoteAddr, localAddress);
+=======
+        log.info("uri={}|{}|client2eventMesh|from={}|to={}",
+            requestWrapper.getRequestURI(), EventMeshConstants.PROTOCOL_HTTP, remoteAddr, localAddress);
+>>>>>>> upstream/master
 
         // user request header
         requestWrapper.getHeaderMap().put(ProtocolKey.ClientInstanceKey.IP.getKey(), remoteAddr);
@@ -119,7 +134,11 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
                     this.acl.doAclCheckInHttpReceive(remoteAddr, user, pass, subsystem, item.getTopic(),
                         requestWrapper.getRequestURI());
                 } catch (Exception e) {
+<<<<<<< HEAD
                     LogUtils.warn(log, "CLIENT HAS NO PERMISSION,SubscribeProcessor subscribe failed", e);
+=======
+                    log.warn("CLIENT HAS NO PERMISSION,SubscribeProcessor subscribe failed", e);
+>>>>>>> upstream/master
 
                     handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_ACL_ERR, responseHeaderMap,
                         responseBodyMap, null);
@@ -132,20 +151,29 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
         try {
             if (!IPUtils.isValidDomainOrIp(url, eventMeshHTTPServer.getEventMeshHttpConfiguration().getEventMeshIpv4BlackList(),
                 eventMeshHTTPServer.getEventMeshHttpConfiguration().getEventMeshIpv6BlackList())) {
+<<<<<<< HEAD
                 LogUtils.error(log, "subscriber url {} is not valid", url);
+=======
+                log.error("subscriber url {} is not valid", url);
+>>>>>>> upstream/master
 
                 handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR, responseHeaderMap,
                     responseBodyMap, null);
                 return;
             }
         } catch (Exception e) {
+<<<<<<< HEAD
             LogUtils.error(log, "subscriber url {} is not valid", url, e);
+=======
+            log.error("subscriber url {} is not valid", url, e);
+>>>>>>> upstream/master
 
             handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR, responseHeaderMap,
                 responseBodyMap, null);
             return;
         }
 
+<<<<<<< HEAD
         // obtain webhook delivery agreement for Abuse Protection
         if (!WebhookUtil.obtainDeliveryAgreement(eventMeshHTTPServer.getHttpClientPool().getClient(),
             url, eventMeshHTTPServer.getEventMeshHttpConfiguration().getEventMeshWebhookOrigin())) {
@@ -155,6 +183,8 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
             return;
         }
 
+=======
+>>>>>>> upstream/master
         synchronized (eventMeshHTTPServer.getSubscriptionManager().getLocalClientInfoMapping()) {
             ClientInfo clientInfo = getClientInfo(requestWrapper);
             SubscriptionManager subscriptionManager = eventMeshHTTPServer.getSubscriptionManager();
@@ -172,6 +202,7 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
                 handlerSpecific.sendResponse(responseHeaderMap, responseBodyMap);
 
             } catch (Exception e) {
+<<<<<<< HEAD
                 LogUtils.error(log, "message|eventMesh2mq|REQ|ASYNC|send2MQCost={}ms|topic={}|url={}",
                     System.currentTimeMillis() - startTime,
                     JsonUtils.toJSONString(subscriptionList),
@@ -179,6 +210,12 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
 
                 handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_SUBSCRIBE_ERR, responseHeaderMap,
                     responseBodyMap, null);
+=======
+                log.error("message|eventMesh2mq|REQ|ASYNC|send2MQCost={}ms|topic={}|url={}",
+                    System.currentTimeMillis() - startTime, JsonUtils.toJSONString(subscriptionList), url, e);
+
+                handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_SUBSCRIBE_ERR, responseHeaderMap, responseBodyMap, null);
+>>>>>>> upstream/master
             }
 
             // Update service metadata
@@ -189,7 +226,16 @@ public class LocalSubscribeEventProcessor extends AbstractEventProcessor {
 
     @Override
     public String[] paths() {
+<<<<<<< HEAD
         return new String[]{RequestURI.SUBSCRIBE_LOCAL.getRequestURI()};
+=======
+        return new String[] {RequestURI.SUBSCRIBE_LOCAL.getRequestURI()};
+    }
+
+    @Override
+    public Executor executor() {
+        return eventMeshHTTPServer.getHttpThreadPoolGroup().getClientManageExecutor();
+>>>>>>> upstream/master
     }
 
     private ClientInfo getClientInfo(final HttpEventWrapper requestWrapper) {

@@ -24,9 +24,16 @@ import org.apache.eventmesh.common.utils.IPUtils;
 import org.apache.eventmesh.runtime.boot.EventMeshServer;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
+<<<<<<< HEAD
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.HttpRequestProcessor;
 import org.apache.eventmesh.runtime.util.RemotingHelper;
 
+=======
+import org.apache.eventmesh.runtime.util.RemotingHelper;
+
+import java.util.concurrent.Executor;
+
+>>>>>>> upstream/master
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +42,11 @@ import io.netty.channel.ChannelHandlerContext;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+<<<<<<< HEAD
 public class AdminShutdownProcessor implements HttpRequestProcessor {
+=======
+public class AdminShutdownProcessor extends AbstractHttpRequestProcessor {
+>>>>>>> upstream/master
 
     public final Logger cmdLogger = LoggerFactory.getLogger(EventMeshConstants.CMD);
 
@@ -54,4 +65,14 @@ public class AdminShutdownProcessor implements HttpRequestProcessor {
         HttpCommand responseEventMeshCommand = asyncContext.getRequest().createHttpCommandResponse(EventMeshRetCode.SUCCESS);
         asyncContext.onComplete(responseEventMeshCommand);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public Executor executor() {
+        return (Runnable runnable) -> {
+            runnable.run();
+        };
+    }
+>>>>>>> upstream/master
 }

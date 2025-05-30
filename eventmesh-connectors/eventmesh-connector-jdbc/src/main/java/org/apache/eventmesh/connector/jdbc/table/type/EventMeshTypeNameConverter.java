@@ -17,11 +17,29 @@
 
 package org.apache.eventmesh.connector.jdbc.table.type;
 
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.BooleanEventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.BytesEventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.DateEventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.DateTimeEventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.DecimalEventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.Float32EventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.Float64EventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.Int16EventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.Int32EventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.Int64EventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.Int8EventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.StringEventMeshDataType;
+import org.apache.eventmesh.connector.jdbc.type.eventmesh.TimeEventMeshDataType;
+
+>>>>>>> upstream/master
 import java.util.HashMap;
 import java.util.Map;
 
 public final class EventMeshTypeNameConverter {
 
+<<<<<<< HEAD
     private static Map<EventMeshDataType<?>, String> PRIMITIVE_TYPE_MAP = new HashMap<>(32);
 
     static {
@@ -56,6 +74,28 @@ public final class EventMeshTypeNameConverter {
             return String.format("decimal(%s,%s)", decimalType.getScale(), decimalType.getPrecision());
         }
         return typeName;
+=======
+    private static Map<String, EventMeshDataType> PRIMITIVE_TYPE_MAP = new HashMap<>(32);
+
+    static {
+        PRIMITIVE_TYPE_MAP.put(BooleanEventMeshDataType.INSTANCE.getName(), BooleanEventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(Float32EventMeshDataType.INSTANCE.getName(), Float32EventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(Float64EventMeshDataType.INSTANCE.getName(), Float64EventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(Int8EventMeshDataType.INSTANCE.getName(), Int8EventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(Int16EventMeshDataType.INSTANCE.getName(), Int16EventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(Int32EventMeshDataType.INSTANCE.getName(), Int32EventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(Int64EventMeshDataType.INSTANCE.getName(), Int64EventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(StringEventMeshDataType.INSTANCE.getName(), StringEventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(BytesEventMeshDataType.INSTANCE.getName(), BytesEventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(DateEventMeshDataType.INSTANCE.getName(), DateEventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(TimeEventMeshDataType.INSTANCE.getName(), TimeEventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(DateTimeEventMeshDataType.INSTANCE.getName(), DateTimeEventMeshDataType.INSTANCE);
+        PRIMITIVE_TYPE_MAP.put(DecimalEventMeshDataType.INSTANCE.getName(), DecimalEventMeshDataType.INSTANCE);
+    }
+
+    public static EventMeshDataType ofEventMeshDataType(String dataType) {
+        return PRIMITIVE_TYPE_MAP.get(dataType);
+>>>>>>> upstream/master
     }
 
 }

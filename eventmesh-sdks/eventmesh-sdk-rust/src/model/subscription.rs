@@ -201,6 +201,11 @@ pub struct SubscriptionReply {
 }
 
 impl SubscriptionReply {
+<<<<<<< HEAD
+=======
+    pub const SUB_TYPE: &'static str = "subscription_reply";
+
+>>>>>>> upstream/master
     pub fn new(
         producer_group: String,
         topic: String,

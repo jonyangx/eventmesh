@@ -94,7 +94,11 @@ public class Codec {
             int bodyLength = 0;
 
             try {
+<<<<<<< HEAD
                 if (null == in) {
+=======
+                if (in == null) {
+>>>>>>> upstream/master
                     return;
                 }
 

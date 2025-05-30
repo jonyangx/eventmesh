@@ -17,12 +17,19 @@
 
 package org.apache.eventmesh.connector.redis.source.connector;
 
+<<<<<<< HEAD
 import org.apache.eventmesh.connector.redis.AbstractRedisServer;
 import org.apache.eventmesh.connector.redis.cloudevent.CloudEventCodec;
 import org.apache.eventmesh.connector.redis.source.config.RedisSourceConfig;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
+=======
+import org.apache.eventmesh.common.config.connector.redis.RedisSourceConfig;
+import org.apache.eventmesh.connector.redis.AbstractRedisServer;
+import org.apache.eventmesh.connector.redis.cloudevent.CloudEventCodec;
+import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
+>>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.util.CloudEventUtil;
 import org.apache.eventmesh.openconnect.util.ConfigUtil;
 
@@ -76,9 +83,13 @@ public class RedisSourceConnectorTest extends AbstractRedisServer {
     private void publishMockEvents() {
         int mockCount = 5;
         for (int i = 0; i < mockCount; i++) {
+<<<<<<< HEAD
             RecordPartition partition = new RecordPartition();
             RecordOffset offset = new RecordOffset();
             ConnectRecord connectRecord = new ConnectRecord(partition, offset, System.currentTimeMillis(),
+=======
+            ConnectRecord connectRecord = new ConnectRecord(null, null, System.currentTimeMillis(),
+>>>>>>> upstream/master
                 ("\"" + expectedMessage + "\"").getBytes(StandardCharsets.UTF_8));
             connectRecord.addExtension("id", String.valueOf(UUID.randomUUID()));
             connectRecord.addExtension("source", "testSource");

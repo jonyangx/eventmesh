@@ -24,6 +24,10 @@ import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.consumergroup.ConsumerGroupConf;
 import org.apache.eventmesh.runtime.core.consumergroup.ConsumerGroupTopicConf;
+<<<<<<< HEAD
+=======
+import org.apache.eventmesh.runtime.core.protocol.consumer.HandleMessageContext;
+>>>>>>> upstream/master
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -41,7 +45,11 @@ import io.cloudevents.CloudEvent;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+<<<<<<< HEAD
 public class HandleMsgContext {
+=======
+public class HandleMsgContext implements HandleMessageContext {
+>>>>>>> upstream/master
 
     public static final Logger MESSAGE_LOGGER = LoggerFactory.getLogger(EventMeshConstants.MESSAGE);
 

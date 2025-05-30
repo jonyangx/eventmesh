@@ -16,16 +16,23 @@
  */
 
 
+<<<<<<< HEAD
 configurations {
     implementation.exclude group: 'ch.qos.logback', module: 'logback-classic'
     implementation.exclude group: 'log4j', module: 'log4j'
 }
 
+=======
+>>>>>>> upstream/master
 dependencies {
     api project(":eventmesh-openconnect:eventmesh-openconnect-java")
     implementation project(":eventmesh-common")
     // rabbitmq
+<<<<<<< HEAD
     implementation 'com.rabbitmq:amqp-client:5.16.0'
+=======
+    implementation 'com.rabbitmq:amqp-client:5.22.0'
+>>>>>>> upstream/master
 
     implementation 'io.cloudevents:cloudevents-json-jackson'
 
