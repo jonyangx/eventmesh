@@ -28,11 +28,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-<<<<<<< HEAD
-public class ConfigInfo {
-=======
 public class ConfigInfo<T> {
->>>>>>> upstream/master
 
     public static final String HUMP_SPOT = "spot";
     public static final String HUMP_ROD = "rod";
@@ -44,11 +40,7 @@ public class ConfigInfo<T> {
     private boolean monitor;
     private boolean removePrefix;
 
-<<<<<<< HEAD
-    private Class<?> clazz;
-=======
     private Class<? super T> clazz;
->>>>>>> upstream/master
     private Object object;
     private String filePath;
 

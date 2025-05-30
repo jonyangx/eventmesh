@@ -94,18 +94,6 @@ public class HelloProcessor implements TcpProcessor {
             MESSAGE_LOGGER.error("HelloTask failed|address={}", ctx.channel().remoteAddress(), e);
             res.setHeader(new Header(HELLO_RESPONSE, OPStatus.FAIL.getCode(), Arrays.toString(e.getStackTrace()), pkg
                 .getHeader().getSeq()));
-<<<<<<< HEAD
-            ctx.writeAndFlush(res).addListener(
-                (ChannelFutureListener) future -> {
-                    if (!future.isSuccess()) {
-                        Utils.logFailedMessageFlow(future, res, user, startTime, taskExecuteTime);
-                    } else {
-                        Utils.logSucceedMessageFlow(res, user, startTime, taskExecuteTime);
-                    }
-                    log.warn("HelloTask failed,close session,addr:{}", ctx.channel().remoteAddress());
-                    eventMeshTCPServer.getClientSessionGroupMapping().closeSession(ctx);
-                });
-=======
             ctx.channel().eventLoop().execute(() -> {
                 ctx.writeAndFlush(res).addListener(
                     (ChannelFutureListener) future -> {
@@ -118,7 +106,6 @@ public class HelloProcessor implements TcpProcessor {
                         eventMeshTCPServer.getClientSessionGroupMapping().closeSession(ctx);
                     });
             });
->>>>>>> upstream/master
         }
     }
 

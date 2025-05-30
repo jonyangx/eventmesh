@@ -15,20 +15,6 @@
 # limitations under the License.
 #
 
-<<<<<<<< HEAD:eventmesh-connectors/eventmesh-connector-openfunction/src/main/resources/sink-config.yml
-pubSubConfig:
-    meshAddress: 127.0.0.1:10000
-    subject: TEST-TOPIC-FUNCTION
-    idc: FT
-    env: PRD
-    group: openFunctionSink
-    appId: 5031
-    userName: openFunctionSinkUser
-    passWord: openFunctionPassWord
-sinkConnectorConfig:
-    connectorName: openFunctionSink
-    target: 127.0.0.1:8080/openfunction
-========
 # The following patch adds a directive for certmanager to inject CA into the CRD
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -36,4 +22,3 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
   name: eventmeshoperators.eventmesh-operator.eventmesh
->>>>>>>> upstream/master:eventmesh-operator/config/crd/patches/cainjection_in_eventmeshoperators.yaml

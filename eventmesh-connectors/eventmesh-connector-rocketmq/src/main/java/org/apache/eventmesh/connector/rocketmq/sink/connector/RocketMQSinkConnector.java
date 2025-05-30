@@ -17,14 +17,9 @@
 
 package org.apache.eventmesh.connector.rocketmq.sink.connector;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.rocketmq.sink.config.RocketMQSinkConfig;
-import org.apache.eventmesh.openconnect.api.config.Config;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 import org.apache.eventmesh.common.config.connector.mq.rocketmq.RocketMQSinkConfig;
 import org.apache.eventmesh.openconnect.api.ConnectorCreateService;
->>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SinkConnectorContext;
 import org.apache.eventmesh.openconnect.api.sink.Sink;
@@ -40,11 +35,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-<<<<<<< HEAD
-public class RocketMQSinkConnector implements Sink {
-=======
 public class RocketMQSinkConnector implements Sink, ConnectorCreateService<Sink> {
->>>>>>> upstream/master
 
     private RocketMQSinkConfig sinkConfig;
 
@@ -88,14 +79,11 @@ public class RocketMQSinkConnector implements Sink, ConnectorCreateService<Sink>
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void onException(ConnectRecord record) {
 
     }
 
     @Override
->>>>>>> upstream/master
     public void stop() {
         producer.shutdown();
     }
@@ -126,12 +114,9 @@ public class RocketMQSinkConnector implements Sink, ConnectorCreateService<Sink>
         }
         return message;
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public Sink create() {
         return new RocketMQSinkConnector();
     }
->>>>>>> upstream/master
 }

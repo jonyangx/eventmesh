@@ -25,18 +25,8 @@ import org.apache.eventmesh.common.protocol.grpc.cloudevents.CloudEvent.CloudEve
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.ConsumerServiceGrpc.ConsumerServiceStub;
 import org.apache.eventmesh.common.protocol.grpc.common.EventMeshCloudEventUtils;
 import org.apache.eventmesh.common.protocol.grpc.common.ProtocolKey;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.protocol.grpc.common.SubscriptionReply;
-import org.apache.eventmesh.common.utils.JsonUtils;
-import org.apache.eventmesh.common.utils.LogUtils;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-=======
-
-import java.io.Serializable;
->>>>>>> upstream/master
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -81,18 +71,10 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
             public void onNext(final CloudEvent message) {
                 T msg = EventMeshCloudEventBuilder.buildMessageFromEventMeshCloudEvent(message, listener.getProtocolType());
                 if (msg instanceof Set) {
-<<<<<<< HEAD
-                    LogUtils.info(log, "Received message from Server:{}", message);
-                } else {
-                    LogUtils.info(log, "Received message from Server.|seq={}|uniqueId={}|",
-                        EventMeshCloudEventUtils.getSeqNum(message),
-                        EventMeshCloudEventUtils.getUniqueId(message));
-=======
                     log.info("Received message from Server:{}", message);
                 } else {
                     log.info("Received message from Server.|seq={}|uniqueId={}|",
                         EventMeshCloudEventUtils.getSeqNum(message), EventMeshCloudEventUtils.getUniqueId(message));
->>>>>>> upstream/master
                     CloudEvent streamReply = null;
                     try {
                         Optional<T> reply = listener.handle(msg);
@@ -100,23 +82,12 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
                             streamReply = buildReplyMessage(message, reply.get());
                         }
                     } catch (Exception e) {
-<<<<<<< HEAD
-                        LogUtils.error(log, "Error in handling reply message.|seq={}|uniqueId={}|",
-                            EventMeshCloudEventUtils.getSeqNum(message),
-                            EventMeshCloudEventUtils.getUniqueId(message), e);
-                    }
-                    if (streamReply != null) {
-                        LogUtils.info(log, "Sending reply message to Server.|seq={}|uniqueId={}|",
-                            EventMeshCloudEventUtils.getSeqNum(streamReply),
-                            EventMeshCloudEventUtils.getUniqueId(streamReply));
-=======
                         log.error("Error in handling reply message.|seq={}|uniqueId={}|",
                             EventMeshCloudEventUtils.getSeqNum(message), EventMeshCloudEventUtils.getUniqueId(message), e);
                     }
                     if (streamReply != null) {
                         log.info("Sending reply message to Server.|seq={}|uniqueId={}|",
                             EventMeshCloudEventUtils.getSeqNum(streamReply), EventMeshCloudEventUtils.getUniqueId(streamReply));
->>>>>>> upstream/master
                         senderOnNext(streamReply);
                     }
                 }
@@ -124,22 +95,13 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
 
             @Override
             public void onError(final Throwable t) {
-<<<<<<< HEAD
-                LogUtils.error(log, "Received Server side error", t);
-=======
                 log.error("Received Server side error", t);
->>>>>>> upstream/master
                 close();
             }
 
             @Override
             public void onCompleted() {
-<<<<<<< HEAD
-                LogUtils.info(log, "Finished receiving messages from server.");
-                close();
-=======
                 log.info("Finished receiving messages from server.");
->>>>>>> upstream/master
             }
         };
     }
@@ -147,26 +109,6 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
     private CloudEvent buildReplyMessage(final CloudEvent reqMessage, final T replyMessage) {
         final CloudEvent cloudEvent = EventMeshCloudEventBuilder.buildEventMeshCloudEvent(replyMessage,
             clientConfig, listener.getProtocolType());
-<<<<<<< HEAD
-        SubscriptionReply subscriptionReply = SubscriptionReply.builder().producerGroup(clientConfig.getConsumerGroup())
-            .topic(EventMeshCloudEventUtils.getSubject(cloudEvent))
-            .content(EventMeshCloudEventUtils.getDataContent(cloudEvent))
-            .seqNum(EventMeshCloudEventUtils.getSeqNum(cloudEvent))
-            .uniqueId(EventMeshCloudEventUtils.getUniqueId(cloudEvent))
-            .ttl(EventMeshCloudEventUtils.getTtl(cloudEvent)).build();
-
-        Map<String, String> prop = new HashMap<>();
-        Map<String, CloudEventAttributeValue> reqMessageMap = reqMessage.getAttributesMap();
-        reqMessageMap.entrySet().forEach(entry -> prop.put(entry.getKey(), entry.getValue().getCeString()));
-        Map<String, CloudEventAttributeValue> cloudEventMap = reqMessage.getAttributesMap();
-        cloudEventMap.entrySet().forEach(entry -> prop.put(entry.getKey(), entry.getValue().getCeString()));
-        subscriptionReply.putAllProperties(prop);
-
-        return CloudEvent.newBuilder().putAllAttributes(cloudEvent.getAttributesMap())
-            .putAttributes(ProtocolKey.DATA_CONTENT_TYPE,
-                CloudEventAttributeValue.newBuilder().setCeString(EventMeshDataContentType.JSON.getCode()).build())
-            .setTextData(JsonUtils.toJSONString(subscriptionReply)).build();
-=======
 
         return CloudEvent.newBuilder(cloudEvent).putAllAttributes(reqMessage.getAttributesMap()).putAllAttributes(cloudEvent.getAttributesMap())
             .putAttributes(ProtocolKey.DATA_CONTENT_TYPE,
@@ -174,7 +116,6 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
             // Indicate that it is a subscription response
             .putAttributes(ProtocolKey.SUB_MESSAGE_TYPE, CloudEventAttributeValue.newBuilder().setCeString(ProtocolKey.SUB_REPLY_MESSAGE).build())
             .build();
->>>>>>> upstream/master
     }
 
     @Override
@@ -193,12 +134,7 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
         }
 
         latch.countDown();
-<<<<<<< HEAD
-
-        LogUtils.info(log, "SubStreamHandler closed.");
-=======
         log.info("SubStreamHandler closed.");
->>>>>>> upstream/master
     }
 
     private void senderOnNext(final CloudEvent subscription) {
@@ -208,10 +144,7 @@ public class SubStreamHandler<T> extends Thread implements Serializable {
             }
         } catch (Exception e) {
             log.error("StreamObserver Error onNext", e);
-<<<<<<< HEAD
-=======
             close();
->>>>>>> upstream/master
         }
     }
 

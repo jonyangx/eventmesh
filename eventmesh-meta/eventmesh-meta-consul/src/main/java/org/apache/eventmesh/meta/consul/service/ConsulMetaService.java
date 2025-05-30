@@ -19,10 +19,7 @@ package org.apache.eventmesh.meta.consul.service;
 
 import org.apache.eventmesh.api.exception.MetaException;
 import org.apache.eventmesh.api.meta.MetaService;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.api.meta.MetaServiceListener;
->>>>>>> upstream/master
 import org.apache.eventmesh.api.meta.dto.EventMeshDataInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshRegisterInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshUnRegisterInfo;
@@ -75,11 +72,7 @@ public class ConsulMetaService implements MetaService {
         if (initStatus.compareAndSet(false, true)) {
             for (String key : ConfigurationContextUtil.KEYS) {
                 CommonConfiguration commonConfiguration = ConfigurationContextUtil.get(key);
-<<<<<<< HEAD
-                if (null != commonConfiguration) {
-=======
                 if (commonConfiguration != null) {
->>>>>>> upstream/master
                     String metaStorageAddr = commonConfiguration.getMetaStorageAddr();
                     if (StringUtils.isBlank(metaStorageAddr)) {
                         throw new MetaException("namesrvAddr cannot be null");
@@ -170,15 +163,12 @@ public class ConsulMetaService implements MetaService {
         return true;
     }
 
-<<<<<<< HEAD
-=======
     // todo: to be implemented
     @Override
     public void getMetaDataWithListener(MetaServiceListener metaServiceListener, String key) {
 
     }
 
->>>>>>> upstream/master
     @Override
     public List<EventMeshDataInfo> findEventMeshInfoByCluster(String clusterName) throws MetaException {
         HealthServicesRequest request = HealthServicesRequest.newBuilder().setPassing(true).setToken(token).build();
@@ -209,11 +199,7 @@ public class ConsulMetaService implements MetaService {
     }
 
     @Override
-<<<<<<< HEAD
-    public String getMetaData(String key) {
-=======
     public Map<String, String> getMetaData(String key, boolean fuzzyEnabled) {
->>>>>>> upstream/master
         return null;
     }
 

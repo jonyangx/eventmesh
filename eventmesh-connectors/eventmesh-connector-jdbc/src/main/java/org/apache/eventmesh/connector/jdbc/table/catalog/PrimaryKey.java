@@ -22,10 +22,7 @@ import java.util.List;
 public class PrimaryKey extends UniqueKey {
 
     public PrimaryKey() {
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/master
     }
 
     public PrimaryKey(String name, List<String> columnNames, String comment) {

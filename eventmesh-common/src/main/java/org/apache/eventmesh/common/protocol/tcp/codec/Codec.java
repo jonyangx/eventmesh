@@ -25,30 +25,17 @@ import org.apache.eventmesh.common.protocol.tcp.RedirectInfo;
 import org.apache.eventmesh.common.protocol.tcp.Subscription;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
 import org.apache.eventmesh.common.utils.JsonUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
 import org.apache.eventmesh.common.utils.LogUtil;
->>>>>>> upstream/master
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
-<<<<<<< HEAD
-import java.util.List;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.codec.ReplayingDecoder;
-=======
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.MessageToByteEncoder;
->>>>>>> upstream/master
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.base.Preconditions;
@@ -63,13 +50,10 @@ public class Codec {
     private static final byte[] CONSTANT_MAGIC_FLAG = serializeBytes("EventMesh");
     private static final byte[] VERSION = serializeBytes("0000");
 
-<<<<<<< HEAD
-=======
     private static final int PREFIX_LENGTH = CONSTANT_MAGIC_FLAG.length + VERSION.length; //13
 
     private static final int PACKAGE_BYTES_FIELD_LENGTH = 4;
 
->>>>>>> upstream/master
     public static class Encoder extends MessageToByteEncoder<Package> {
 
         @Override
@@ -77,13 +61,7 @@ public class Codec {
             Preconditions.checkNotNull(pkg, "TcpPackage cannot be null");
             final Header header = pkg.getHeader();
             Preconditions.checkNotNull(header, "TcpPackage header cannot be null", header);
-<<<<<<< HEAD
-            if (log.isDebugEnabled()) {
-                log.debug("Encoder pkg={}", JsonUtils.toJSONString(pkg));
-            }
-=======
             LogUtil.debug(log, "Encode pkg={}", () -> JsonUtils.toJSONString(pkg));
->>>>>>> upstream/master
 
             final byte[] headerData = JsonUtils.toJSONBytes(header);
             final byte[] bodyData;
@@ -97,11 +75,7 @@ public class Codec {
             int headerLength = ArrayUtils.getLength(headerData);
             int bodyLength = ArrayUtils.getLength(bodyData);
 
-<<<<<<< HEAD
-            final int length = CONSTANT_MAGIC_FLAG.length + VERSION.length + headerLength + bodyLength;
-=======
             final int length = PREFIX_LENGTH + headerLength + bodyLength;
->>>>>>> upstream/master
 
             if (length > FRAME_MAX_LENGTH) {
                 throw new IllegalArgumentException("message size is exceed limit!");
@@ -128,33 +102,6 @@ public class Codec {
         }
     }
 
-<<<<<<< HEAD
-    public static class Decoder extends ReplayingDecoder<Package> {
-
-        @Override
-        public void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-            try {
-                if (null == in) {
-                    return;
-                }
-
-                byte[] flagBytes = parseFlag(in);
-                byte[] versionBytes = parseVersion(in);
-                validateFlag(flagBytes, versionBytes, ctx);
-
-                final int length = in.readInt();
-                final int headerLength = in.readInt();
-                final int bodyLength = length - CONSTANT_MAGIC_FLAG.length - VERSION.length - headerLength;
-                Header header = parseHeader(in, headerLength);
-                Object body = parseBody(in, header, bodyLength);
-
-                Package pkg = new Package(header, body);
-                out.add(pkg);
-            } catch (Exception e) {
-                log.error("decode error| received data: {}.", deserializeBytes(in.array()), e);
-                throw e;
-            }
-=======
     public static class Decoder extends LengthFieldBasedFrameDecoder {
 
         public Decoder() {
@@ -211,7 +158,6 @@ public class Codec {
             }
 
             return null;
->>>>>>> upstream/master
         }
 
         private byte[] parseFlag(ByteBuf in) {
@@ -232,11 +178,7 @@ public class Codec {
             }
             final byte[] headerData = new byte[headerLength];
             in.readBytes(headerData);
-<<<<<<< HEAD
-            LogUtils.debug(log, "Decode headerJson={}", deserializeBytes(headerData));
-=======
             LogUtil.debug(log, "Decode headerJson={}", () -> deserializeBytes(headerData));
->>>>>>> upstream/master
             return JsonUtils.parseObject(headerData, Header.class);
         }
 
@@ -246,11 +188,7 @@ public class Codec {
             }
             final byte[] bodyData = new byte[bodyLength];
             in.readBytes(bodyData);
-<<<<<<< HEAD
-            LogUtils.debug(log, "Decode bodyJson={}", deserializeBytes(bodyData));
-=======
             LogUtil.debug(log, "Decode bodyJson={}", () -> deserializeBytes(bodyData));
->>>>>>> upstream/master
             return deserializeBody(deserializeBytes(bodyData), header);
         }
 
@@ -302,11 +240,7 @@ public class Codec {
             case REDIRECT_TO_CLIENT:
                 return JsonUtils.parseObject(bodyJsonString, RedirectInfo.class);
             default:
-<<<<<<< HEAD
-                LogUtils.warn(log, "Invalidate TCP command: {}", command);
-=======
                 log.warn("Invalidate TCP command: {}", command);
->>>>>>> upstream/master
                 return null;
         }
     }

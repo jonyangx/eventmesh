@@ -18,11 +18,7 @@
 package org.apache.eventmesh.trace.jaeger.config;
 
 import org.apache.eventmesh.common.config.Config;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import lombok.Data;
 
@@ -30,16 +26,9 @@ import lombok.Data;
 @Config(prefix = "eventmesh.trace.jaeger", path = "classPath://jaeger.properties")
 public class JaegerConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "ip", notEmpty = true)
-    private String eventMeshJaegerIp = "localhost";
-
-    @ConfigFiled(field = "port", notEmpty = true)
-=======
     @ConfigField(field = "ip", notEmpty = true)
     private String eventMeshJaegerIp = "localhost";
 
     @ConfigField(field = "port", notEmpty = true)
->>>>>>> upstream/master
     private int eventMeshJaegerPort = 14250;
 }

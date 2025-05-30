@@ -49,11 +49,7 @@ public class Header {
     }
 
     public void putProperty(final String name, final Object value) {
-<<<<<<< HEAD
-        if (null == this.properties) {
-=======
         if (this.properties == null) {
->>>>>>> upstream/master
             this.properties = new HashMap<>();
         }
 
@@ -61,11 +57,7 @@ public class Header {
     }
 
     public Object getProperty(final String name) {
-<<<<<<< HEAD
-        if (null == this.properties) {
-=======
         if (this.properties == null) {
->>>>>>> upstream/master
             return null;
         }
         return this.properties.get(name);
@@ -73,11 +65,7 @@ public class Header {
 
     public String getStringProperty(final String name) {
         Object property = getProperty(name);
-<<<<<<< HEAD
-        if (null == property) {
-=======
         if (property == null) {
->>>>>>> upstream/master
             return null;
         }
         return property.toString();

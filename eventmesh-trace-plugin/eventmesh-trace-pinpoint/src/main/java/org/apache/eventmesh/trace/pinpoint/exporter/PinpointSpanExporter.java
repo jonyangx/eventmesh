@@ -40,11 +40,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-<<<<<<< HEAD
-=======
 import org.mapstruct.factory.Mappers;
 
->>>>>>> upstream/master
 import io.grpc.NameResolverProvider;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.internal.OtelEncodingUtils;
@@ -60,10 +57,7 @@ import io.opentelemetry.semconv.resource.attributes.ResourceAttributes;
 
 import com.navercorp.pinpoint.bootstrap.context.SpanId;
 import com.navercorp.pinpoint.bootstrap.context.TraceId;
-<<<<<<< HEAD
-=======
 import com.navercorp.pinpoint.common.profiler.util.TransactionIdUtils;
->>>>>>> upstream/master
 import com.navercorp.pinpoint.common.trace.AnnotationKey;
 import com.navercorp.pinpoint.common.trace.ServiceType;
 import com.navercorp.pinpoint.common.util.JvmUtils;
@@ -76,10 +70,7 @@ import com.navercorp.pinpoint.grpc.client.HeaderFactory;
 import com.navercorp.pinpoint.profiler.AgentInfoSender;
 import com.navercorp.pinpoint.profiler.JvmInformation;
 import com.navercorp.pinpoint.profiler.context.DefaultServerMetaDataRegistryService;
-<<<<<<< HEAD
-=======
 import com.navercorp.pinpoint.profiler.context.DefaultSpanFactory;
->>>>>>> upstream/master
 import com.navercorp.pinpoint.profiler.context.ServerMetaDataRegistryService;
 import com.navercorp.pinpoint.profiler.context.Span;
 import com.navercorp.pinpoint.profiler.context.SpanEvent;
@@ -88,14 +79,6 @@ import com.navercorp.pinpoint.profiler.context.compress.GrpcSpanProcessorV2;
 import com.navercorp.pinpoint.profiler.context.grpc.GrpcAgentInfoMessageConverter;
 import com.navercorp.pinpoint.profiler.context.grpc.GrpcSpanMessageConverter;
 import com.navercorp.pinpoint.profiler.context.grpc.config.GrpcTransportConfig;
-<<<<<<< HEAD
-import com.navercorp.pinpoint.profiler.context.id.DefaultTraceId;
-import com.navercorp.pinpoint.profiler.context.id.DefaultTraceRoot;
-import com.navercorp.pinpoint.profiler.context.id.TraceRoot;
-import com.navercorp.pinpoint.profiler.context.provider.AgentInformationProvider;
-import com.navercorp.pinpoint.profiler.context.provider.grpc.DnsExecutorServiceProvider;
-import com.navercorp.pinpoint.profiler.context.provider.grpc.GrpcNameResolverProvider;
-=======
 import com.navercorp.pinpoint.profiler.context.grpc.config.SpanAutoUriGetter;
 import com.navercorp.pinpoint.profiler.context.grpc.config.SpanUriGetter;
 import com.navercorp.pinpoint.profiler.context.grpc.mapper.AgentInfoMapper;
@@ -114,7 +97,6 @@ import com.navercorp.pinpoint.profiler.context.provider.AgentInformationProvider
 import com.navercorp.pinpoint.profiler.context.provider.grpc.DnsExecutorServiceProvider;
 import com.navercorp.pinpoint.profiler.context.provider.grpc.GrpcNameResolverProvider;
 import com.navercorp.pinpoint.profiler.context.provider.grpc.SSLContextProvider;
->>>>>>> upstream/master
 import com.navercorp.pinpoint.profiler.metadata.MetaDataType;
 import com.navercorp.pinpoint.profiler.monitor.metric.gc.JvmGcType;
 import com.navercorp.pinpoint.profiler.receiver.ProfilerCommandLocatorBuilder;
@@ -151,10 +133,7 @@ public final class PinpointSpanExporter implements SpanExporter {
     private final String applicationName;
 
     private final GrpcTransportConfig grpcTransportConfig;
-<<<<<<< HEAD
-=======
     private final SSLContextProvider sslContextProvider;
->>>>>>> upstream/master
 
     private final HeaderFactory headerFactory;
 
@@ -162,12 +141,6 @@ public final class PinpointSpanExporter implements SpanExporter {
 
     private final SpanGrpcDataSender spanGrpcDataSender;
 
-<<<<<<< HEAD
-    public PinpointSpanExporter(final String agentId,
-        final String agentName,
-        final String applicationName,
-        final GrpcTransportConfig grpcTransportConfig) {
-=======
     private final JvmGcTypeMapper jvmGcTypeMapper = new JvmGcTypeMapperImpl();
     private final AgentInfoMapper agentInfoMapper = new AgentInfoMapperImpl(jvmGcTypeMapper);
 
@@ -179,21 +152,12 @@ public final class PinpointSpanExporter implements SpanExporter {
             final String agentName,
             final String applicationName,
             final GrpcTransportConfig grpcTransportConfig) {
->>>>>>> upstream/master
 
         this.agentId = Objects.requireNonNull(agentId, "agentId cannot be null");
         this.agentName = Objects.requireNonNull(agentName, "agentName cannot be null");
         this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be  null");
         this.grpcTransportConfig = Objects.requireNonNull(grpcTransportConfig, "grpcTransportConfig cannot be  null");
 
-<<<<<<< HEAD
-        this.headerFactory = new AgentHeaderFactory(
-            agentId,
-            agentName,
-            applicationName,
-            ServiceType.UNDEFINED.getCode(),
-            agentStartTime);
-=======
         if (grpcTransportConfig.getSslOption() != null) {
             this.sslContextProvider = new SSLContextProvider(grpcTransportConfig);
         } else {
@@ -206,7 +170,6 @@ public final class PinpointSpanExporter implements SpanExporter {
                 applicationName,
                 ServiceType.UNDEFINED.getCode(),
                 agentStartTime);
->>>>>>> upstream/master
 
         this.agentInfoSender = createAgentInfoSender();
         this.agentInfoSender.start();
@@ -222,11 +185,7 @@ public final class PinpointSpanExporter implements SpanExporter {
                 grpcTransportConfig.getAgentCollectorIp(),
                 grpcTransportConfig.getAgentCollectorPort(),
                 grpcTransportConfig.getAgentSenderExecutorQueueSize(),
-<<<<<<< HEAD
-                new GrpcAgentInfoMessageConverter(),
-=======
                 new GrpcAgentInfoMessageConverter(agentInfoMapper),
->>>>>>> upstream/master
                 reconnectExecutor,
                 scheduledExecutorService,
                 agentChannelFactory,
@@ -242,19 +201,6 @@ public final class PinpointSpanExporter implements SpanExporter {
                 ServiceType.STAND_ALONE);
 
         final JvmInformation jvmInformation = new JvmInformation(
-<<<<<<< HEAD
-            JvmUtils.getSystemProperty(SystemPropertyKey.JAVA_VERSION),
-            JvmGcType.UNKNOWN);
-
-        final ServerMetaDataRegistryService serverMetaDataRegistryService = new DefaultServerMetaDataRegistryService(
-            Collections.emptyList());
-        serverMetaDataRegistryService.setServerName(EventMeshTraceConstants.SERVICE_NAME);
-
-        final AgentInfoFactory agentInfoFactory = new AgentInfoFactory(
-            agentInformationProvider.createAgentInformation(),
-            serverMetaDataRegistryService,
-            jvmInformation);
-=======
                 JvmUtils.getSystemProperty(SystemPropertyKey.JAVA_VERSION),
                 JvmGcType.UNKNOWN);
 
@@ -266,7 +212,6 @@ public final class PinpointSpanExporter implements SpanExporter {
                 agentInformationProvider.createAgentInformation(),
                 serverMetaDataRegistryService,
                 jvmInformation);
->>>>>>> upstream/master
 
         return new AgentInfoSender.Builder(agentGrpcDataSender, agentInfoFactory).build();
     }
@@ -278,12 +223,8 @@ public final class PinpointSpanExporter implements SpanExporter {
             new GrpcSpanMessageConverter(
                 agentId,
                 ServiceType.STAND_ALONE.getCode(),
-<<<<<<< HEAD
-                new GrpcSpanProcessorV2());
-=======
                 new GrpcSpanProcessorV2(),
                 this.spanMessageMapper);
->>>>>>> upstream/master
 
         final StreamState streamState =
             new SimpleStreamState(
@@ -291,23 +232,6 @@ public final class PinpointSpanExporter implements SpanExporter {
                 grpcTransportConfig.getSpanClientOption().getLimitTime());
 
         return new SpanGrpcDataSender(
-<<<<<<< HEAD
-            grpcTransportConfig.getSpanCollectorIp(),
-            grpcTransportConfig.getSpanCollectorPort(),
-            grpcTransportConfig.getSpanSenderExecutorQueueSize(),
-            messageConverter,
-            reconnectExecutor,
-            spanChannelFactory,
-            streamState);
-    }
-
-    private ChannelFactory createAgentChannelFactory() {
-        final ChannelFactoryBuilder channelFactoryBuilder =
-            new DefaultChannelFactoryBuilder(AGENT_CHANNEL_FACTORY);
-        channelFactoryBuilder.setHeaderFactory(headerFactory);
-        channelFactoryBuilder.setNameResolverProvider(nameResolverProvider);
-        channelFactoryBuilder.setSslOption(grpcTransportConfig.getSslOption());
-=======
                 grpcTransportConfig.getSpanCollectorIp(),
                 grpcTransportConfig.getSpanCollectorPort(),
                 grpcTransportConfig.getSpanSenderExecutorQueueSize(),
@@ -325,7 +249,6 @@ public final class PinpointSpanExporter implements SpanExporter {
         if (this.sslContextProvider != null) {
             channelFactoryBuilder.setSslContext(this.sslContextProvider.get());
         }
->>>>>>> upstream/master
         channelFactoryBuilder.setClientOption(grpcTransportConfig.getAgentClientOption());
         channelFactoryBuilder.setExecutorQueueSize(grpcTransportConfig.getAgentChannelExecutorQueueSize());
 
@@ -333,20 +256,12 @@ public final class PinpointSpanExporter implements SpanExporter {
     }
 
     private ChannelFactory createSpanChannelFactory() {
-<<<<<<< HEAD
-        final ChannelFactoryBuilder channelFactoryBuilder =
-            new DefaultChannelFactoryBuilder(SPAN_CHANNEL_FACTORY);
-        channelFactoryBuilder.setHeaderFactory(headerFactory);
-        channelFactoryBuilder.setNameResolverProvider(nameResolverProvider);
-        channelFactoryBuilder.setSslOption(grpcTransportConfig.getSslOption());
-=======
         final ChannelFactoryBuilder channelFactoryBuilder = new DefaultChannelFactoryBuilder(SPAN_CHANNEL_FACTORY);
         channelFactoryBuilder.setHeaderFactory(headerFactory);
         channelFactoryBuilder.setNameResolverProvider(nameResolverProvider);
         if (this.sslContextProvider != null) {
             channelFactoryBuilder.setSslContext(this.sslContextProvider.get());
         }
->>>>>>> upstream/master
         channelFactoryBuilder.setClientOption(grpcTransportConfig.getSpanClientOption());
         channelFactoryBuilder.setExecutorQueueSize(grpcTransportConfig.getSpanChannelExecutorQueueSize());
 
@@ -408,14 +323,6 @@ public final class PinpointSpanExporter implements SpanExporter {
             }
         });
 
-<<<<<<< HEAD
-        final TraceId traceId = new DefaultTraceId(agentId, startTimestamp, transactionId, parentSpanId[0], spanId,
-            (short) spanData.getKind().ordinal());
-
-        final TraceRoot traceRoot = new DefaultTraceRoot(traceId, this.agentId, startTimestamp, transactionId);
-
-        final Span span = new Span(traceRoot);
-=======
         final TraceIdFactory traceIdFactory = new DefaultTraceIdFactory(this.agentId, startTimestamp);
         final TraceRootFactory traceRootFactory = new DefaultTraceRootFactory(this.agentId, traceIdFactory);
 
@@ -431,7 +338,6 @@ public final class PinpointSpanExporter implements SpanExporter {
 
         final DefaultSpanFactory spanFactory = new DefaultSpanFactory();
         final Span span = spanFactory.newSpan(traceRoot);
->>>>>>> upstream/master
 
         final StatusData statusData = spanData.getStatus();
         if (statusData != null) {
@@ -452,17 +358,6 @@ public final class PinpointSpanExporter implements SpanExporter {
         span.setRemoteAddr(UNKNOWN_REQ_IP);
 
         Optional.ofNullable(spanData.getAttributes())
-<<<<<<< HEAD
-            .ifPresent(attributes -> {
-                span.addAnnotation(Annotations.of(AnnotationKey.HTTP_PARAM_ENTITY.getCode(),
-                    JsonUtils.toJSONString(attributes)));
-                attributes.forEach((key, value) -> {
-                    if (REQ_IP.equals(key.getKey())) {
-                        span.setRemoteAddr(String.valueOf(value));
-                    }
-                });
-            });
-=======
                 .ifPresent(attributes -> {
                     span.addAnnotation(Annotations.of(AnnotationKey.HTTP_PARAM_ENTITY.getCode(),
                             JsonUtils.toJSONString(attributes)));
@@ -472,7 +367,6 @@ public final class PinpointSpanExporter implements SpanExporter {
                         }
                     });
                 });
->>>>>>> upstream/master
 
         if (CollectionUtils.isNotEmpty(spanData.getEvents())) {
             final AtomicInteger sequence = new AtomicInteger();
@@ -491,11 +385,7 @@ public final class PinpointSpanExporter implements SpanExporter {
         spanEvent.setServiceType(ServiceType.INTERNAL_METHOD.getCode());
         spanEvent.setEndPoint(eventData.getName());
         spanEvent.addAnnotation(Annotations.of(AnnotationKey.HTTP_PARAM_ENTITY.getCode(),
-<<<<<<< HEAD
-            JsonUtils.toJSONString(eventData.getAttributes())));
-=======
                 JsonUtils.toJSONString(eventData.getAttributes())));
->>>>>>> upstream/master
         spanEvent.setElapsedTime((int) toMillis(eventData.getEpochNanos()));
         return spanEvent;
     }
@@ -507,27 +397,16 @@ public final class PinpointSpanExporter implements SpanExporter {
     private static long hex32StringToLong(final String hex32String) {
         final CharSequence charSequence = new StringBuilder().append(hex32String);
         return OtelEncodingUtils.isValidBase16String(charSequence)
-<<<<<<< HEAD
-            ? OtelEncodingUtils.longFromBase16String(charSequence, 0)
-                & OtelEncodingUtils.longFromBase16String(charSequence, 16)
-            : hex32String.hashCode();
-=======
                 ? OtelEncodingUtils.longFromBase16String(charSequence, 0)
                         & OtelEncodingUtils.longFromBase16String(charSequence, 16)
                 : hex32String.hashCode();
->>>>>>> upstream/master
     }
 
     private static long hex16StringToLong(final String hex16String) {
         final CharSequence charSequence = new StringBuilder().append(hex16String);
         return OtelEncodingUtils.isValidBase16String(charSequence)
-<<<<<<< HEAD
-            ? OtelEncodingUtils.longFromBase16String(charSequence, 0)
-            : hex16String.hashCode();
-=======
                 ? OtelEncodingUtils.longFromBase16String(charSequence, 0)
                 : hex16String.hashCode();
->>>>>>> upstream/master
     }
 
     private static String getEndpoint(final Resource resource) {

@@ -18,22 +18,11 @@
 package org.apache.eventmesh.storage.standalone.broker.task;
 
 import static org.apache.eventmesh.storage.standalone.TestUtils.TEST_TOPIC;
-<<<<<<< HEAD
-import static org.apache.eventmesh.storage.standalone.TestUtils.createDefaultCloudEvent;
-
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-
-import org.apache.eventmesh.api.EventListener;
-import org.apache.eventmesh.api.EventMeshAsyncConsumeContext;
-=======
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
 import org.apache.eventmesh.api.EventListener;
->>>>>>> upstream/master
 import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
 
 import org.junit.jupiter.api.Assertions;
@@ -43,11 +32,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-<<<<<<< HEAD
-import io.cloudevents.CloudEvent;
-
-=======
->>>>>>> upstream/master
 @ExtendWith(MockitoExtension.class)
 public class SubscribeTest {
 
@@ -59,18 +43,9 @@ public class SubscribeTest {
 
     @Test
     public void testSubscribe() {
-<<<<<<< HEAD
-        CloudEvent cloudEvent = createDefaultCloudEvent();
-        Mockito.when(standaloneBroker.getMessage(anyString())).thenReturn(cloudEvent);
-        Mockito.when(standaloneBroker.getMessage(anyString(), anyLong())).thenReturn(cloudEvent);
-        subscribe = new Subscribe(TEST_TOPIC, standaloneBroker, eventListener);
-        subscribe.subscribe();
-        Mockito.verify(eventListener).consume(any(CloudEvent.class), any(EventMeshAsyncConsumeContext.class));
-=======
         subscribe = new Subscribe(TEST_TOPIC, standaloneBroker, eventListener);
         subscribe.subscribe();
         Mockito.verify(standaloneBroker).subscribed(anyString(), any(Subscribe.class));
->>>>>>> upstream/master
     }
 
     @Test

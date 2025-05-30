@@ -23,10 +23,6 @@ import org.apache.eventmesh.common.protocol.http.common.ProtocolKey;
 import org.apache.eventmesh.common.protocol.http.common.RequestURI;
 import org.apache.eventmesh.common.utils.IPUtils;
 import org.apache.eventmesh.common.utils.JsonUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.common.EventMeshTrace;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
@@ -40,10 +36,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-<<<<<<< HEAD
-=======
 import java.util.concurrent.Executor;
->>>>>>> upstream/master
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,11 +50,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 @EventMeshTrace
 public class CreateTopicProcessor implements AsyncHttpProcessor {
 
-<<<<<<< HEAD
-    private final Logger httpLogger = LoggerFactory.getLogger("http");
-=======
     private static final Logger HTTP_LOGGER = LoggerFactory.getLogger(EventMeshConstants.PROTOCOL_HTTP);
->>>>>>> upstream/master
 
     private final transient EventMeshHTTPServer eventMeshHTTPServer;
 
@@ -76,13 +65,7 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
         final ChannelHandlerContext ctx = handlerSpecific.getCtx();
         final HttpEventWrapper requestWrapper = asyncContext.getRequest();
 
-<<<<<<< HEAD
-        HttpEventWrapper responseWrapper;
-
-        httpLogger.info("uri={}|{}|client2eventMesh|from={}|to={}", requestWrapper.getRequestURI(),
-=======
         HTTP_LOGGER.info("uri={}|{}|client2eventMesh|from={}|to={}", requestWrapper.getRequestURI(),
->>>>>>> upstream/master
             EventMeshConstants.PROTOCOL_HTTP, RemotingHelper.parseChannelRemoteAddr(ctx.channel()), IPUtils.getLocalAddress());
 
         // user request header
@@ -105,20 +88,13 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
             new TypeReference<HashMap<String, Object>>() {
             });
 
-<<<<<<< HEAD
-=======
         HttpEventWrapper responseWrapper;
 
->>>>>>> upstream/master
         if (requestBodyMap.get("topic") == null || StringUtils.isBlank(requestBodyMap.get("topic").toString())) {
             Map<String, Object> responseBodyMap = new HashMap<>();
             responseBodyMap.put("retCode", EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR.getRetCode());
             responseBodyMap.put("retMsg", EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR.getErrMsg() + "topic is null");
-<<<<<<< HEAD
-            httpLogger.warn("create topic fail, topic is null");
-=======
             HTTP_LOGGER.warn("create topic fail, topic is null");
->>>>>>> upstream/master
             responseWrapper = requestWrapper.createHttpResponse(responseHeaderMap, responseBodyMap);
             responseWrapper.setHttpResponseStatus(HttpResponseStatus.BAD_REQUEST);
             handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR, responseHeaderMap,
@@ -136,25 +112,12 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
                 item = StringUtils.deleteWhitespace(item);
                 if (!HttpClientGroupMapping.getInstance().getLocalTopicSet().contains(item)) {
                     HttpClientGroupMapping.getInstance().getLocalTopicSet().add(item);
-<<<<<<< HEAD
-                    httpLogger.info("create topic success, topic:{}", item);
-=======
                     HTTP_LOGGER.info("create topic success, topic:{}", item);
->>>>>>> upstream/master
                 }
             }
 
             final CompleteHandler<HttpEventWrapper> handler = httpEventWrapper -> {
                 try {
-<<<<<<< HEAD
-                    LogUtils.debug(httpLogger, "{}", httpEventWrapper);
-                    eventMeshHTTPServer.sendResponse(ctx, httpEventWrapper.httpResponse());
-                    eventMeshHTTPServer.getMetrics().getSummaryMetrics().recordHTTPReqResTimeCost(
-                        System.currentTimeMillis() - requestWrapper.getReqTime());
-                } catch (Exception ex) {
-                    // ignore
-                    httpLogger.warn("create topic, sendResponse fail,", ex);
-=======
                     HTTP_LOGGER.debug("{}", httpEventWrapper);
                     eventMeshHTTPServer.sendResponse(ctx, httpEventWrapper.httpResponse());
                     eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordHTTPReqResTimeCost(
@@ -162,7 +125,6 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
                 } catch (Exception ex) {
                     // ignore
                     HTTP_LOGGER.warn("create topic, sendResponse fail,", ex);
->>>>>>> upstream/master
                 }
             };
 
@@ -179,31 +141,20 @@ public class CreateTopicProcessor implements AsyncHttpProcessor {
             handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_RUNTIME_ERR, responseHeaderMap,
                 responseBodyMap, null);
             long endTime = System.currentTimeMillis();
-<<<<<<< HEAD
-            httpLogger.warn(
-                "create topic fail, eventMesh2client|cost={}ms|topic={}", endTime - startTime, topic, e);
-            eventMeshHTTPServer.getMetrics().getSummaryMetrics().recordSendMsgFailed();
-            eventMeshHTTPServer.getMetrics().getSummaryMetrics().recordSendMsgCost(endTime - startTime);
-=======
             HTTP_LOGGER.warn(
                 "create topic fail, eventMesh2client|cost={}ms|topic={}", endTime - startTime, topic, e);
             eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgFailed();
             eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgCost(endTime - startTime);
->>>>>>> upstream/master
         }
     }
 
     @Override
     public String[] paths() {
-<<<<<<< HEAD
-        return new String[]{RequestURI.CREATE_TOPIC.getRequestURI()};
-=======
         return new String[] {RequestURI.CREATE_TOPIC.getRequestURI()};
     }
 
     @Override
     public Executor executor() {
         return eventMeshHTTPServer.getHttpThreadPoolGroup().getClientManageExecutor();
->>>>>>> upstream/master
     }
 }

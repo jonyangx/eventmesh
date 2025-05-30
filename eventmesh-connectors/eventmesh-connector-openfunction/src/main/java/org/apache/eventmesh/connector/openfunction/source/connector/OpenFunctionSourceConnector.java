@@ -17,13 +17,8 @@
 
 package org.apache.eventmesh.connector.openfunction.source.connector;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.openfunction.source.config.OpenFunctionSourceConfig;
-import org.apache.eventmesh.openconnect.api.config.Config;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 import org.apache.eventmesh.common.config.connector.openfunction.OpenFunctionSourceConfig;
->>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
 import org.apache.eventmesh.openconnect.api.source.Source;
@@ -40,22 +35,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OpenFunctionSourceConnector implements Source {
 
-<<<<<<< HEAD
-    private static final int DEFAULT_BATCH_SIZE = 10;
-
-=======
->>>>>>> upstream/master
     private OpenFunctionSourceConfig sourceConfig;
 
     private BlockingQueue<ConnectRecord> queue;
 
-<<<<<<< HEAD
-=======
     private int maxBatchSize;
 
     private long maxPollWaitTime;
 
->>>>>>> upstream/master
     @Override
     public Class<? extends Config> configClass() {
         return OpenFunctionSourceConfig.class;
@@ -65,11 +52,7 @@ public class OpenFunctionSourceConnector implements Source {
     public void init(Config config) throws Exception {
         // init config for openfunction source connector
         this.sourceConfig = (OpenFunctionSourceConfig) config;
-<<<<<<< HEAD
-        this.queue = new LinkedBlockingQueue<>(1000);
-=======
         doInit();
->>>>>>> upstream/master
     }
 
     @Override
@@ -77,9 +60,6 @@ public class OpenFunctionSourceConnector implements Source {
         SourceConnectorContext sourceConnectorContext = (SourceConnectorContext) connectorContext;
         // init config for openfunction source connector
         this.sourceConfig = (OpenFunctionSourceConfig) sourceConnectorContext.getSourceConfig();
-<<<<<<< HEAD
-        this.queue = new LinkedBlockingQueue<>(1000);
-=======
         doInit();
     }
 
@@ -88,7 +68,6 @@ public class OpenFunctionSourceConnector implements Source {
         this.queue = new LinkedBlockingQueue<>(sourceConfig.getPollConfig().getCapacity());
         this.maxBatchSize = sourceConfig.getPollConfig().getMaxBatchSize();
         this.maxPollWaitTime = sourceConfig.getPollConfig().getMaxWaitTime();
->>>>>>> upstream/master
     }
 
     @Override
@@ -107,14 +86,11 @@ public class OpenFunctionSourceConnector implements Source {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void onException(ConnectRecord record) {
 
     }
 
     @Override
->>>>>>> upstream/master
     public void stop() {
 
     }
@@ -125,14 +101,6 @@ public class OpenFunctionSourceConnector implements Source {
 
     @Override
     public List<ConnectRecord> poll() {
-<<<<<<< HEAD
-
-        List<ConnectRecord> connectRecords = new ArrayList<>(DEFAULT_BATCH_SIZE);
-
-        for (int count = 0; count < DEFAULT_BATCH_SIZE; ++count) {
-            try {
-                ConnectRecord connectRecord = queue.poll(3, TimeUnit.SECONDS);
-=======
         long startTime = System.currentTimeMillis();
         long remainingTime = maxPollWaitTime;
 
@@ -140,18 +108,14 @@ public class OpenFunctionSourceConnector implements Source {
         for (int count = 0; count < maxBatchSize; ++count) {
             try {
                 ConnectRecord connectRecord = queue.poll(remainingTime, TimeUnit.MILLISECONDS);
->>>>>>> upstream/master
                 if (connectRecord == null) {
                     break;
                 }
                 connectRecords.add(connectRecord);
-<<<<<<< HEAD
-=======
 
                 // calculate elapsed time and update remaining time for next poll
                 long elapsedTime = System.currentTimeMillis() - startTime;
                 remainingTime = maxPollWaitTime > elapsedTime ? maxPollWaitTime - elapsedTime : 0;
->>>>>>> upstream/master
             } catch (InterruptedException e) {
                 Thread currentThread = Thread.currentThread();
                 log.warn("[OpenFunctionSourceConnector] Interrupting thread {} due to exception {}",

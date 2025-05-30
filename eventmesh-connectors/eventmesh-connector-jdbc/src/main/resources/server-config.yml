@@ -15,9 +15,5 @@
 # limitations under the License.
 #
 
-<<<<<<< HEAD
-sourceEnable: true
-=======
 sourceEnable: false
->>>>>>> upstream/master
 sinkEnable: true

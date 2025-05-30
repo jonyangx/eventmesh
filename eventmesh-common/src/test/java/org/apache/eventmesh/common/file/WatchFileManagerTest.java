@@ -17,52 +17,11 @@
 
 package org.apache.eventmesh.common.file;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.ThreadUtils;
-
-=======
->>>>>>> upstream/master
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-<<<<<<< HEAD
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-public class WatchFileManagerTest {
-
-    @Test
-    public void testWatchFile() throws IOException, InterruptedException {
-        String file = WatchFileManagerTest.class.getResource("/configuration.properties").getFile();
-        File f = new File(file);
-        final FileChangeListener fileChangeListener = new FileChangeListener() {
-
-            @Override
-            public void onChanged(FileChangeContext changeContext) {
-                Assertions.assertEquals(f.getName(), changeContext.getFileName());
-                Assertions.assertEquals(f.getParent(), changeContext.getDirectoryPath());
-            }
-
-            @Override
-            public boolean support(FileChangeContext changeContext) {
-                return changeContext.getWatchEvent().context().toString().contains(f.getName());
-            }
-        };
-        WatchFileManager.registerFileChangeListener(f.getParent(), fileChangeListener);
-
-        Properties properties = new Properties();
-        properties.load(new BufferedReader(new FileReader(file)));
-        properties.setProperty("eventMesh.server.newAdd", "newAdd");
-        FileWriter fw = new FileWriter(file);
-        properties.store(fw, "newAdd");
-
-        ThreadUtils.sleep(500, TimeUnit.MILLISECONDS);
-=======
 import java.nio.file.Files;
 import java.util.Properties;
 
@@ -106,6 +65,5 @@ public class WatchFileManagerTest {
 
     private ArgumentMatcher<FileChangeContext> isFileUnderTest(String directoryPath, String fileName) {
         return argument -> argument.getDirectoryPath().equals(directoryPath) && argument.getFileName().equals(fileName);
->>>>>>> upstream/master
     }
 }

@@ -17,10 +17,7 @@
 
 package org.apache.eventmesh.common.utils;
 
-<<<<<<< HEAD
-=======
 import static org.apache.eventmesh.common.Constants.ADMIN;
->>>>>>> upstream/master
 import static org.apache.eventmesh.common.Constants.GRPC;
 import static org.apache.eventmesh.common.Constants.HTTP;
 import static org.apache.eventmesh.common.Constants.TCP;
@@ -40,11 +37,7 @@ public class ConfigurationContextUtil {
 
     private static final ConcurrentHashMap<String, CommonConfiguration> CONFIGURATION_MAP = new ConcurrentHashMap<>();
 
-<<<<<<< HEAD
-    public static final List<String> KEYS = Lists.newArrayList(HTTP, TCP, GRPC);
-=======
     public static final List<String> KEYS = Lists.newArrayList(HTTP, TCP, GRPC, ADMIN);
->>>>>>> upstream/master
 
     /**
      * Save http, tcp, grpc configuration at startup for global use.

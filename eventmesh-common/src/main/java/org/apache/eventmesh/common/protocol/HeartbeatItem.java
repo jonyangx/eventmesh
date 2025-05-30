@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/HeartbeatItem.java
 package org.apache.eventmesh.common.protocol;
 
 import lombok.AllArgsConstructor;
@@ -33,23 +32,4 @@ public class HeartbeatItem {
 
     private String url;
 
-========
-package org.apache.eventmesh.common.config.connector.rdb.mongodb;
-
-import lombok.Data;
-
-@Data
-public class SourceConnectorConfig {
-
-    private String connectorName;
-
-    private String connectorType;
-
-    private String url;
-
-    private String database;
-
-    private String collection;
-
->>>>>>>> upstream/master:eventmesh-common/src/main/java/org/apache/eventmesh/common/config/connector/rdb/mongodb/SourceConnectorConfig.java
 }

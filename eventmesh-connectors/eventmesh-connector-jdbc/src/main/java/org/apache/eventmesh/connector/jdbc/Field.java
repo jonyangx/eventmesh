@@ -17,11 +17,8 @@
 
 package org.apache.eventmesh.connector.jdbc;
 
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.connector.jdbc.table.catalog.Column;
 
->>>>>>> upstream/master
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -33,42 +30,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Field {
 
-<<<<<<< HEAD
-    private String type;
-
-=======
->>>>>>> upstream/master
     private boolean required;
 
     private String field;
 
     private String name;
 
-<<<<<<< HEAD
-    private List<Field> fields;
-
-    public Field(String type, boolean required, String field, String name) {
-        this.type = type;
-=======
     private Column<?> column;
 
     private List<Field> fields;
 
     public Field(Column<?> column, boolean required, String field, String name) {
         this.column = column;
->>>>>>> upstream/master
         this.required = required;
         this.field = field;
         this.name = name;
     }
 
-<<<<<<< HEAD
-    public Field withType(String type) {
-        this.type = type;
-=======
     public Field withColumn(Column<?> column) {
         this.column = column;
->>>>>>> upstream/master
         return this;
     }
 

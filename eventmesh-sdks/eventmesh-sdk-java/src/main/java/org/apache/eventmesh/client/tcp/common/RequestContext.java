@@ -18,10 +18,6 @@
 package org.apache.eventmesh.client.tcp.common;
 
 import org.apache.eventmesh.common.protocol.tcp.Package;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -76,11 +72,7 @@ public class RequestContext {
 
     public static RequestContext context(final Object key, final Package request) throws Exception {
         final RequestContext context = new RequestContext(key, request);
-<<<<<<< HEAD
-        LogUtils.info(log, "_RequestContext|create|key={}", key);
-=======
         log.info("_RequestContext|create|key={}", key);
->>>>>>> upstream/master
         return context;
     }
 

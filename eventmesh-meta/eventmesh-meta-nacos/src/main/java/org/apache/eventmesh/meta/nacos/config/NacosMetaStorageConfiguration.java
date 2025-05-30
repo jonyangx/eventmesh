@@ -18,11 +18,7 @@
 package org.apache.eventmesh.meta.nacos.config;
 
 import org.apache.eventmesh.common.config.Config;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import com.alibaba.nacos.api.PropertyKeyConst;
 import com.alibaba.nacos.client.naming.utils.UtilAndComs;
@@ -35,33 +31,6 @@ import lombok.NoArgsConstructor;
 @Config(prefix = "eventMesh.metaStorage.nacos")
 public class NacosMetaStorageConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = PropertyKeyConst.ENDPOINT)
-    private String endpoint;
-
-    @ConfigFiled(field = PropertyKeyConst.ENDPOINT_PORT)
-    private String endpointPort;
-
-    @ConfigFiled(field = PropertyKeyConst.ACCESS_KEY)
-    private String accessKey;
-
-    @ConfigFiled(field = PropertyKeyConst.SECRET_KEY)
-    private String secretKey;
-
-    @ConfigFiled(field = PropertyKeyConst.CLUSTER_NAME)
-    private String clusterName;
-
-    @ConfigFiled(field = PropertyKeyConst.NAMESPACE)
-    private String namespace;
-
-    @ConfigFiled(field = PropertyKeyConst.NAMING_POLLING_THREAD_COUNT)
-    private Integer pollingThreadCount = Runtime.getRuntime().availableProcessors() / 2 + 1;
-
-    @ConfigFiled(field = UtilAndComs.NACOS_NAMING_LOG_NAME)
-    private String logFileName;
-
-    @ConfigFiled(field = UtilAndComs.NACOS_NAMING_LOG_LEVEL)
-=======
     @ConfigField(field = PropertyKeyConst.ENDPOINT)
     private String endpoint;
 
@@ -87,7 +56,6 @@ public class NacosMetaStorageConfiguration {
     private String logFileName;
 
     @ConfigField(field = UtilAndComs.NACOS_NAMING_LOG_LEVEL)
->>>>>>> upstream/master
     private String logLevel;
 
 }

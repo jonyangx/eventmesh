@@ -19,10 +19,7 @@ package org.apache.eventmesh.common.config;
 
 import static org.apache.eventmesh.common.Constants.HTTP;
 
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.Constants;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.utils.IPUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -40,85 +37,6 @@ import lombok.NoArgsConstructor;
 @Config(prefix = "eventMesh")
 public class CommonConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "sysid", beNumber = true, notEmpty = true)
-    private String sysID = "5477";
-
-    @ConfigFiled(field = "server.env", notEmpty = true)
-    private String eventMeshEnv = "P";
-
-    @ConfigFiled(field = "server.idc", notEmpty = true)
-    private String eventMeshIDC = "FT";
-
-    @ConfigFiled(field = "server.name", notEmpty = true)
-    private String eventMeshName = "";
-
-    @ConfigFiled(field = "server.cluster", notEmpty = true)
-    private String eventMeshCluster = "LS";
-
-    @ConfigFiled(field = "server.hostIp", reload = true)
-    private String eventMeshServerIp = null;
-
-    @ConfigFiled(field = "metaStorage.plugin.server-addr", notEmpty = true)
-    private String metaStorageAddr = "";
-
-    @ConfigFiled(field = "metaStorage.plugin.type", notEmpty = true)
-    private String eventMeshMetaStoragePluginType = "namesrv";
-
-    @ConfigFiled(field = "metaStorage.plugin.username")
-    private String eventMeshMetaStoragePluginUsername = "";
-
-    @ConfigFiled(field = "metaStorage.plugin.password")
-    private String eventMeshMetaStoragePluginPassword = "";
-
-    @ConfigFiled(field = "metaStorage.plugin.metaStorageIntervalInMills")
-    private Integer eventMeshMetaStorageIntervalInMills = 10 * 1000;
-
-    @ConfigFiled(field = "metaStorage.plugin.fetchMetaStorageAddrIntervalInMills")
-    private Integer eventMeshFetchMetaStorageAddrInterval = 10 * 1000;
-
-    @ConfigFiled(field = "metaStorage.plugin.enabled")
-    private boolean eventMeshServerMetaStorageEnable = false;
-
-    @ConfigFiled(field = "trace.plugin", notEmpty = true)
-    private String eventMeshTracePluginType;
-
-    @ConfigFiled(field = "metrics.plugin", notEmpty = true)
-    private List<String> eventMeshMetricsPluginType;
-
-    @ConfigFiled(field = "security.plugin.type", notEmpty = true)
-    private String eventMeshSecurityPluginType = "security";
-
-    @ConfigFiled(field = "connector.plugin.type", notEmpty = true)
-    private String eventMeshConnectorPluginType = "rocketmq";
-
-    @ConfigFiled(field = "storage.plugin.type", notEmpty = true)
-    private String eventMeshStoragePluginType = "rocketmq";
-
-    @ConfigFiled(field = "security.validation.type.token", notEmpty = true)
-    private boolean eventMeshSecurityValidateTypeToken = false;
-
-    @ConfigFiled(field = "server.trace.enabled")
-    private boolean eventMeshServerTraceEnable = false;
-
-    @ConfigFiled(field = "server.security.enabled")
-    private boolean eventMeshServerSecurityEnable = false;
-
-    @ConfigFiled(field = "security.publickey")
-    private String eventMeshSecurityPublickey = "";
-
-    @ConfigFiled(field = "server.provide.protocols", reload = true)
-    private List<String> eventMeshProvideServerProtocols;
-
-    @ConfigFiled(reload = true)
-    private String eventMeshWebhookOrigin;
-
-    @ConfigFiled(reload = true)
-    private String meshGroup;
-
-    public void reload() {
-        this.eventMeshWebhookOrigin = "eventmesh." + eventMeshIDC;
-=======
     @ConfigField(field = "sysid", beNumber = true, notEmpty = true)
     private String sysID = "5477";
 
@@ -201,7 +119,6 @@ public class CommonConfiguration {
     private boolean eventMeshRegistryPluginEnabled = false;
 
     public void reload() {
->>>>>>> upstream/master
 
         if (Strings.isNullOrEmpty(this.eventMeshServerIp)) {
             this.eventMeshServerIp = IPUtils.getLocalAddress();

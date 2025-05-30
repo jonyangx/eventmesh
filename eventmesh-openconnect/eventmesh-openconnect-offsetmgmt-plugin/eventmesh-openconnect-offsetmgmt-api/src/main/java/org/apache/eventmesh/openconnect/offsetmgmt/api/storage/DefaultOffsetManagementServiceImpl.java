@@ -17,14 +17,9 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.storage;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.offsetmgmt.api.config.OffsetStorageConfig;
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
-=======
 import org.apache.eventmesh.common.config.connector.offset.OffsetStorageConfig;
 import org.apache.eventmesh.common.remote.offset.RecordOffset;
 import org.apache.eventmesh.common.remote.offset.RecordPartition;
->>>>>>> upstream/master
 
 import java.util.List;
 import java.util.Map;
@@ -57,47 +52,27 @@ public class DefaultOffsetManagementServiceImpl implements OffsetManagementServi
     }
 
     @Override
-<<<<<<< HEAD
-    public Map<ConnectorRecordPartition, RecordOffset> getPositionMap() {
-=======
     public Map<RecordPartition, RecordOffset> getPositionMap() {
->>>>>>> upstream/master
         return null;
     }
 
     @Override
-<<<<<<< HEAD
-    public RecordOffset getPosition(ConnectorRecordPartition partition) {
-=======
     public RecordOffset getPosition(RecordPartition partition) {
->>>>>>> upstream/master
         return null;
     }
 
     @Override
-<<<<<<< HEAD
-    public void putPosition(Map<ConnectorRecordPartition, RecordOffset> positions) {
-=======
     public void putPosition(Map<RecordPartition, RecordOffset> positions) {
->>>>>>> upstream/master
 
     }
 
     @Override
-<<<<<<< HEAD
-    public void putPosition(ConnectorRecordPartition partition, RecordOffset position) {
-=======
     public void putPosition(RecordPartition partition, RecordOffset position) {
->>>>>>> upstream/master
 
     }
 
     @Override
-<<<<<<< HEAD
-    public void removePosition(List<ConnectorRecordPartition> partitions) {
-=======
     public void removePosition(List<RecordPartition> partitions) {
->>>>>>> upstream/master
 
     }
 

@@ -26,10 +26,7 @@ public enum EventMeshExtensionType {
     CONNECTOR("connector"),
     STORAGE("storage"),
     META("metaStorage"),
-<<<<<<< HEAD
-=======
     REGISTRY("registryCenter"),
->>>>>>> upstream/master
     SECURITY("security"),
     PROTOCOL("protocol"),
     METRICS("metrics"),
@@ -38,10 +35,7 @@ public enum EventMeshExtensionType {
     JDBC_SNAPSHOT_ENGINE("jdbc_snapshot_engine"),
     JDBC_DATABASE_DIALECT("jdbc_database_dialect"),
     OFFSETMGMT("offsetMgmt"),
-<<<<<<< HEAD
-=======
     RETRY("retry"),
->>>>>>> upstream/master
     ;
 
     private final String extensionTypeName;

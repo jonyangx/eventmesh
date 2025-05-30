@@ -37,10 +37,7 @@ import java.util.regex.Pattern;
 
 import io.netty.channel.Channel;
 
-<<<<<<< HEAD
-=======
 import lombok.Getter;
->>>>>>> upstream/master
 import lombok.extern.slf4j.Slf4j;
 
 import inet.ipaddr.HostName;
@@ -50,14 +47,10 @@ import inet.ipaddr.IPAddressString;
 @Slf4j
 public class IPUtils {
 
-<<<<<<< HEAD
-    public static String getLocalAddress() {
-=======
     @Getter
     public static String localAddress = init();
 
     private static String init() {
->>>>>>> upstream/master
         // if the progress works under docker environment
         // return the host ip about this docker located from environment value
         String dockerHostIp = System.getenv("docker_host_ip");
@@ -70,20 +63,12 @@ public class IPUtils {
         List<String> list = Arrays.asList(priority.split("<"));
         ArrayList<String> preferList = new ArrayList<>(list);
         NetworkInterface preferNetworkInterface = null;
-<<<<<<< HEAD
-=======
         boolean isInterfacePreferred = false;
->>>>>>> upstream/master
 
         try {
             Enumeration<NetworkInterface> enumeration1 = NetworkInterface.getNetworkInterfaces();
             while (enumeration1.hasMoreElements()) {
                 final NetworkInterface networkInterface = enumeration1.nextElement();
-<<<<<<< HEAD
-                if (preferNetworkInterface == null) {
-                    preferNetworkInterface = networkInterface;
-                } else if (preferList.indexOf(networkInterface.getName()) // get the networkInterface that has higher priority
-=======
                 String interfaceName = networkInterface.getName();
                 if (!isInterfacePreferred && preferList.contains(interfaceName)) {
                     isInterfacePreferred = true;
@@ -91,7 +76,6 @@ public class IPUtils {
                 if (preferNetworkInterface == null) {
                     preferNetworkInterface = networkInterface;
                 } else if (preferList.indexOf(interfaceName) // get the networkInterface that has higher priority
->>>>>>> upstream/master
                     > preferList.indexOf(preferNetworkInterface.getName())) {
                     preferNetworkInterface = networkInterface;
                 }
@@ -101,11 +85,7 @@ public class IPUtils {
             ArrayList<String> ipv4Result = new ArrayList<String>();
             ArrayList<String> ipv6Result = new ArrayList<String>();
 
-<<<<<<< HEAD
-            if (preferNetworkInterface != null) {
-=======
             if (preferNetworkInterface != null && isInterfacePreferred) {
->>>>>>> upstream/master
                 final Enumeration<InetAddress> en = preferNetworkInterface.getInetAddresses();
                 getIpResult(ipv4Result, ipv6Result, en);
             } else {
@@ -185,11 +165,7 @@ public class IPUtils {
     }
 
     public static String parseChannelRemoteAddr(final Channel channel) {
-<<<<<<< HEAD
-        if (null == channel) {
-=======
         if (channel == null) {
->>>>>>> upstream/master
             return "";
         }
         SocketAddress remote = channel.remoteAddress();

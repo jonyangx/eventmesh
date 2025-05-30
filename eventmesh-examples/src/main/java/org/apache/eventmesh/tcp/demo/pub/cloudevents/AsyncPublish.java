@@ -23,10 +23,6 @@ import org.apache.eventmesh.client.tcp.common.EventMeshCommon;
 import org.apache.eventmesh.client.tcp.conf.EventMeshTCPClientConfig;
 import org.apache.eventmesh.common.ExampleConstants;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.common.utils.ThreadUtils;
 import org.apache.eventmesh.tcp.common.EventMeshTestUtils;
 import org.apache.eventmesh.util.Utils;
@@ -58,11 +54,7 @@ public class AsyncPublish {
 
             for (int i = 0; i < 2; i++) {
                 CloudEvent event = EventMeshTestUtils.generateCloudEventV1Async();
-<<<<<<< HEAD
-                LogUtils.info(log, "begin send async msg[{}]: {}", i, event);
-=======
                 log.info("begin send async msg[{}]: {}", i, event);
->>>>>>> upstream/master
                 client.publish(event, EventMeshCommon.DEFAULT_TIME_OUT_MILLS);
 
                 ThreadUtils.sleep(1, TimeUnit.SECONDS);

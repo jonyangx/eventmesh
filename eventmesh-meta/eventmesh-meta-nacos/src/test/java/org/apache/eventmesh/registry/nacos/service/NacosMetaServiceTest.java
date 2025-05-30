@@ -19,10 +19,6 @@ package org.apache.eventmesh.registry.nacos.service;
 
 import static org.apache.eventmesh.common.Constants.HTTP;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.api.exception.MetaException;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.api.meta.dto.EventMeshRegisterInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshUnRegisterInfo;
 import org.apache.eventmesh.common.config.CommonConfiguration;
@@ -109,26 +105,4 @@ public class NacosMetaServiceTest {
         Assertions.assertFalse((Boolean.parseBoolean(initStatusField.toString())));
         Assertions.assertFalse((Boolean.parseBoolean(startStatusField.toString())));
     }
-<<<<<<< HEAD
-
-    @Test
-    public void testRegister() {
-        Assertions.assertThrows(MetaException.class, () -> {
-            nacosMetaService.init();
-            nacosMetaService.start();
-            nacosMetaService.register(eventMeshRegisterInfo);
-        });
-    }
-
-    @Test
-    public void testUnRegister() {
-        Assertions.assertThrows(MetaException.class, () -> {
-            nacosMetaService.init();
-            nacosMetaService.start();
-            nacosMetaService.unRegister(eventMeshUnRegisterInfo);
-        });
-    }
-
-=======
->>>>>>> upstream/master
 }

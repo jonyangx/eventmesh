@@ -15,27 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/TypeUtils.java
-package org.apache.eventmesh.common.utils;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import lombok.experimental.UtilityClass;
-
-@UtilityClass
-public class TypeUtils {
-
-    public static <T> Set<T> castSet(Object obj, Class<T> clazz) {
-        Set<T> result = new HashSet<>();
-        if (obj instanceof Set<?>) {
-            for (Object o : (Set<?>) obj) {
-                result.add(clazz.cast(o));
-            }
-            return result;
-        }
-        return null;
-========
 package org.apache.eventmesh.storage.rocketmq.common;
 
 import org.apache.eventmesh.api.TopicNameHelper;
@@ -51,6 +30,5 @@ public class TopicNameHelperImpl implements TopicNameHelper {
             return false;
         }
         return retryTopic.startsWith(MixAll.RETRY_GROUP_TOPIC_PREFIX);
->>>>>>>> upstream/master:eventmesh-storage-plugin/eventmesh-storage-rocketmq/src/main/java/org/apache/eventmesh/storage/rocketmq/common/TopicNameHelperImpl.java
     }
 }

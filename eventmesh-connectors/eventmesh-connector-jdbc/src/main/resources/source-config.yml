@@ -41,11 +41,7 @@ sourceConnectorConfig:
     hostname: localhost
     port: 3306
     user: root
-<<<<<<< HEAD
-    password: xxxxx
-=======
     password: default
->>>>>>> upstream/master
     initialStatements:
     connectTimeout: 10
   mysqlConfig:
@@ -60,8 +56,4 @@ offsetStorageConfig:
     dataId: TopicTest,
     #same with group
     group: rocketmqSource
-<<<<<<< HEAD
   }
-=======
-  }
->>>>>>> upstream/master

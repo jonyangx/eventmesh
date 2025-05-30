@@ -19,10 +19,6 @@ package org.apache.eventmesh.client.http.util;
 
 import org.apache.eventmesh.client.http.model.RequestParam;
 import org.apache.eventmesh.common.Constants;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -112,11 +108,7 @@ public final class HttpUtils {
 
         httpPost.setConfig(configBuilder.build());
 
-<<<<<<< HEAD
-        LogUtils.debug(log, "{}", httpPost);
-=======
         log.debug("{}", httpPost);
->>>>>>> upstream/master
 
         return client.execute(httpPost, responseHandler);
     }
@@ -168,11 +160,7 @@ public final class HttpUtils {
 
         httpGet.setConfig(configBuilder.build());
 
-<<<<<<< HEAD
-        LogUtils.debug(log, "{}", httpGet);
-=======
         log.debug("{}", httpGet);
->>>>>>> upstream/master
 
         return client.execute(httpGet, responseHandler);
     }

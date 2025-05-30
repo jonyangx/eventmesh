@@ -17,22 +17,13 @@
 
 #![cfg(feature = "eventmesh_message")]
 
-<<<<<<< HEAD
-=======
 #[allow(unused_imports)]
 use cloudevents::Event;
 use serde::{Deserialize, Serialize};
->>>>>>> upstream/master
 use std::collections::HashMap;
 use std::fmt;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-<<<<<<< HEAD
-use cloudevents::Event;
-use serde::{Deserialize, Serialize};
-
-=======
->>>>>>> upstream/master
 use crate::common::grpc_eventmesh_message_utils::EventMeshCloudEventUtils;
 use crate::model::convert::FromPbCloudEvent;
 use crate::proto_cloud_event::PbCloudEvent;

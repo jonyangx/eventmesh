@@ -302,7 +302,6 @@ tasks.register('zip', Zip) {
     }
 }
 
-
 tasks.register('printProjects') {
     getAllprojects().forEach(subProject -> {
         if ("EventMesh".equals(subProject.getName())) {
@@ -597,7 +596,6 @@ subprojects {
             )
         }
     }
-
 
     javadoc {
         source = sourceSets.main.java

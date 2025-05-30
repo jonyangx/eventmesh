@@ -43,10 +43,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-<<<<<<< HEAD
-=======
 import java.util.concurrent.Executor;
->>>>>>> upstream/master
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -144,37 +141,6 @@ public class RemoteSubscribeEventProcessor extends AbstractEventProcessor {
             }
         }
 
-<<<<<<< HEAD
-        // validate URL
-        // try {
-        // if (!IPUtils.isValidDomainOrIp(url, eventMeshHttpConfiguration.getEventMeshIpv4BlackList(),
-        // eventMeshHttpConfiguration.getEventMeshIpv6BlackList())) {
-        // httpLogger.error("subscriber url {} is not valid", url);
-        // handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR, responseHeaderMap,
-        // responseBodyMap, null);
-        // return;
-        // }
-        // } catch (Exception e) {
-        // httpLogger.error("subscriber url {} is not valid, error {}", url, e.getMessage());
-        // handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR, responseHeaderMap,
-        // responseBodyMap, null);
-        // return;
-        // }
-        //
-        // CloseableHttpClient closeableHttpClient = eventMeshHTTPServer.getHttpClientPool().getClient();
-        // // obtain webhook delivery agreement for Abuse Protection
-        // boolean isWebhookAllowed = WebhookUtil.obtainDeliveryAgreement(closeableHttpClient,
-        // url, eventMeshHttpConfiguration.getEventMeshWebhookOrigin());
-        //
-        // if (!isWebhookAllowed) {
-        // httpLogger.error("subscriber url {} is not allowed by the target system", url);
-        // handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_PROTOCOL_BODY_ERR, responseHeaderMap,
-        // responseBodyMap, null);
-        // return;
-        // }
-
-=======
->>>>>>> upstream/master
         long startTime = System.currentTimeMillis();
         try {
             // local subscription url
@@ -224,16 +190,12 @@ public class RemoteSubscribeEventProcessor extends AbstractEventProcessor {
 
     @Override
     public String[] paths() {
-<<<<<<< HEAD
-        return new String[]{RequestURI.SUBSCRIBE_REMOTE.getRequestURI()};
-=======
         return new String[] {RequestURI.SUBSCRIBE_REMOTE.getRequestURI()};
     }
 
     @Override
     public Executor executor() {
         return eventMeshHTTPServer.getHttpThreadPoolGroup().getClientManageExecutor();
->>>>>>> upstream/master
     }
 
 }

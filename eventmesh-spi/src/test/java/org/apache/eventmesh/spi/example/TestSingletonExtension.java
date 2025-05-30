@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-spi/src/test/java/org/apache/eventmesh/spi/example/TestSingletonExtension.java
 package org.apache.eventmesh.spi.example;
 
 import org.apache.eventmesh.spi.EventMeshExtensionType;
@@ -28,22 +27,4 @@ import org.apache.eventmesh.spi.EventMeshSPI;
 public interface TestSingletonExtension {
 
     void hello();
-========
-package org.apache.eventmesh.common.enums;
-
-public enum ComponentType {
-    CONNECTOR("connector"),
-    FUNCTION("function"),
-    MESH("mesh");
-
-    public String name;
-
-    ComponentType(String name) {
-        this.name = name;
-    }
-
-    public String componentTypeName() {
-        return this.name;
-    }
->>>>>>>> upstream/master:eventmesh-common/src/main/java/org/apache/eventmesh/common/enums/ComponentType.java
 }

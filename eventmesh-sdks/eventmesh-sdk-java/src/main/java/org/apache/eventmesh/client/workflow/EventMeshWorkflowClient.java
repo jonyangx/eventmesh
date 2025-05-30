@@ -24,10 +24,6 @@ import org.apache.eventmesh.client.workflow.config.EventMeshWorkflowClientConfig
 import org.apache.eventmesh.common.protocol.workflow.protos.ExecuteRequest;
 import org.apache.eventmesh.common.protocol.workflow.protos.ExecuteResponse;
 import org.apache.eventmesh.common.protocol.workflow.protos.WorkflowGrpc;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -61,11 +57,7 @@ public class EventMeshWorkflowClient {
     public ExecuteResponse execute(final ExecuteRequest request) throws Exception {
         final WorkflowGrpc.WorkflowBlockingStub workflowClient = getWorkflowClient();
         final ExecuteResponse response = workflowClient.execute(request);
-<<<<<<< HEAD
-        LogUtils.info(log, "received response:{}", response);
-=======
         log.info("received response:{}", response);
->>>>>>> upstream/master
         return response;
     }
 }

@@ -22,22 +22,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class JdbcStringUtils {
 
-<<<<<<< HEAD
-    public static boolean isWrapped(String possiblyWrapped) {
-        if (possiblyWrapped.length() < 2) {
-            return false;
-        }
-        if (possiblyWrapped.startsWith("`") && possiblyWrapped.endsWith("`")) {
-            return true;
-        }
-        if (possiblyWrapped.startsWith("'") && possiblyWrapped.endsWith("'")) {
-            return true;
-        }
-        if (possiblyWrapped.startsWith("\"") && possiblyWrapped.endsWith("\"")) {
-            return true;
-        }
-        return false;
-=======
     /**
      * Checks whether the given string is wrapped with a specific set of characters.
      *
@@ -53,7 +37,6 @@ public class JdbcStringUtils {
         return (firstChar == '`' && lastChar == '`')
             || (firstChar == '\'' && lastChar == '\'')
             || (firstChar == '\"' && lastChar == '\"');
->>>>>>> upstream/master
     }
 
     public static boolean isWrapped(char c) {
@@ -64,8 +47,6 @@ public class JdbcStringUtils {
         return isWrapped(possiblyWrapped) ? possiblyWrapped.substring(1, possiblyWrapped.length() - 1) : possiblyWrapped;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Compares two version numbers and returns the result as an integer.
      *
@@ -91,5 +72,4 @@ public class JdbcStringUtils {
     private static int getPartAsNumber(String[] parts, int index) {
         return index < parts.length ? Integer.parseInt(parts[index]) : 0;
     }
->>>>>>> upstream/master
 }

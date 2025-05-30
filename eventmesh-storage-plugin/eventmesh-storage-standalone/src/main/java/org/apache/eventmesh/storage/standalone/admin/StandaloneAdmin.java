@@ -19,11 +19,7 @@ package org.apache.eventmesh.storage.standalone.admin;
 
 import org.apache.eventmesh.api.admin.AbstractAdmin;
 import org.apache.eventmesh.api.admin.TopicProperties;
-<<<<<<< HEAD
-import org.apache.eventmesh.storage.standalone.broker.MessageQueue;
-=======
 import org.apache.eventmesh.storage.standalone.broker.Channel;
->>>>>>> upstream/master
 import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
 import org.apache.eventmesh.storage.standalone.broker.model.TopicMetadata;
 
@@ -46,19 +42,11 @@ public class StandaloneAdmin extends AbstractAdmin {
 
     @Override
     public List<TopicProperties> getTopic() throws Exception {
-<<<<<<< HEAD
-        ConcurrentHashMap<TopicMetadata, MessageQueue> messageContainer = this.standaloneBroker.getMessageContainer();
-        List<TopicProperties> topicList = new ArrayList<>();
-        messageContainer.keySet().forEach(topicMetadata -> {
-            MessageQueue messageQueue = messageContainer.get(topicMetadata);
-            final int messageCount = messageQueue.getPutIndex() - messageQueue.getTakeIndex();
-=======
         ConcurrentHashMap<TopicMetadata, Channel> messageContainer = this.standaloneBroker.getMessageContainer();
         List<TopicProperties> topicList = new ArrayList<>();
         messageContainer.keySet().forEach(topicMetadata -> {
             Channel channel = messageContainer.get(topicMetadata);
             final int messageCount = channel.getMessageCount();
->>>>>>> upstream/master
             topicList.add(new TopicProperties(
                 topicMetadata.getTopicName(),
                 messageCount));
@@ -77,29 +65,7 @@ public class StandaloneAdmin extends AbstractAdmin {
         standaloneBroker.deleteTopicIfExist(topicName);
     }
 
-<<<<<<< HEAD
-    @Override
-    public List<CloudEvent> getEvent(String topicName, int offset, int length) throws Exception {
-        if (!this.standaloneBroker.checkTopicExist(topicName)) {
-            throw new Exception("The topic name doesn't exist in the message queue");
-        }
-        ConcurrentHashMap<TopicMetadata, MessageQueue> messageContainer = this.standaloneBroker.getMessageContainer();
-        long topicOffset = messageContainer.get(new TopicMetadata(topicName)).getTakeIndex();
 
-        List<CloudEvent> messageList = new ArrayList<>();
-        for (int index = 0; index < length; index++) {
-            long messageOffset = topicOffset + offset + index;
-            CloudEvent event = this.standaloneBroker.getMessage(topicName, messageOffset);
-            if (event == null) {
-                break;
-            }
-            messageList.add(event);
-        }
-        return messageList;
-    }
-=======
-
->>>>>>> upstream/master
 
     @Override
     public void publish(CloudEvent cloudEvent) throws Exception {

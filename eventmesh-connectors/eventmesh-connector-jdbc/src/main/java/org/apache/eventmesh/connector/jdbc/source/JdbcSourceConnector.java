@@ -17,19 +17,12 @@
 
 package org.apache.eventmesh.connector.jdbc.source;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.DatabaseDialect;
-import org.apache.eventmesh.connector.jdbc.event.Event;
-import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
-import org.apache.eventmesh.connector.jdbc.source.dialect.DatabaseDialectFactory;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 import org.apache.eventmesh.common.config.connector.SourceConfig;
 import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
 import org.apache.eventmesh.connector.jdbc.dialect.DatabaseDialect;
 import org.apache.eventmesh.connector.jdbc.dialect.DatabaseDialectFactory;
 import org.apache.eventmesh.connector.jdbc.event.Event;
->>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.source.dialect.cdc.CdcEngine;
 import org.apache.eventmesh.connector.jdbc.source.dialect.cdc.CdcEngineFactory;
 import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.SnapshotEngine;
@@ -37,11 +30,6 @@ import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.SnapshotEngin
 import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.SnapshotResult;
 import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.SnapshotResult.SnapshotResultStatus;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.api.config.Config;
-import org.apache.eventmesh.openconnect.api.config.SourceConfig;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnector;
 import org.apache.eventmesh.openconnect.api.connector.SourceConnectorContext;
@@ -123,11 +111,7 @@ public class JdbcSourceConnector extends SourceConnector {
 
         // Get the database dialect factory and create the database dialect.
         final DatabaseDialectFactory databaseDialectFactory = JdbcAllFactoryLoader.getDatabaseDialectFactory(databaseType);
-<<<<<<< HEAD
-        this.databaseDialect = databaseDialectFactory.createDatabaseDialect(sourceConfig);
-=======
         this.databaseDialect = databaseDialectFactory.createDatabaseDialect(this.sourceConfig.getSourceConnectorConfig().getJdbcConfig());
->>>>>>> upstream/master
         this.databaseDialect.init();
 
         // Get the snapshot engine factory and create the snapshot engine
@@ -158,13 +142,9 @@ public class JdbcSourceConnector extends SourceConnector {
 
         this.dispatcher = new EventDispatcher(this.sourceJdbcTaskManager);
 
-<<<<<<< HEAD
-        this.taskManagerCoordinator = new TaskManagerCoordinator();
-=======
         this.taskManagerCoordinator = new TaskManagerCoordinator(sourceConfig.getPollConfig().getCapacity(),
             sourceConfig.getPollConfig().getMaxBatchSize(),
             sourceConfig.getPollConfig().getMaxWaitTime());
->>>>>>> upstream/master
         this.taskManagerCoordinator.registerTaskManager(SourceJdbcTaskManager.class.getName(), sourceJdbcTaskManager);
         this.taskManagerCoordinator.init();
     }
@@ -214,14 +194,11 @@ public class JdbcSourceConnector extends SourceConnector {
         return "JDBC Source Connector";
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public void onException(ConnectRecord record) {
 
     }
 
->>>>>>> upstream/master
     /**
      * Stops the Connector.
      *
@@ -234,13 +211,6 @@ public class JdbcSourceConnector extends SourceConnector {
 
     @Override
     public List<ConnectRecord> poll() {
-<<<<<<< HEAD
-
-        List<ConnectRecord> connectRecords = this.taskManagerCoordinator.poll();
-
-        return connectRecords;
-=======
         return this.taskManagerCoordinator.poll();
->>>>>>> upstream/master
     }
 }

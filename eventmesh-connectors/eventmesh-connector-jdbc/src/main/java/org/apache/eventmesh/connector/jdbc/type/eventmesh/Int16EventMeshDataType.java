@@ -15,28 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-common/src/test/java/org/apache/eventmesh/common/utils/RandomStringUtilsTest.java
-package org.apache.eventmesh.common.utils;
-
-import org.apache.commons.lang3.math.NumberUtils;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-public class RandomStringUtilsTest {
-
-    @Test
-    public void testGenerateNum() {
-        String result = RandomStringUtils.generateNum(2);
-        Assertions.assertTrue(NumberUtils.isDigits(result));
-        Assertions.assertEquals(2, result.length());
-    }
-
-    @Test
-    public void testGenerateUUID() {
-        String result = RandomStringUtils.generateUUID();
-        Assertions.assertTrue(result.matches("^\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}$"));
-========
 package org.apache.eventmesh.connector.jdbc.type.eventmesh;
 
 import org.apache.eventmesh.connector.jdbc.table.type.SQLType;
@@ -56,7 +34,6 @@ public class Int16EventMeshDataType extends AbstractType<Short> {
     @Override
     public List<String> ofRegistrationKeys() {
         return Arrays.asList(getName(), "int16", "shot", "SHORT", "Short", "smallint");
->>>>>>>> upstream/master:eventmesh-connectors/eventmesh-connector-jdbc/src/main/java/org/apache/eventmesh/connector/jdbc/type/eventmesh/Int16EventMeshDataType.java
     }
 
 }

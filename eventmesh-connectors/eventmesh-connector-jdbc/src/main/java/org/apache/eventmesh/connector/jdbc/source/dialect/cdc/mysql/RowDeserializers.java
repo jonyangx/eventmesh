@@ -23,15 +23,9 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-<<<<<<< HEAD
-import java.time.Year;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-=======
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.BitSet;
->>>>>>> upstream/master
 import java.util.Map;
 
 import com.github.shyiko.mysql.binlog.event.TableMapEventData;
@@ -105,14 +99,11 @@ public class RowDeserializers {
         protected Serializable deserializeYear(ByteArrayInputStream inputStream) throws IOException {
             return RowDeserializers.deserializeYear(inputStream);
         }
-<<<<<<< HEAD
-=======
 
         @Override
         protected Serializable deserializeBit(int meta, ByteArrayInputStream inputStream) throws IOException {
             return ((BitSet) super.deserializeBit(meta, inputStream)).toByteArray();
         }
->>>>>>> upstream/master
     }
 
     public static class UpdateRowsEventMeshDeserializer extends UpdateRowsEventDataDeserializer {
@@ -170,15 +161,12 @@ public class RowDeserializers {
         protected Serializable deserializeYear(ByteArrayInputStream inputStream) throws IOException {
             return RowDeserializers.deserializeYear(inputStream);
         }
-<<<<<<< HEAD
-=======
 
         @Override
         protected Serializable deserializeBit(int meta, ByteArrayInputStream inputStream) throws IOException {
             return ((BitSet) super.deserializeBit(meta, inputStream)).toByteArray();
 
         }
->>>>>>> upstream/master
     }
 
     public static class DeleteRowsEventMeshDeserializer extends DeleteRowsEventDataDeserializer {
@@ -236,13 +224,10 @@ public class RowDeserializers {
         protected Serializable deserializeYear(ByteArrayInputStream inputStream) throws IOException {
             return RowDeserializers.deserializeYear(inputStream);
         }
-<<<<<<< HEAD
-=======
 
         protected Serializable deserializeBit(int meta, ByteArrayInputStream inputStream) throws IOException {
             return ((BitSet) super.deserializeBit(meta, inputStream)).toByteArray();
         }
->>>>>>> upstream/master
     }
 
     protected static Serializable deserializeTimestamp(ByteArrayInputStream inputStream) throws IOException {
@@ -258,11 +243,7 @@ public class RowDeserializers {
     }
 
     protected static Serializable deserializeYear(ByteArrayInputStream inputStream) throws IOException {
-<<<<<<< HEAD
-        return Year.of(1900 + inputStream.readInteger(1));
-=======
         return LocalDate.parse(String.format("%d-01-01", 1900 + inputStream.readInteger(1)));
->>>>>>> upstream/master
     }
 
     /**
@@ -482,11 +463,8 @@ public class RowDeserializers {
         return 0;
     }
 
-<<<<<<< HEAD
-=======
     protected static byte[] deserializeBit(int meta, ByteArrayInputStream inputStream) throws IOException {
         return inputStream.read(meta);
     }
 
->>>>>>> upstream/master
 }

@@ -18,26 +18,19 @@
 package org.apache.eventmesh.connector.jdbc;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.List;
-=======
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
->>>>>>> upstream/master
 
 import lombok.Data;
 
 @Data
 public class Schema {
 
-<<<<<<< HEAD
-=======
     // contains primary key and unique key
     private Set<String> keySet;
 
->>>>>>> upstream/master
     private List<Field> fields;
 
     public Schema(List<Field> fields) {
@@ -51,8 +44,6 @@ public class Schema {
     public void add(Field field) {
         this.fields.add(field);
     }
-<<<<<<< HEAD
-=======
 
     public void addKey(String key) {
         if (keySet == null) {
@@ -71,5 +62,4 @@ public class Schema {
     public boolean containsKey() {
         return keySet != null && !keySet.isEmpty();
     }
->>>>>>> upstream/master
 }

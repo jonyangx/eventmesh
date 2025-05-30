@@ -15,20 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-connectors/eventmesh-connector-redis/src/main/java/org/apache/eventmesh/connector/redis/sink/config/SinkConnectorConfig.java
-package org.apache.eventmesh.connector.redis.sink.config;
-
-import lombok.Data;
-
-@Data
-public class SinkConnectorConfig {
-
-    private String connectorName;
-
-    private String server;
-
-    private String topic;
-========
 package org.apache.eventmesh.common.config.connector.rdb.canal;
 
 import java.sql.JDBCType;
@@ -39,5 +25,4 @@ import lombok.Data;
 public class RdbColumnDefinition {
     protected String name;
     protected JDBCType jdbcType;
->>>>>>>> upstream/master:eventmesh-common/src/main/java/org/apache/eventmesh/common/config/connector/rdb/canal/RdbColumnDefinition.java
 }

@@ -34,11 +34,7 @@ public class RandomLoadBalanceSelectorTest {
     private RandomLoadBalanceSelector<String> randomLoadBalanceSelector;
 
     @BeforeEach
-<<<<<<< HEAD
-    public void befor() {
-=======
     public void before() {
->>>>>>> upstream/master
         List<String> address = new ArrayList<>();
         address.add("A");
         address.add("B");

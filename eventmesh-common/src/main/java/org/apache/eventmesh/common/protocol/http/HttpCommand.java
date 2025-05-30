@@ -41,10 +41,7 @@ import io.netty.handler.codec.http.HttpVersion;
 
 import lombok.Data;
 
-<<<<<<< HEAD
-=======
 @Deprecated
->>>>>>> upstream/master
 @Data
 public class HttpCommand implements ProtocolTransportObject {
 

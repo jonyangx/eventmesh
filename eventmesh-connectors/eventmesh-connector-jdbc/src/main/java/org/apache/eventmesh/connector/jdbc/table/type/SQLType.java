@@ -17,38 +17,13 @@
 
 package org.apache.eventmesh.connector.jdbc.table.type;
 
-<<<<<<< HEAD
-=======
 import java.sql.Types;
 
->>>>>>> upstream/master
 /**
  * see {@link java.sql.SQLType}
  */
 public enum SQLType {
 
-<<<<<<< HEAD
-    /**
-     * Identifies the generic SQL type {@code TINYINT}.
-     */
-    TINYINT,
-    /**
-     * Identifies the generic SQL type {@code SMALLINT}.
-     */
-    SMALLINT,
-    /**
-     * Identifies the generic SQL type {@code INTEGER}.
-     */
-    INTEGER,
-    /**
-     * Identifies the generic SQL type {@code BIGINT}.
-     */
-    BIGINT,
-    /**
-     * Identifies the generic SQL type {@code FLOAT}.
-     */
-    FLOAT,
-=======
     BIT(Types.BIT),
 
     /**
@@ -71,46 +46,22 @@ public enum SQLType {
      * Identifies the generic SQL type {@code FLOAT}.
      */
     FLOAT(Types.FLOAT),
->>>>>>> upstream/master
 
     /**
      * Identifies the generic SQL type {@code DOUBLE}.
      */
-<<<<<<< HEAD
-    DOUBLE,
-=======
     DOUBLE(Types.DOUBLE),
->>>>>>> upstream/master
 
     /**
      * Identifies the generic SQL type {@code DECIMAL}.
      */
-<<<<<<< HEAD
-    DECIMAL,
-=======
     DECIMAL(Types.DECIMAL),
     NUMERIC(Types.NUMERIC),
     REAL(Types.REAL),
->>>>>>> upstream/master
 
     /**
      * Identifies the generic SQL type {@code DATE}.
      */
-<<<<<<< HEAD
-    DATE,
-    /**
-     * Identifies the generic SQL type {@code TIME}.
-     */
-    TIME,
-    /**
-     * Identifies the generic SQL type {@code TIMESTAMP}.
-     */
-    TIMESTAMP,
-    /**
-     * Identifies the generic SQL type {@code BINARY}.
-     */
-    BINARY,
-=======
     DATE(Types.DATE),
     /**
      * Identifies the generic SQL type {@code TIME}.
@@ -127,41 +78,20 @@ public enum SQLType {
      * Identifies the generic SQL type {@code BINARY}.
      */
     BINARY(Types.BINARY),
->>>>>>> upstream/master
 
     /**
      * Identifies the generic SQL value {@code NULL}.
      */
-<<<<<<< HEAD
-    NULL,
-=======
     NULL(Types.NULL),
->>>>>>> upstream/master
 
     /**
      * Identifies the generic SQL type {@code ARRAY}.
      */
-<<<<<<< HEAD
-    ARRAY,
-=======
     ARRAY(Types.ARRAY),
->>>>>>> upstream/master
 
     /**
      * Identifies the generic SQL type {@code BOOLEAN}.
      */
-<<<<<<< HEAD
-    BOOLEAN,
-
-    /**
-     * EventMesh generic SQL type
-     */
-    ROW,
-
-    MAP,
-
-    STRING
-=======
     BOOLEAN(Types.BOOLEAN),
 
     STRING(Types.VARCHAR);
@@ -175,5 +105,4 @@ public enum SQLType {
     public int ofType() {
         return type;
     }
->>>>>>> upstream/master
 }

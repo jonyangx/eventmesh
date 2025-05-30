@@ -17,22 +17,10 @@
 
 package org.apache.eventmesh.common.utils;
 
-<<<<<<< HEAD
-import static org.apache.eventmesh.common.Constants.SUCCESS_CODE;
-
-import org.apache.eventmesh.common.Constants;
-import org.apache.eventmesh.common.enums.HttpMethod;
-
-import org.apache.commons.lang3.StringUtils;
-
-import java.io.IOException;
-import java.io.InputStreamReader;
-=======
 import org.apache.eventmesh.common.Constants;
 
 import org.apache.commons.lang3.StringUtils;
 
->>>>>>> upstream/master
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.URLDecoder;
@@ -41,11 +29,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-<<<<<<< HEAD
-import com.sun.net.httpserver.HttpExchange;
-
-=======
->>>>>>> upstream/master
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -91,29 +74,4 @@ public class NetUtils {
         }
         return sb.toString();
     }
-<<<<<<< HEAD
-
-    public static String parsePostBody(HttpExchange exchange)
-        throws IOException {
-
-        if (!HttpMethod.POST.name().equalsIgnoreCase(exchange.getRequestMethod())
-            && !HttpMethod.PUT.name().equalsIgnoreCase(exchange.getRequestMethod())) {
-            return "";
-        }
-        StringBuilder body = new StringBuilder(1024);
-        try (InputStreamReader reader = new InputStreamReader(exchange.getRequestBody(), Constants.DEFAULT_CHARSET.name())) {
-            char[] buffer = new char[256];
-            int readIndex;
-            while ((readIndex = reader.read(buffer)) != -1) {
-                body.append(buffer, 0, readIndex);
-            }
-        }
-        return body.toString();
-    }
-
-    public static void sendSuccessResponseHeaders(HttpExchange httpExchange) throws IOException {
-        httpExchange.sendResponseHeaders(SUCCESS_CODE, 0);
-    }
-=======
->>>>>>> upstream/master
 }

@@ -22,8 +22,6 @@ package org.apache.eventmesh.metrics.api.model;
  */
 public interface Metric {
 
-<<<<<<< HEAD
-=======
     /**
      * Sets the instrument further.
      *
@@ -51,5 +49,4 @@ public interface Metric {
      * @return the type of the instrument
      */
     InstrumentType getInstrumentType();
->>>>>>> upstream/master
 }

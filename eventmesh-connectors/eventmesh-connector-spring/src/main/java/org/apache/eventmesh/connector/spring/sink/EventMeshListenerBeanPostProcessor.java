@@ -97,11 +97,7 @@ public class EventMeshListenerBeanPostProcessor implements ApplicationContextAwa
                 while (sinkConnector.isRunning()) {
                     try {
                         poll = sinkConnector.getQueue().poll(annotation.requestTimeout(), TimeUnit.SECONDS);
-<<<<<<< HEAD
-                        if (null == poll || null == poll.getData()) {
-=======
                         if (poll == null || poll.getData() == null) {
->>>>>>> upstream/master
                             continue;
                         }
                         String messageBody = new String((byte[]) poll.getData());

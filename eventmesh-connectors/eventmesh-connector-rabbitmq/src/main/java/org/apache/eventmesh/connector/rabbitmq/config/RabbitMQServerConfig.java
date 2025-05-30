@@ -17,12 +17,6 @@
 
 package org.apache.eventmesh.connector.rabbitmq.config;
 
-<<<<<<< HEAD
-import lombok.Data;
-
-@Data
-public class RabbitMQServerConfig {
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 
 import lombok.Data;
@@ -31,7 +25,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class RabbitMQServerConfig extends Config {
->>>>>>> upstream/master
 
     private boolean sourceEnable;
 

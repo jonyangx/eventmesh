@@ -17,10 +17,6 @@
 
 package org.apache.eventmesh.connector.jdbc.table.catalog;
 
-<<<<<<< HEAD
-import java.io.Serializable;
-=======
->>>>>>> upstream/master
 import java.util.List;
 
 import lombok.Getter;
@@ -32,53 +28,14 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-<<<<<<< HEAD
-public class UniqueKey implements Serializable {
-
-    // The name of the unique key, if specified.
-    private String name;
-
-    // The list of column names that make up the unique/primary key.
-    private List<String> columnNames;
-
-    // An optional comment or description for the unique/primary key.
-    private String comment;
-=======
 public class UniqueKey extends Index {
 
     private static final String INDEX_TYPE = "UNIQUE";
->>>>>>> upstream/master
 
     public UniqueKey() {
     }
 
     public UniqueKey(String name, List<String> columnNames, String comment) {
-<<<<<<< HEAD
-        this.name = name;
-        this.columnNames = columnNames;
-        this.comment = comment;
-    }
-
-    public UniqueKey(String name, List<String> columnNames) {
-        this.name = name;
-        this.columnNames = columnNames;
-    }
-
-    public UniqueKey(List<String> columnNames) {
-        this.columnNames = columnNames;
-    }
-
-    public UniqueKey copy() {
-        return new UniqueKey(name, columnNames, comment);
-    }
-
-    public void addColumnNames(String... columnNames) {
-        if (columnNames != null && columnNames.length > 0) {
-            for (String columnName : columnNames) {
-                this.columnNames.add(columnName);
-            }
-        }
-=======
         super(name, columnNames, INDEX_TYPE, null, comment);
     }
 
@@ -92,6 +49,5 @@ public class UniqueKey extends Index {
 
     public UniqueKey copy() {
         return new UniqueKey(getName(), getColumnNames(), getComment());
->>>>>>> upstream/master
     }
 }

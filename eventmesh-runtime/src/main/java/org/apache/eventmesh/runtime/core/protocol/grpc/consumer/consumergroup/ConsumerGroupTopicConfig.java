@@ -18,10 +18,7 @@
 package org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup;
 
 import org.apache.eventmesh.common.protocol.SubscriptionMode;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.protocol.grpc.common.GrpcType;
->>>>>>> upstream/master
 
 public abstract class ConsumerGroupTopicConfig {
 

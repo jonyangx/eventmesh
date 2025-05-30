@@ -24,13 +24,9 @@ import org.apache.eventmesh.common.exception.JsonException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-<<<<<<< HEAD
-import java.lang.reflect.Type;
-=======
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.Map;
->>>>>>> upstream/master
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -58,8 +54,6 @@ public class JsonUtils {
         OBJECT_MAPPER.registerModule(new JavaTimeModule());
     }
 
-<<<<<<< HEAD
-=======
     public static <T> T convertValue(Object fromValue, Class<T> toValueType) {
         return OBJECT_MAPPER.convertValue(fromValue, toValueType);
     }
@@ -84,7 +78,6 @@ public class JsonUtils {
         });
     }
 
->>>>>>> upstream/master
     /**
      * Serialize object to json string.
      *
@@ -132,8 +125,6 @@ public class JsonUtils {
         }
     }
 
-<<<<<<< HEAD
-=======
     public static <T> T parseObject(InputStream inputStream, Class<T> clazz) {
         try {
             return OBJECT_MAPPER.readValue(inputStream, clazz);
@@ -142,7 +133,6 @@ public class JsonUtils {
         }
     }
 
->>>>>>> upstream/master
     public static <T> T parseObject(String text, Type type) {
         if (StringUtils.isEmpty(text)) {
             return null;
@@ -191,8 +181,6 @@ public class JsonUtils {
         }
     }
 
-<<<<<<< HEAD
-=======
     public static <T> T parseTypeReferenceObject(Object object, TypeReference<T> typeReference) {
         if (object == null) {
             return null;
@@ -208,7 +196,6 @@ public class JsonUtils {
         }
     }
 
->>>>>>> upstream/master
     public static JsonNode getJsonNode(String text) {
         if (StringUtils.isEmpty(text)) {
             return null;

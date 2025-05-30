@@ -17,13 +17,8 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.storage;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
-=======
 import org.apache.eventmesh.common.remote.offset.RecordOffset;
 import org.apache.eventmesh.common.remote.offset.RecordPartition;
->>>>>>> upstream/master
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -40,16 +35,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class OffsetStorageWriterImpl implements OffsetStorageWriter, Closeable {
 
-<<<<<<< HEAD
-    private final String connectorName;
-    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-    private OffsetManagementService offsetManagementService;
-    /**
-     * Offset data in Connect format
-     */
-    private Map<ConnectorRecordPartition, RecordOffset> data = new HashMap<>();
-    private Map<ConnectorRecordPartition, RecordOffset> toFlush = null;
-=======
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
     private final OffsetManagementService offsetManagementService;
     /**
@@ -57,31 +42,19 @@ public class OffsetStorageWriterImpl implements OffsetStorageWriter, Closeable {
      */
     private Map<RecordPartition, RecordOffset> data = new HashMap<>();
     private Map<RecordPartition, RecordOffset> toFlush = null;
->>>>>>> upstream/master
 
     // Unique ID for each flush request to handle callbacks after timeouts
     private long currentFlushId = 0;
 
-<<<<<<< HEAD
-    public OffsetStorageWriterImpl(String connectorName, OffsetManagementService offsetManagementService) {
-        this.connectorName = connectorName;
-=======
     public OffsetStorageWriterImpl(OffsetManagementService offsetManagementService) {
->>>>>>> upstream/master
         this.offsetManagementService = offsetManagementService;
     }
 
     @Override
-<<<<<<< HEAD
-    public void writeOffset(RecordPartition partition, RecordOffset position) {
-        ConnectorRecordPartition extendRecordPartition = new ConnectorRecordPartition(connectorName, partition.getPartition());
-        data.put(extendRecordPartition, position);
-=======
     public void writeOffset(RecordPartition partition, RecordOffset offset) {
         if (partition != null) {
             data.put(partition, offset);
         }
->>>>>>> upstream/master
     }
 
     /**
@@ -107,12 +80,8 @@ public class OffsetStorageWriterImpl implements OffsetStorageWriter, Closeable {
      */
     public synchronized boolean beginFlush() {
         if (isFlushing()) {
-<<<<<<< HEAD
-            throw new RuntimeException("OffsetStorageWriter is already flushing");
-=======
             log.warn("OffsetStorageWriter is already flushing");
             return false;
->>>>>>> upstream/master
         }
         if (data.isEmpty()) {
             return false;

@@ -120,11 +120,7 @@ public class RabbitmqClient {
      * @param connection connection
      */
     public void closeConnection(Connection connection) {
-<<<<<<< HEAD
-        if (null != connection) {
-=======
         if (connection != null) {
->>>>>>> upstream/master
             try {
                 connection.close();
             } catch (Exception ex) {
@@ -139,11 +135,7 @@ public class RabbitmqClient {
      * @param channel channel
      */
     public void closeChannel(Channel channel) {
-<<<<<<< HEAD
-        if (null != channel) {
-=======
         if (channel != null) {
->>>>>>> upstream/master
             try {
                 channel.close();
             } catch (Exception ex) {

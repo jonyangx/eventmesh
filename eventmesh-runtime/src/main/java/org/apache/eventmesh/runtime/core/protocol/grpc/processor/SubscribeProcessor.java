@@ -21,26 +21,15 @@ import org.apache.eventmesh.api.exception.AclException;
 import org.apache.eventmesh.common.protocol.SubscriptionItem;
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.CloudEvent;
 import org.apache.eventmesh.common.protocol.grpc.common.EventMeshCloudEventUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.protocol.grpc.common.StatusCode;
-import org.apache.eventmesh.common.protocol.http.common.RequestCode;
-import org.apache.eventmesh.common.utils.JsonUtils;
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
 import org.apache.eventmesh.common.protocol.grpc.common.GrpcType;
 import org.apache.eventmesh.common.protocol.grpc.common.StatusCode;
 import org.apache.eventmesh.common.protocol.http.common.RequestCode;
 import org.apache.eventmesh.common.utils.JsonUtils;
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.boot.EventMeshGrpcServer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.ConsumerManager;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.EventMeshConsumer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.ConsumerGroupClient;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.GrpcType;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.ServiceUtils;
 
@@ -83,11 +72,7 @@ public class SubscribeProcessor {
         try {
             doAclCheck(subscription);
         } catch (AclException e) {
-<<<<<<< HEAD
-            LogUtils.warn(log, "CLIENT HAS NO PERMISSION to Subscribe. failed", e);
-=======
             log.warn("CLIENT HAS NO PERMISSION to Subscribe. failed", e);
->>>>>>> upstream/master
             ServiceUtils.sendResponseCompleted(StatusCode.EVENTMESH_ACL_ERR, e.getMessage(), emitter);
             return;
         }
@@ -140,17 +125,10 @@ public class SubscribeProcessor {
 
         // restart consumer group if required
         if (requireRestart) {
-<<<<<<< HEAD
-            LogUtils.info(log, "ConsumerGroup {} topic info changed, restart EventMesh Consumer", consumerGroup);
-            consumerManager.restartEventMeshConsumer(consumerGroup);
-        } else {
-            LogUtils.warn(log, "EventMesh consumer [{}] didn't restart.", consumerGroup);
-=======
             log.info("ConsumerGroup {} topic info changed, restart EventMesh Consumer", consumerGroup);
             consumerManager.restartEventMeshConsumer(consumerGroup);
         } else {
             log.warn("EventMesh consumer [{}] didn't restart.", consumerGroup);
->>>>>>> upstream/master
         }
         ServiceUtils.sendResponseCompleted(StatusCode.SUCCESS, "subscribe success", emitter);
     }

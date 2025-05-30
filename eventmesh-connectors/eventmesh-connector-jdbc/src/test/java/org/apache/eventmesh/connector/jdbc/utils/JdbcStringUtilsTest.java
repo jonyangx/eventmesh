@@ -52,8 +52,6 @@ public class JdbcStringUtilsTest {
         assertTrue(JdbcStringUtils.isWrapped('\"'));
         assertFalse(JdbcStringUtils.isWrapped('A'));
     }
-<<<<<<< HEAD
-=======
 
     @Test
     public void testCompareVersion() {
@@ -94,5 +92,4 @@ public class JdbcStringUtilsTest {
             assertTrue(e instanceof NumberFormatException);
         }
     }
->>>>>>> upstream/master
 }

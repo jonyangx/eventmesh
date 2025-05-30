@@ -23,11 +23,7 @@ import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.RetryContext;
 import org.apache.eventmesh.runtime.core.protocol.http.consumer.HandleMsgContext;
 import org.apache.eventmesh.runtime.core.protocol.http.retry.HttpRetryer;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.core.timer.Timeout;
-=======
 import org.apache.eventmesh.runtime.core.protocol.producer.ProducerManager;
->>>>>>> upstream/master
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -77,10 +73,7 @@ public abstract class AbstractHTTPPushRequest extends RetryContext {
         this.retryer = handleMsgContext.getEventMeshHTTPServer().getHttpRetryer();
         this.ttl = handleMsgContext.getTtl();
         this.startIdx = ThreadLocalRandom.current().nextInt(0, totalUrls.size());
-<<<<<<< HEAD
-=======
         super.commonConfiguration = eventMeshHttpConfiguration;
->>>>>>> upstream/master
     }
 
     public void tryHTTPRequest() {
@@ -137,18 +130,9 @@ public abstract class AbstractHTTPPushRequest extends RetryContext {
         }
     }
 
-<<<<<<< HEAD
-    protected abstract void doRetry();
-
-    @Override
-    public void run(Timeout timeout) throws Exception {
-        doRetry();
-    }
-=======
     @Override
     protected ProducerManager getProducerManager() {
         return eventMeshHTTPServer.getProducerManager();
     }
 
->>>>>>> upstream/master
 }

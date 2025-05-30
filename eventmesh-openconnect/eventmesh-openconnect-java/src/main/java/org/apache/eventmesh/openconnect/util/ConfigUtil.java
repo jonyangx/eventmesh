@@ -17,25 +17,15 @@
 
 package org.apache.eventmesh.openconnect.util;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.api.config.Config;
-import org.apache.eventmesh.openconnect.api.config.Constants;
-import org.apache.eventmesh.openconnect.api.config.SinkConfig;
-import org.apache.eventmesh.openconnect.api.config.SourceConfig;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 import org.apache.eventmesh.common.config.connector.Constants;
 import org.apache.eventmesh.common.config.connector.SinkConfig;
 import org.apache.eventmesh.common.config.connector.SourceConfig;
->>>>>>> upstream/master
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
-<<<<<<< HEAD
-=======
 import java.util.Map;
->>>>>>> upstream/master
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -78,14 +68,11 @@ public class ConfigUtil {
         return objectMapper.readValue(url, c);
     }
 
-<<<<<<< HEAD
-=======
     public static <T> T parse(Map<String, Object> map, Class<T> c) throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.convertValue(map, c);
     }
 
->>>>>>> upstream/master
     private static Config parseSourceConfig(Class<? extends Config> c) throws Exception {
         String configFile = System.getProperty(Constants.ENV_SOURCE_CONFIG_FILE, System.getenv(Constants.ENV_SOURCE_CONFIG_FILE));
         if (configFile == null || configFile.isEmpty()) {

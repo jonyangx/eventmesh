@@ -25,10 +25,7 @@ import org.apache.eventmesh.common.protocol.tcp.Header;
 import org.apache.eventmesh.common.protocol.tcp.OPStatus;
 import org.apache.eventmesh.common.protocol.tcp.Package;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.utils.IPUtils;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.utils.JsonUtils;
 import org.apache.eventmesh.runtime.configuration.EventMeshTCPConfiguration;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
@@ -192,14 +189,7 @@ public class Session {
                             MESSAGE_LOGGER.error("write2Client fail, pkg[{}] session[{}]", pkg, this);
                         } else {
                             Objects.requireNonNull(clientGroupWrapper.get())
-<<<<<<< HEAD
-                                .getEventMeshTcpMonitor()
-                                .getTcpSummaryMetrics()
-                                .getEventMesh2clientMsgNum()
-                                .incrementAndGet();
-=======
                                 .getEventMeshTcpMetricsManager().eventMesh2clientMsgNumIncrement(IPUtils.parseChannelRemoteAddr(future.channel()));
->>>>>>> upstream/master
                         }
                     }
                 });
@@ -246,17 +236,6 @@ public class Session {
     @Override
     public int hashCode() {
         int result = 1001; // primeNumber
-<<<<<<< HEAD
-        if (null != client) {
-            result += 31 * result + Objects.hash(client);
-        }
-
-        if (null != context) {
-            result += 31 * result + Objects.hash(context);
-        }
-
-        if (null != sessionState) {
-=======
         if (client != null) {
             result += 31 * result + Objects.hash(client);
         }
@@ -266,7 +245,6 @@ public class Session {
         }
 
         if (sessionState != null) {
->>>>>>> upstream/master
             result += 31 * result + Objects.hash(sessionState);
         }
         return result;

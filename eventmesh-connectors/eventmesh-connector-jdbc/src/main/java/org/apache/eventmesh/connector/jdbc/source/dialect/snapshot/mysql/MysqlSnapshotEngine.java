@@ -17,21 +17,6 @@
 
 package org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.mysql;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.connection.mysql.MysqlJdbcConnection;
-import org.apache.eventmesh.connector.jdbc.context.mysql.MysqlOffsetContext;
-import org.apache.eventmesh.connector.jdbc.context.mysql.MysqlPartition;
-import org.apache.eventmesh.connector.jdbc.event.Event;
-import org.apache.eventmesh.connector.jdbc.event.EventConsumer;
-import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
-import org.apache.eventmesh.connector.jdbc.source.config.MysqlConfig;
-import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlConstants;
-import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlDatabaseDialect;
-import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlDialectSql;
-import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlJdbcContext;
-import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.AbstractSnapshotEngine;
-import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
-=======
 import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
 import org.apache.eventmesh.common.config.connector.rdb.jdbc.MysqlConfig;
 import org.apache.eventmesh.connector.jdbc.CatalogChanges;
@@ -51,7 +36,6 @@ import org.apache.eventmesh.connector.jdbc.source.dialect.snapshot.AbstractSnaps
 import org.apache.eventmesh.connector.jdbc.table.catalog.DefaultValueConvertor;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 import org.apache.eventmesh.connector.jdbc.table.catalog.mysql.MysqlDefaultValueConvertorImpl;
->>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.utils.MysqlUtils;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -82,11 +66,8 @@ public class MysqlSnapshotEngine extends
 
     private MysqlJdbcConnection connection;
 
-<<<<<<< HEAD
-=======
     private DefaultValueConvertor defaultValueConvertor = new MysqlDefaultValueConvertorImpl();
 
->>>>>>> upstream/master
     public MysqlSnapshotEngine(JdbcSourceConfig jdbcSourceConfig, MysqlDatabaseDialect databaseDialect, MysqlJdbcContext jdbcContext) {
         super(jdbcSourceConfig, databaseDialect, jdbcContext, jdbcContext.getPartition(), jdbcContext.getOffsetContext());
         this.connection = databaseDialect.getConnection();
@@ -103,8 +84,6 @@ public class MysqlSnapshotEngine extends
         shutdown();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Builds the source metadata.
      *
@@ -128,7 +107,6 @@ public class MysqlSnapshotEngine extends
         return sourceMateData;
     }
 
->>>>>>> upstream/master
     @Override
     protected void preSnapshot(MysqlJdbcContext jdbcContext, SnapshotContext<MysqlPartition, MysqlOffsetContext> snapshotContext) {
         // nothing to do
@@ -238,9 +216,6 @@ public class MysqlSnapshotEngine extends
                 if (event == null) {
                     return;
                 }
-<<<<<<< HEAD
-                event.getJdbcConnectData().getPayload().ofSourceMateData().setSnapshot(true);
-=======
                 // handle default value expression
                 if (event.getJdbcConnectData().isSchemaChanges()) {
                     CatalogChanges catalogChanges = event.getJdbcConnectData().getPayload().getCatalogChanges();
@@ -252,7 +227,6 @@ public class MysqlSnapshotEngine extends
                     }
                 }
                 event.getJdbcConnectData().getPayload().withDdl(ddl).ofSourceMateData().setSnapshot(true);
->>>>>>> upstream/master
                 eventQueue.put(event);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -337,11 +311,7 @@ public class MysqlSnapshotEngine extends
         while (isRunning) {
             try {
                 Event event = eventQueue.poll(5, TimeUnit.SECONDS);
-<<<<<<< HEAD
-                if (null == event) {
-=======
                 if (event == null) {
->>>>>>> upstream/master
                     continue;
                 }
                 consumers.forEach(consumer -> consumer.accept(event));

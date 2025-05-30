@@ -32,10 +32,6 @@ import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.RetryContext;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.EventMeshConsumer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.retry.GrpcRetryer;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.core.timer.Timeout;
-=======
->>>>>>> upstream/master
 
 import java.util.Collections;
 import java.util.Map;
@@ -161,11 +157,7 @@ public abstract class AbstractPushRequest extends RetryContext {
     }
 
     @Override
-<<<<<<< HEAD
-    public void run(Timeout timeout) throws Exception {
-=======
     public void doRun() throws Exception {
->>>>>>> upstream/master
         tryPushRequest();
     }
 }

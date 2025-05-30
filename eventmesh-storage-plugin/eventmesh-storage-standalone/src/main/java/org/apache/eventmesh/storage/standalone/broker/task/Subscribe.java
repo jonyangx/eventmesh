@@ -21,13 +21,6 @@ import org.apache.eventmesh.api.EventListener;
 import org.apache.eventmesh.api.EventMeshAction;
 import org.apache.eventmesh.api.EventMeshAsyncConsumeContext;
 import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
-<<<<<<< HEAD
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import io.cloudevents.CloudEvent;
-
-=======
 import org.apache.eventmesh.storage.standalone.broker.model.MessageEntity;
 
 
@@ -36,16 +29,11 @@ import io.cloudevents.CloudEvent;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.WorkHandler;
 
->>>>>>> upstream/master
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-<<<<<<< HEAD
-public class Subscribe {
-=======
 public class Subscribe implements WorkHandler<MessageEntity>, EventHandler<MessageEntity> {
->>>>>>> upstream/master
 
     @Getter
     private final String topicName;
@@ -53,11 +41,6 @@ public class Subscribe implements WorkHandler<MessageEntity>, EventHandler<Messa
     private final EventListener listener;
     @Getter
     private volatile boolean isRunning;
-<<<<<<< HEAD
-    @Getter
-    private AtomicInteger offset;
-=======
->>>>>>> upstream/master
 
     public Subscribe(String topicName,
         StandaloneBroker standaloneBroker,
@@ -69,61 +52,11 @@ public class Subscribe implements WorkHandler<MessageEntity>, EventHandler<Messa
     }
 
     public void subscribe() {
-<<<<<<< HEAD
-        try {
-            log.debug("execute subscribe task, topic: {}, offset: {}", topicName, offset);
-            if (offset == null) {
-                CloudEvent message = standaloneBroker.getMessage(topicName);
-                if (message != null) {
-                    Object tmpOffset = message.getExtension("offset");
-                    if (tmpOffset instanceof Integer) {
-                        offset = new AtomicInteger(Integer.parseInt(tmpOffset.toString()));
-                    } else {
-                        offset = new AtomicInteger(0);
-                    }
-                }
-            }
-            if (offset != null) {
-                CloudEvent message = standaloneBroker.getMessage(topicName, offset.get());
-                if (message != null) {
-                    EventMeshAsyncConsumeContext consumeContext = new EventMeshAsyncConsumeContext() {
-
-                        @Override
-                        public void commit(EventMeshAction action) {
-                            switch (action) {
-                                case CommitMessage:
-                                    // update offset
-                                    log.info("message commit, topic: {}, current offset:{}", topicName, offset.get());
-                                    break;
-                                case ManualAck:
-                                    // update offset
-                                    offset.incrementAndGet();
-                                    log.info("message ack, topic: {}, current offset:{}", topicName, offset.get());
-                                    break;
-                                case ReconsumeLater:
-                                default:
-
-                            }
-                        }
-                    };
-                    listener.consume(message, consumeContext);
-                }
-            }
-        } catch (Exception ex) {
-            log.error("consumer error, topic: {}, offset: {}", topicName, offset == null ? null : offset.get(), ex);
-        }
-=======
         standaloneBroker.subscribed(topicName, this);
->>>>>>> upstream/master
     }
 
     public void shutdown() {
         isRunning = false;
-<<<<<<< HEAD
-    }
-
-}
-=======
         standaloneBroker.deleteTopicIfExist(topicName);
     }
 
@@ -166,4 +99,3 @@ public class Subscribe implements WorkHandler<MessageEntity>, EventHandler<Messa
     }
 
 }
->>>>>>> upstream/master

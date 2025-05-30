@@ -18,43 +18,27 @@
 package org.apache.eventmesh.runtime.core.protocol.http.processor;
 
 import org.apache.eventmesh.common.protocol.http.HttpCommand;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
-import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
-import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.HttpRequestProcessor;
-=======
 import org.apache.eventmesh.runtime.boot.EventMeshAdminServer;
 import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
 
 import java.util.concurrent.Executor;
->>>>>>> upstream/master
 
 import io.netty.channel.ChannelHandlerContext;
 
 import lombok.RequiredArgsConstructor;
 
-<<<<<<< HEAD
-@RequiredArgsConstructor
-public class AdminMetricsProcessor implements HttpRequestProcessor {
-
-    private final EventMeshHTTPServer eventMeshHTTPServer;
-=======
 
 @RequiredArgsConstructor
 public class AdminMetricsProcessor extends AbstractHttpRequestProcessor {
 
     private final EventMeshAdminServer eventMeshAdminServer;
->>>>>>> upstream/master
 
     @Override
     public void processRequest(ChannelHandlerContext ctx, AsyncContext<HttpCommand> asyncContext) throws Exception {
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public Executor executor() {
         return eventMeshAdminServer.getAdminMetricsExecutor();
     }
->>>>>>> upstream/master
 }

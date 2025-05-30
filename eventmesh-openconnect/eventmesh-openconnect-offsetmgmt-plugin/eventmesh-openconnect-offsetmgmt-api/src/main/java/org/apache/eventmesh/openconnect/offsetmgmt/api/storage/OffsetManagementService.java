@@ -17,14 +17,9 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.storage;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.offsetmgmt.api.config.OffsetStorageConfig;
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
-=======
 import org.apache.eventmesh.common.config.connector.offset.OffsetStorageConfig;
 import org.apache.eventmesh.common.remote.offset.RecordOffset;
 import org.apache.eventmesh.common.remote.offset.RecordPartition;
->>>>>>> upstream/master
 import org.apache.eventmesh.spi.EventMeshExtensionType;
 import org.apache.eventmesh.spi.EventMeshSPI;
 
@@ -55,20 +50,12 @@ public interface OffsetManagementService {
     }
 
     /**
-<<<<<<< HEAD
-     * Persist position info in a persist store.
-=======
      * Persist position info in a persisted store.
->>>>>>> upstream/master
      */
     void persist();
 
     /**
-<<<<<<< HEAD
-     * load position info in a persist store.
-=======
      * load position info in a persisted store.
->>>>>>> upstream/master
      */
     void load();
 
@@ -82,42 +69,24 @@ public interface OffsetManagementService {
      *
      * @return
      */
-<<<<<<< HEAD
-    Map<ConnectorRecordPartition, RecordOffset> getPositionMap();
-
-    RecordOffset getPosition(ConnectorRecordPartition partition);
-=======
     Map<RecordPartition, RecordOffset> getPositionMap();
 
     RecordOffset getPosition(RecordPartition partition);
->>>>>>> upstream/master
 
     /**
      * Put a position info.
      */
-<<<<<<< HEAD
-    void putPosition(Map<ConnectorRecordPartition, RecordOffset> positions);
-
-    void putPosition(ConnectorRecordPartition partition, RecordOffset position);
-=======
     void putPosition(Map<RecordPartition, RecordOffset> positions);
 
     void putPosition(RecordPartition partition, RecordOffset position);
->>>>>>> upstream/master
 
     /**
      * Remove a position info.
      *
      * @param partitions
      */
-<<<<<<< HEAD
-    void removePosition(List<ConnectorRecordPartition> partitions);
-
-    void initialize(OffsetStorageConfig connectorConfig);
-=======
     void removePosition(List<RecordPartition> partitions);
 
     void initialize(OffsetStorageConfig offsetStorageConfig);
->>>>>>> upstream/master
 
 }

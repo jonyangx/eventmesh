@@ -19,11 +19,7 @@ package org.apache.eventmesh.runtime.configuration;
 
 import org.apache.eventmesh.common.config.CommonConfiguration;
 import org.apache.eventmesh.common.config.Config;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,21 +32,6 @@ import lombok.NoArgsConstructor;
 @Config(prefix = "eventMesh.server")
 public class EventMeshTCPConfiguration extends CommonConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "tcp.port")
-    private int eventMeshTcpServerPort = 10000;
-
-    @ConfigFiled(field = "tcp.allIdleSeconds")
-    private int eventMeshTcpIdleAllSeconds = 60;
-
-    @ConfigFiled(field = "tcp.writerIdleSeconds")
-    private int eventMeshTcpIdleWriteSeconds = 60;
-
-    @ConfigFiled(field = "tcp.readerIdleSeconds")
-    private int eventMeshTcpIdleReadSeconds = 60;
-
-    @ConfigFiled(field = "tcp.msgReqnumPerSecond")
-=======
     @ConfigField(field = "tcp.port")
     private int eventMeshTcpServerPort = 10000;
 
@@ -64,78 +45,16 @@ public class EventMeshTCPConfiguration extends CommonConfiguration {
     private int eventMeshTcpIdleReadSeconds = 60;
 
     @ConfigField(field = "tcp.msgReqnumPerSecond")
->>>>>>> upstream/master
     private Integer eventMeshTcpMsgReqnumPerSecond = 15000;
 
     /**
      * TCP Server allows max client num
      */
-<<<<<<< HEAD
-    @ConfigFiled(field = "tcp.clientMaxNum")
-=======
     @ConfigField(field = "tcp.clientMaxNum")
->>>>>>> upstream/master
     private int eventMeshTcpClientMaxNum = 10000;
 
     // ======================================= New add config =================================
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "global.scheduler")
-    private int eventMeshTcpGlobalScheduler = 5;
-
-    @ConfigFiled(field = "tcp.taskHandleExecutorPoolSize")
-    private int eventMeshTcpTaskHandleExecutorPoolSize = Runtime.getRuntime().availableProcessors();
-
-    @ConfigFiled(field = "tcp.msgDownStreamExecutorPoolSize")
-    private int eventMeshTcpMsgDownStreamExecutorPoolSize = Math.max(Runtime.getRuntime().availableProcessors(), 8);
-
-    @ConfigFiled(field = "session.expiredInMills")
-    private int eventMeshTcpSessionExpiredInMills = 60000;
-
-    @ConfigFiled(field = "session.upstreamBufferSize")
-    private int eventMeshTcpSessionUpstreamBufferSize = 100;
-
-    @ConfigFiled(field = "retry.async.pushRetryTimes")
-    private int eventMeshTcpMsgAsyncRetryTimes = 3;
-
-    @ConfigFiled(field = "retry.sync.pushRetryTimes")
-    private int eventMeshTcpMsgSyncRetryTimes = 1;
-
-    @ConfigFiled(field = "retry.sync.pushRetryDelayInMills")
-    private int eventMeshTcpMsgRetrySyncDelayInMills = 500;
-
-    @ConfigFiled(field = "retry.async.pushRetryDelayInMills")
-    private int eventMeshTcpMsgRetryAsyncDelayInMills = 500;
-
-    @ConfigFiled(field = "retry.pushRetryQueueSize")
-    private int eventMeshTcpMsgRetryQueueSize = 10000;
-
-    @ConfigFiled(field = "tcp.RebalanceIntervalInMills")
-    private Integer eventMeshTcpRebalanceIntervalInMills = 30 * 1000;
-
-    @ConfigFiled(field = "admin.http.port")
-    private int eventMeshServerAdminPort = 10106;
-
-    @ConfigFiled(field = "tcp.sendBack.enabled")
-    private boolean eventMeshTcpSendBackEnabled = Boolean.TRUE;
-
-    @ConfigFiled(field = "tcp.SendBackMaxTimes")
-    private int eventMeshTcpSendBackMaxTimes = 3;
-
-    @ConfigFiled(field = "tcp.pushFailIsolateTimeInMills")
-    private int eventMeshTcpPushFailIsolateTimeInMills = 30 * 1000;
-
-    @ConfigFiled(field = "gracefulShutdown.sleepIntervalInMills")
-    private int gracefulShutdownSleepIntervalInMills = 1000;
-
-    @ConfigFiled(field = "rebalanceRedirect.sleepIntervalInM")
-    private int sleepIntervalInRebalanceRedirectMills = 200;
-
-    @ConfigFiled(field = "maxEventSize")
-    private int eventMeshEventSize = 1000;
-
-    @ConfigFiled(field = "maxEventBatchSize")
-=======
     @ConfigField(field = "global.scheduler")
     private int eventMeshTcpGlobalScheduler = 5;
 
@@ -209,7 +128,6 @@ public class EventMeshTCPConfiguration extends CommonConfiguration {
     private int eventMeshEventSize = 1000;
 
     @ConfigField(field = "maxEventBatchSize")
->>>>>>> upstream/master
     private int eventMeshEventBatchSize = 10;
 
     private final TrafficShapingConfig gtc = new TrafficShapingConfig(0, 10_000, 1_000, 2_000);

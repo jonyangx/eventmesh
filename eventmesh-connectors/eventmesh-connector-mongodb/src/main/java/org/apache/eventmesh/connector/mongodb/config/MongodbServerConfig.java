@@ -17,19 +17,12 @@
 
 package org.apache.eventmesh.connector.mongodb.config;
 
-<<<<<<< HEAD
-import lombok.Data;
-
-@Data
-public class MongodbServerConfig {
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 
 import lombok.Data;
 
 @Data
 public class MongodbServerConfig extends Config {
->>>>>>> upstream/master
 
     private boolean sourceEnable;
 

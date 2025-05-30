@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-common/src/main/java/org/apache/eventmesh/common/protocol/tcp/OPStatus.java
 package org.apache.eventmesh.common.protocol.tcp;
 
 public enum OPStatus {
@@ -42,20 +41,4 @@ public enum OPStatus {
         return desc;
     }
 
-========
-package org.apache.eventmesh.admin.server.web.service.position;
-
-import org.apache.eventmesh.common.protocol.grpc.adminserver.Metadata;
-import org.apache.eventmesh.common.remote.offset.RecordPosition;
-import org.apache.eventmesh.common.remote.request.FetchPositionRequest;
-
-import java.util.List;
-
-/**
- * IFetchPositionHandler
- */
-public interface IFetchPositionHandler {
-
-    List<RecordPosition> handler(FetchPositionRequest request, Metadata metadata);
->>>>>>>> upstream/master:eventmesh-admin-server/src/main/java/org/apache/eventmesh/admin/server/web/service/position/IFetchPositionHandler.java
 }

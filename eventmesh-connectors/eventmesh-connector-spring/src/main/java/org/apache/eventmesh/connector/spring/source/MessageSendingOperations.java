@@ -17,11 +17,7 @@
 
 package org.apache.eventmesh.connector.spring.source;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.api.callback.SendMessageCallback;
-=======
 import org.apache.eventmesh.openconnect.offsetmgmt.api.callback.SendMessageCallback;
->>>>>>> upstream/master
 
 /**
  * Operations for sending messages.

@@ -28,10 +28,6 @@ import org.apache.eventmesh.common.protocol.catalog.protos.Operation;
 import org.apache.eventmesh.common.protocol.catalog.protos.QueryOperationsRequest;
 import org.apache.eventmesh.common.protocol.catalog.protos.QueryOperationsResponse;
 import org.apache.eventmesh.common.utils.AssertUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -70,11 +66,7 @@ public class EventMeshCatalogClient {
         final QueryOperationsRequest request = QueryOperationsRequest.newBuilder()
             .setServiceName(clientConfig.getAppServerName()).build();
         final QueryOperationsResponse response = catalogClient.queryOperations(request);
-<<<<<<< HEAD
-        LogUtils.info(log, "received response: {}", response);
-=======
         log.info("received response: {}", response);
->>>>>>> upstream/master
 
         final List<Operation> operations = response.getOperationsList();
         if (CollectionUtils.isEmpty(operations)) {

@@ -15,7 +15,6 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-common/src/main/java/org/apache/eventmesh/common/utils/TypeUtils.java
 package org.apache.eventmesh.common.utils;
 
 import java.util.HashSet;
@@ -35,22 +34,5 @@ public class TypeUtils {
             return result;
         }
         return null;
-========
-package org.apache.eventmesh.storage.rocketmq.common;
-
-import org.apache.eventmesh.api.TopicNameHelper;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.rocketmq.common.MixAll;
-
-public class TopicNameHelperImpl implements TopicNameHelper {
-
-    @Override
-    public boolean isRetryTopic(String retryTopic) {
-        if (StringUtils.isBlank(retryTopic)) {
-            return false;
-        }
-        return retryTopic.startsWith(MixAll.RETRY_GROUP_TOPIC_PREFIX);
->>>>>>>> upstream/master:eventmesh-storage-plugin/eventmesh-storage-rocketmq/src/main/java/org/apache/eventmesh/storage/rocketmq/common/TopicNameHelperImpl.java
     }
 }

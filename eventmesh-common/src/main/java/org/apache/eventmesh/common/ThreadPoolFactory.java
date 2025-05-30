@@ -18,10 +18,7 @@
 package org.apache.eventmesh.common;
 
 import java.util.concurrent.BlockingQueue;
-<<<<<<< HEAD
-=======
 import java.util.concurrent.ExecutorService;
->>>>>>> upstream/master
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -61,11 +58,8 @@ public abstract class ThreadPoolFactory {
     public static ScheduledExecutorService createScheduledExecutor(int core, ThreadFactory threadFactory) {
         return Executors.newScheduledThreadPool(core, threadFactory);
     }
-<<<<<<< HEAD
-=======
 
     public static ExecutorService createSingleExecutor(final String threadName) {
         return Executors.newSingleThreadExecutor(new EventMeshThreadFactory(threadName));
     }
->>>>>>> upstream/master
 }

@@ -18,11 +18,7 @@
 package org.apache.eventmesh.trace.api.config;
 
 import org.apache.eventmesh.common.config.Config;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import lombok.Data;
 
@@ -33,18 +29,6 @@ import lombok.Data;
 @Config(prefix = "eventmesh.trace", path = "classPath://exporter.properties")
 public class ExporterConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "max.export.size")
-    private int eventMeshTraceMaxExportSize = 512;
-
-    @ConfigFiled(field = "max.queue.size")
-    private int eventMeshTraceMaxQueueSize = 2048;
-
-    @ConfigFiled(field = "export.timeout")
-    private int eventMeshTraceExportTimeout = 30;
-
-    @ConfigFiled(field = "export.interval")
-=======
     @ConfigField(field = "max.export.size")
     private int eventMeshTraceMaxExportSize = 512;
 
@@ -55,6 +39,5 @@ public class ExporterConfiguration {
     private int eventMeshTraceExportTimeout = 30;
 
     @ConfigField(field = "export.interval")
->>>>>>> upstream/master
     private int eventMeshTraceExportInterval = 5;
 }

@@ -60,12 +60,9 @@ public class ConfigService {
     }
 
     public ConfigService setConfigPath(String configPath) {
-<<<<<<< HEAD
-=======
         if (StringUtils.isNotBlank(configPath) && !configPath.endsWith(File.separator)) {
             configPath = configPath + File.separator;
         }
->>>>>>> upstream/master
         this.configPath = configPath;
         return this;
     }
@@ -134,11 +131,7 @@ public class ConfigService {
         } else {
             filePath = path.startsWith(FILE_PATH_PREFIX) ? path.substring(FILE_PATH_PREFIX.length()) : this.configPath + path;
         }
-<<<<<<< HEAD
-
-=======
         filePath = normalizeFilePath(filePath);
->>>>>>> upstream/master
         if (filePath.contains(".jar")) {
             try (final InputStream inputStream = getClass().getResourceAsStream(Objects.requireNonNull(resourceUrl))) {
                 if (inputStream == null) {
@@ -159,8 +152,6 @@ public class ConfigService {
         return (T) object;
     }
 
-<<<<<<< HEAD
-=======
     private String normalizeFilePath(String filePath) {
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             if (filePath.startsWith("/")) {
@@ -170,7 +161,6 @@ public class ConfigService {
         return filePath;
     }
 
->>>>>>> upstream/master
     private void populateConfig(Object object, Class<?> clazz, Config config)
         throws NoSuchFieldException, IOException, IllegalAccessException {
         ConfigInfo configInfo = new ConfigInfo();

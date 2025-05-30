@@ -17,16 +17,12 @@
 
 package org.apache.eventmesh.connector.jdbc.table.catalog.mysql;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.table.catalog.AbstractColumnEditorImpl;
-=======
 import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlDataTypeConvertor;
 import org.apache.eventmesh.connector.jdbc.table.catalog.AbstractColumnEditorImpl;
 import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
 
 import java.util.HashMap;
 import java.util.Map;
->>>>>>> upstream/master
 
 public class MysqlColumnEditorImpl extends AbstractColumnEditorImpl<MysqlColumnEditor, MysqlColumn> implements MysqlColumnEditor {
 
@@ -36,11 +32,8 @@ public class MysqlColumnEditorImpl extends AbstractColumnEditorImpl<MysqlColumnE
 
     private String collationName;
 
-<<<<<<< HEAD
-=======
     private MysqlDataTypeConvertor convertor = new MysqlDataTypeConvertor();
 
->>>>>>> upstream/master
     public MysqlColumnEditorImpl(String name) {
         super(name);
     }
@@ -79,11 +72,7 @@ public class MysqlColumnEditorImpl extends AbstractColumnEditorImpl<MysqlColumnE
      * @return The column editor with the collation set.
      */
     @Override
-<<<<<<< HEAD
-    public MysqlColumnEditor collate(String collationName) {
-=======
     public MysqlColumnEditor collation(String collationName) {
->>>>>>> upstream/master
         this.collationName = collationName;
         return this;
     }
@@ -95,10 +84,6 @@ public class MysqlColumnEditorImpl extends AbstractColumnEditorImpl<MysqlColumnE
      */
     @Override
     public MysqlColumn build() {
-<<<<<<< HEAD
-        return MysqlColumn.of(ofName(), ofEventMeshDataType(), ofJdbcType(), ofColumnLength(), ofScale(), isNotNull(), ofComment(), ofDefaultValue(),
-            ofDefaultValueExpression(), autoIncremented, generated, collationName, ofOrder());
-=======
 
         Map<String, Object> dataTypeProperties = new HashMap<>();
         if (ofColumnLength() != null) {
@@ -111,6 +96,5 @@ public class MysqlColumnEditorImpl extends AbstractColumnEditorImpl<MysqlColumnE
         return MysqlColumn.of(ofName(), ofEventMeshDataType(), ofJdbcType(), ofColumnLength(), ofScale(), isNotNull(), ofComment(), ofDefaultValue(),
             ofDefaultValueExpression(), autoIncremented, generated, collationName, ofOrder(), ofCharsetName(), ofEnumValues(), ofTypeName(),
             ofOptions());
->>>>>>> upstream/master
     }
 }

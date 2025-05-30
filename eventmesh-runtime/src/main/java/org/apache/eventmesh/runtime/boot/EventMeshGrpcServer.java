@@ -22,10 +22,7 @@ import static org.apache.eventmesh.common.Constants.GRPC;
 import org.apache.eventmesh.api.meta.dto.EventMeshRegisterInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshUnRegisterInfo;
 import org.apache.eventmesh.common.ThreadPoolFactory;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.config.CommonConfiguration;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.exception.EventMeshException;
 import org.apache.eventmesh.common.utils.IPUtils;
 import org.apache.eventmesh.metrics.api.MetricsPluginFactory;
@@ -34,20 +31,12 @@ import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.configuration.EventMeshGrpcConfiguration;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.ConsumerManager;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.core.protocol.grpc.producer.ProducerManager;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.core.protocol.grpc.retry.GrpcRetryer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.ConsumerService;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.HeartbeatService;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.PublisherService;
 import org.apache.eventmesh.runtime.meta.MetaStorage;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.metrics.grpc.EventMeshGrpcMonitor;
-=======
 import org.apache.eventmesh.runtime.metrics.grpc.EventMeshGrpcMetricsManager;
->>>>>>> upstream/master
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -71,11 +60,7 @@ import com.google.common.util.concurrent.RateLimiter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-<<<<<<< HEAD
-public class EventMeshGrpcServer {
-=======
 public class EventMeshGrpcServer extends AbstractRemotingServer {
->>>>>>> upstream/master
 
     private final EventMeshGrpcConfiguration eventMeshGrpcConfiguration;
 
@@ -85,11 +70,6 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
 
     private Server server;
 
-<<<<<<< HEAD
-    private ProducerManager producerManager;
-
-=======
->>>>>>> upstream/master
     private ConsumerManager consumerManager;
 
     private GrpcRetryer grpcRetryer;
@@ -112,11 +92,7 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
 
     private final EventMeshServer eventMeshServer;
 
-<<<<<<< HEAD
-    private EventMeshGrpcMonitor eventMeshGrpcMonitor;
-=======
     private EventMeshGrpcMetricsManager eventMeshGrpcMetricsManager;
->>>>>>> upstream/master
 
     public EventMeshGrpcServer(final EventMeshServer eventMeshServer, final EventMeshGrpcConfiguration eventMeshGrpcConfiguration) {
         this.eventMeshServer = eventMeshServer;
@@ -134,13 +110,7 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
 
         msgRateLimiter = RateLimiter.create(eventMeshGrpcConfiguration.getEventMeshMsgReqNumPerSecond());
 
-<<<<<<< HEAD
-        producerManager = new ProducerManager(this);
-        producerManager.init();
-
-=======
         initProducerManager();
->>>>>>> upstream/master
         consumerManager = new ConsumerManager(this);
         consumerManager.init();
 
@@ -160,14 +130,11 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
         log.info("-----------------EventMeshGRPCServer initialized");
     }
 
-<<<<<<< HEAD
-=======
     @Override
     public CommonConfiguration getConfiguration() {
         return eventMeshGrpcConfiguration;
     }
 
->>>>>>> upstream/master
     public void start() throws Exception {
         log.info("---------------EventMeshGRPCServer starting-------------------");
 
@@ -180,11 +147,7 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
             this.register();
         }
 
-<<<<<<< HEAD
-        eventMeshGrpcMonitor.start();
-=======
         eventMeshGrpcMetricsManager.start();
->>>>>>> upstream/master
         log.info("---------------EventMeshGRPCServer running-------------------");
     }
 
@@ -204,11 +167,7 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
             this.unRegister();
         }
 
-<<<<<<< HEAD
-        eventMeshGrpcMonitor.shutdown();
-=======
         eventMeshGrpcMetricsManager.shutdown();
->>>>>>> upstream/master
         log.info("---------------EventMeshGRPCServer stopped-------------------");
     }
 
@@ -249,13 +208,6 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
         return this.eventMeshGrpcConfiguration;
     }
 
-<<<<<<< HEAD
-    public ProducerManager getProducerManager() {
-        return producerManager;
-    }
-
-=======
->>>>>>> upstream/master
     public ConsumerManager getConsumerManager() {
         return consumerManager;
     }
@@ -285,13 +237,8 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
         return httpClientPool.get(RandomUtils.nextInt(size, 2 * size) % size);
     }
 
-<<<<<<< HEAD
-    public EventMeshGrpcMonitor getMetricsMonitor() {
-        return eventMeshGrpcMonitor;
-=======
     public EventMeshGrpcMetricsManager getEventMeshGrpcMetricsManager() {
         return eventMeshGrpcMetricsManager;
->>>>>>> upstream/master
     }
 
     private void initThreadPool() {
@@ -334,16 +281,6 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
         }
     }
 
-<<<<<<< HEAD
-    private void initMetricsMonitor() throws Exception {
-        final List<MetricsRegistry> metricsRegistries = Lists.newArrayList();
-        Optional.ofNullable(eventMeshGrpcConfiguration.getEventMeshMetricsPluginType())
-            .ifPresent(
-                metricsPlugins -> metricsPlugins.forEach(
-                    pluginType -> metricsRegistries.add(MetricsPluginFactory.getMetricsRegistry(pluginType))));
-        eventMeshGrpcMonitor = new EventMeshGrpcMonitor(this, metricsRegistries);
-        eventMeshGrpcMonitor.init();
-=======
 
 
     private void initMetricsMonitor() throws Exception {
@@ -351,7 +288,6 @@ public class EventMeshGrpcServer extends AbstractRemotingServer {
         Optional.ofNullable(eventMeshGrpcConfiguration.getEventMeshMetricsPluginType()).ifPresent(
             metricsPlugins -> metricsPlugins.forEach(pluginType -> metricsRegistries.add(MetricsPluginFactory.getMetricsRegistry(pluginType))));
         eventMeshGrpcMetricsManager = new EventMeshGrpcMetricsManager(this, metricsRegistries);
->>>>>>> upstream/master
     }
 
     private void shutdownThreadPools() {

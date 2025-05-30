@@ -73,29 +73,15 @@ public final class RedissonClient {
             throw new StorageRuntimeException(message, ie);
         }
 
-<<<<<<< HEAD
-=======
         Config config = new Config();
         config.setCodec(CloudEventCodec.getInstance());
         config.setThreads(properties.getRedissonThreads());
         config.setNettyThreads(properties.getRedissonNettyThreads());
 
->>>>>>> upstream/master
         String serverAddress = properties.getServerAddress();
         String serverPassword = properties.getServerPassword();
         String masterName = properties.getServerMasterName();
 
-<<<<<<< HEAD
-        Config config = OBJECT_MAPPER.convertValue(properties.getRedissonProperties(), Config.class);
-
-        if (config == null) {
-            config = new Config();
-        }
-
-        config.setCodec(CloudEventCodec.getInstance());
-
-=======
->>>>>>> upstream/master
         switch (serverType) {
             case SINGLE:
                 config.useSingleServer()

@@ -17,31 +17,6 @@
 
 package org.apache.eventmesh.runtime.admin.handler;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.admin.controller.HttpHandlerManager;
-
-import com.sun.net.httpserver.HttpHandler;
-
-import lombok.Data;
-
-/**
- * An abstract class that implements the {@link HttpHandler} interface
- * and provides basic functionality for HTTP request handling.
- * <p>
- * Subclasses should extend this class to implement specific HTTP request handling logic.
- */
-
-@Data
-public abstract class AbstractHttpHandler implements HttpHandler {
-
-    private final HttpHandlerManager httpHandlerManager;
-
-    public AbstractHttpHandler(HttpHandlerManager httpHandlerManager) {
-        this.httpHandlerManager = httpHandlerManager;
-        this.httpHandlerManager.register(this);
-    }
-}
-=======
 import org.apache.eventmesh.common.enums.HttpMethod;
 import org.apache.eventmesh.runtime.admin.response.Result;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
@@ -192,4 +167,3 @@ public abstract class AbstractHttpHandler implements HttpHandler {
     }
 }
 
->>>>>>> upstream/master

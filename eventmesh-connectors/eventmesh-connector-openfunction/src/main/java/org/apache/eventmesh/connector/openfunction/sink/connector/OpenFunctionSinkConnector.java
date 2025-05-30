@@ -17,13 +17,8 @@
 
 package org.apache.eventmesh.connector.openfunction.sink.connector;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.openfunction.sink.config.OpenFunctionSinkConfig;
-import org.apache.eventmesh.openconnect.api.config.Config;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 import org.apache.eventmesh.common.config.connector.openfunction.OpenFunctionSinkConfig;
->>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SinkConnectorContext;
 import org.apache.eventmesh.openconnect.api.sink.Sink;
@@ -80,14 +75,11 @@ public class OpenFunctionSinkConnector implements Sink {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void onException(ConnectRecord record) {
 
     }
 
     @Override
->>>>>>> upstream/master
     public void stop() {
     }
 

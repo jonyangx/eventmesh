@@ -21,13 +21,6 @@ import java.io.Serializable;
 
 import io.cloudevents.CloudEvent;
 
-<<<<<<< HEAD
-public class MessageEntity implements Serializable {
-
-    private TopicMetadata topicMetadata;
-
-    private CloudEvent message;
-=======
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -38,7 +31,6 @@ public class MessageEntity implements Serializable {
     private TopicMetadata topicMetadata;
 
     private transient CloudEvent message;
->>>>>>> upstream/master
 
     private long offset;
 
@@ -51,14 +43,11 @@ public class MessageEntity implements Serializable {
         this.createTimeMills = currentTimeMills;
     }
 
-<<<<<<< HEAD
-=======
     public MessageEntity(TopicMetadata topicMetadata, CloudEvent message) {
         this.topicMetadata = topicMetadata;
         this.message = message;
     }
 
->>>>>>> upstream/master
     public TopicMetadata getTopicMetadata() {
         return topicMetadata;
     }

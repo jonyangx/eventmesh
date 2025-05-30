@@ -17,11 +17,7 @@
 
 package org.apache.eventmesh.common.config.convert;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -48,11 +44,7 @@ public interface ConvertValue<T> {
     /**
      * @return The value converter needs
      */
-<<<<<<< HEAD
-    default Object processFieldValue(ConvertInfo convertInfo, String key, ConfigFiled configFiled) {
-=======
     default Object processFieldValue(ConvertInfo convertInfo, String key, ConfigField configField) {
->>>>>>> upstream/master
         Properties properties = convertInfo.getProperties();
         String value = properties.getProperty(key);
 
@@ -62,23 +54,14 @@ public interface ConvertValue<T> {
 
         value = value.trim();
 
-<<<<<<< HEAD
-        boolean findEnv = configFiled.findEnv();
-        String fieldName = configFiled.field();
-=======
         boolean findEnv = configField.findEnv();
         String fieldName = configField.field();
->>>>>>> upstream/master
 
         if (StringUtils.isBlank(value) && !StringUtils.isBlank(fieldName) && findEnv) {
             value = Optional.ofNullable(System.getProperty(fieldName)).orElse(System.getenv(fieldName));
         }
 
-<<<<<<< HEAD
-        if (StringUtils.isBlank(value) && configFiled.notEmpty()) {
-=======
         if (StringUtils.isBlank(value) && configField.notEmpty()) {
->>>>>>> upstream/master
             throw new RuntimeException(key + " can't be empty!");
         }
 

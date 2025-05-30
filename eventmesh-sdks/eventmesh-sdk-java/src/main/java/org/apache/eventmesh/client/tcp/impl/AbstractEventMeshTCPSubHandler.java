@@ -63,22 +63,14 @@ public abstract class AbstractEventMeshTCPSubHandler<ProtocolMessage> extends Si
                 // TODO
                 break;
             default:
-<<<<<<< HEAD
-                log.error("msg ignored|{}|{}", cmd, msg);
-=======
                 log.warn("msg ignored|{}|{}", cmd, msg);
->>>>>>> upstream/master
         }
         RequestContext context = contexts.get(RequestContext.key(msg));
         if (context != null) {
             contexts.remove(context.getKey());
             context.finish(msg);
         } else {
-<<<<<<< HEAD
-            log.error("msg ignored,context not found.|{}|{}", cmd, msg);
-=======
             log.warn("msg ignored,context not found.|{}|{}", cmd, msg);
->>>>>>> upstream/master
         }
     }
 

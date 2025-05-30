@@ -17,19 +17,11 @@
 
 package org.apache.eventmesh.connector.pravega.sink.connector;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.pravega.client.PravegaCloudEventWriter;
-import org.apache.eventmesh.connector.pravega.client.PravegaEvent;
-import org.apache.eventmesh.connector.pravega.exception.PravegaConnectorException;
-import org.apache.eventmesh.connector.pravega.sink.config.PravegaSinkConfig;
-import org.apache.eventmesh.openconnect.api.config.Config;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
 import org.apache.eventmesh.common.config.connector.pravega.PravegaSinkConfig;
 import org.apache.eventmesh.connector.pravega.client.PravegaCloudEventWriter;
 import org.apache.eventmesh.connector.pravega.client.PravegaEvent;
 import org.apache.eventmesh.connector.pravega.exception.PravegaConnectorException;
->>>>>>> upstream/master
 import org.apache.eventmesh.openconnect.api.connector.ConnectorContext;
 import org.apache.eventmesh.openconnect.api.connector.SinkConnectorContext;
 import org.apache.eventmesh.openconnect.api.sink.Sink;
@@ -118,14 +110,11 @@ public class PravegaSinkConnector implements Sink {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void onException(ConnectRecord record) {
 
     }
 
     @Override
->>>>>>> upstream/master
     public void stop() {
         writerMap.forEach((topic, writer) -> writer.close());
         writerMap.clear();

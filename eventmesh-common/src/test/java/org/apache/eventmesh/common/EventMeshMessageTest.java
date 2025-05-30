@@ -27,21 +27,13 @@ public class EventMeshMessageTest {
 
     @Test
     public void testGetProp() {
-<<<<<<< HEAD
-        EventMeshMessage message = createLiteMessage();
-=======
         EventMeshMessage message = createEventMeshMessage();
->>>>>>> upstream/master
         Assertions.assertEquals(2L, message.getProp().size());
     }
 
     @Test
     public void testSetProp() {
-<<<<<<< HEAD
-        EventMeshMessage message = createLiteMessage();
-=======
         EventMeshMessage message = createEventMeshMessage();
->>>>>>> upstream/master
         Map<String, String> prop = new HashMap<>();
         prop.put("key3", "value3");
         message.setProp(prop);
@@ -51,11 +43,7 @@ public class EventMeshMessageTest {
 
     @Test
     public void testAddProp() {
-<<<<<<< HEAD
-        EventMeshMessage message = createLiteMessage();
-=======
         EventMeshMessage message = createEventMeshMessage();
->>>>>>> upstream/master
         message.addProp("key3", "value3");
         Assertions.assertEquals(3L, message.getProp().size());
         Assertions.assertEquals("value1", message.getProp("key1"));
@@ -63,31 +51,19 @@ public class EventMeshMessageTest {
 
     @Test
     public void testGetPropKey() {
-<<<<<<< HEAD
-        EventMeshMessage message = createLiteMessage();
-=======
         EventMeshMessage message = createEventMeshMessage();
->>>>>>> upstream/master
         Assertions.assertEquals("value1", message.getProp("key1"));
     }
 
     @Test
     public void testRemoveProp() {
-<<<<<<< HEAD
-        EventMeshMessage message = createLiteMessage();
-=======
         EventMeshMessage message = createEventMeshMessage();
->>>>>>> upstream/master
         message.removePropIfPresent("key1");
         Assertions.assertEquals(1L, message.getProp().size());
         Assertions.assertNull(message.getProp("key1"));
     }
 
-<<<<<<< HEAD
-    private EventMeshMessage createLiteMessage() {
-=======
     private EventMeshMessage createEventMeshMessage() {
->>>>>>> upstream/master
         Map<String, String> prop = new HashMap<>();
         prop.put("key1", "value1");
         prop.put("key2", "value2");

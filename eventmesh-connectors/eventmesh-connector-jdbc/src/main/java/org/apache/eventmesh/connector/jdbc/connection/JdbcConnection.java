@@ -17,14 +17,8 @@
 
 package org.apache.eventmesh.connector.jdbc.connection;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-import org.apache.eventmesh.connector.jdbc.JdbcDriverMetaData;
-import org.apache.eventmesh.connector.jdbc.config.JdbcConfig;
-=======
 import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcConfig;
 import org.apache.eventmesh.connector.jdbc.JdbcDriverMetaData;
->>>>>>> upstream/master
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,10 +32,7 @@ import java.sql.Statement;
 
 import javax.annotation.concurrent.ThreadSafe;
 
-<<<<<<< HEAD
-=======
 import lombok.Getter;
->>>>>>> upstream/master
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -55,10 +46,7 @@ public class JdbcConnection implements AutoCloseable {
 
     private static final String STATEMENT_DELIMITER = ";";
 
-<<<<<<< HEAD
-=======
     @Getter
->>>>>>> upstream/master
     private final JdbcConfig jdbcConfig;
 
     private volatile Connection connection;
@@ -103,18 +91,6 @@ public class JdbcConnection implements AutoCloseable {
     }
 
     /**
-<<<<<<< HEAD
-     * Retrieves the JDBC configuration.
-     *
-     * @return The JDBC configuration.
-     */
-    public JdbcConfig getJdbcConfig() {
-        return jdbcConfig;
-    }
-
-    /**
-=======
->>>>>>> upstream/master
      * Sets the auto-commit mode for the connection.
      *
      * @param autoCommit The auto-commit mode.
@@ -198,11 +174,7 @@ public class JdbcConnection implements AutoCloseable {
         return execute(statement -> {
             for (String sqlStatement : sqlStatements) {
                 if (sqlStatement != null) {
-<<<<<<< HEAD
-                    LogUtils.debug(log, "Executing '{}'", sqlStatement);
-=======
                     log.debug("Executing '{}'", sqlStatement);
->>>>>>> upstream/master
                     statement.execute(sqlStatement);
                 }
             }
@@ -240,18 +212,10 @@ public class JdbcConnection implements AutoCloseable {
 
         try (Statement statement = conn.createStatement()) {
             for (String sqlStatement : sqlStatements) {
-<<<<<<< HEAD
-                LogUtils.debug(log, "Executing sql statement: {}", sqlStatement);
-                statement.execute(sqlStatement);
-            }
-        }
-
-=======
                 log.debug("Executing sql statement: {}", sqlStatement);
                 statement.execute(sqlStatement);
             }
         }
->>>>>>> upstream/master
         return this;
     }
 
@@ -320,11 +284,7 @@ public class JdbcConnection implements AutoCloseable {
     public JdbcConnection query(String sql, StatementFactory statementFactory, JdbcResultSetConsumer resultConsumer) throws SQLException {
         Connection conn = connection();
         try (Statement statement = statementFactory.createStatement(conn)) {
-<<<<<<< HEAD
-            LogUtils.debug(log, "Query sql '{}'", sql);
-=======
             log.debug("Query sql '{}'", sql);
->>>>>>> upstream/master
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 if (resultConsumer != null) {
                     resultConsumer.accept(resultSet);
@@ -362,11 +322,7 @@ public class JdbcConnection implements AutoCloseable {
     public <T> T query(String sql, StatementFactory statementFactory, ResultSetMapper<T> resultSetMapper) throws SQLException {
         Connection conn = connection();
         try (Statement statement = statementFactory.createStatement(conn)) {
-<<<<<<< HEAD
-            LogUtils.debug(log, "Query sql '{}'", sql);
-=======
             log.debug("Query sql '{}'", sql);
->>>>>>> upstream/master
             try (ResultSet resultSet = statement.executeQuery(sql)) {
                 if (resultSetMapper != null) {
                     return resultSetMapper.map(resultSet);
@@ -409,11 +365,7 @@ public class JdbcConnection implements AutoCloseable {
 
         Connection conn = connection();
         try (PreparedStatement preparedStatement = preparedStatementFactory.createPreparedStatement(conn, sql)) {
-<<<<<<< HEAD
-            LogUtils.debug(log, "Query sql '{}'", sql);
-=======
             log.debug("Query sql '{}'", sql);
->>>>>>> upstream/master
             if (preparedParameters != null) {
                 for (int index = 0; index < preparedParameters.length; ++index) {
                     final PreparedParameter preparedParameter = preparedParameters[index];
@@ -466,11 +418,7 @@ public class JdbcConnection implements AutoCloseable {
 
         Connection conn = connection();
         try (PreparedStatement preparedStatement = preparedStatementFactory.createPreparedStatement(conn, sql)) {
-<<<<<<< HEAD
-            LogUtils.debug(log, "Query sql '{}'", sql);
-=======
             log.debug("Query sql '{}'", sql);
->>>>>>> upstream/master
             if (preparedParameters != null) {
                 for (int index = 0; index < preparedParameters.length; ++index) {
                     final PreparedParameter preparedParameter = preparedParameters[index];
@@ -611,15 +559,9 @@ public class JdbcConnection implements AutoCloseable {
             } else {
                 url = urlWithPlaceholder;
             }
-<<<<<<< HEAD
-            LogUtils.debug(log, "URL: {}", url);
-            Connection connection = DriverManager.getConnection(url, config.asProperties());
-            LogUtils.debug(log, "User [{}] Connected to {}", config.getUser(), url);
-=======
             log.debug("URL: {}", url);
             Connection connection = DriverManager.getConnection(url, config.asProperties());
             log.debug("User [{}] Connected to {}", config.getUser(), url);
->>>>>>> upstream/master
             return connection;
         };
     }

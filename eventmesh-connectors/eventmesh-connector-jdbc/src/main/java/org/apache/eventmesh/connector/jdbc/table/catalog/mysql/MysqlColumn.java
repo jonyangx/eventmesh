@@ -18,11 +18,6 @@
 package org.apache.eventmesh.connector.jdbc.table.catalog.mysql;
 
 import org.apache.eventmesh.connector.jdbc.table.catalog.Column;
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
-
-import java.sql.JDBCType;
-=======
 import org.apache.eventmesh.connector.jdbc.table.catalog.Options;
 import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
 
@@ -31,36 +26,10 @@ import java.util.List;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
->>>>>>> upstream/master
 
 /**
  * Represents a MySQL column in a database table.
  */
-<<<<<<< HEAD
-public class MysqlColumn extends Column<MysqlColumn> {
-
-    private boolean autoIncremented;
-
-    private boolean generated;
-
-    private String collationName;
-
-    public MysqlColumn(String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression, boolean autoIncremented, boolean generated, String collationName) {
-        super(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, 0);
-        this.autoIncremented = autoIncremented;
-        this.generated = generated;
-        this.collationName = collationName;
-    }
-
-    public MysqlColumn(String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression, boolean autoIncremented, boolean generated, String collationName,
-        int order) {
-        super(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order);
-        this.autoIncremented = autoIncremented;
-        this.generated = generated;
-        this.collationName = collationName;
-=======
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class MysqlColumn extends Column<MysqlColumn> {
@@ -77,7 +46,6 @@ public class MysqlColumn extends Column<MysqlColumn> {
         int order, String charsetName, List<String> enumValues, String nativeType, Options options) {
         super(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order, charsetName,
             autoIncremented, generated, collationName, enumValues, nativeType, options);
->>>>>>> upstream/master
     }
 
     public MysqlColumn() {
@@ -85,19 +53,6 @@ public class MysqlColumn extends Column<MysqlColumn> {
     }
 
     public static MysqlColumn of(
-<<<<<<< HEAD
-        String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression, boolean autoIncremented, boolean generated, String collationName) {
-        return new MysqlColumn(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression,
-            autoIncremented, generated, collationName);
-    }
-
-    public static MysqlColumn of(
-        String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull, String comment,
-        Object defaultValue, String defaultValueExpression, boolean autoIncremented, boolean generated, String collationName, int order) {
-        return new MysqlColumn(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression,
-            autoIncremented, generated, collationName, order);
-=======
         String name, EventMeshDataType dataType, JDBCType jdbcType, Long columnLength, Integer decimal, boolean notNull,
         String comment, Object defaultValue, String defaultValueExpression, boolean autoIncremented, boolean generated, String collationName,
         String charsetName, List<String> enumValues, String nativeType, Options options) {
@@ -111,7 +66,6 @@ public class MysqlColumn extends Column<MysqlColumn> {
         String charsetName, List<String> enumValues, String nativeType, Options options) {
         return new MysqlColumn(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression,
             autoIncremented, generated, collationName, order, charsetName, enumValues, nativeType, options);
->>>>>>> upstream/master
     }
 
     /**

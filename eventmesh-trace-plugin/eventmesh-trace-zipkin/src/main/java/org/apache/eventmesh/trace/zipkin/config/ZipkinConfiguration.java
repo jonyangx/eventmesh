@@ -18,11 +18,7 @@
 package org.apache.eventmesh.trace.zipkin.config;
 
 import org.apache.eventmesh.common.config.Config;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import lombok.Data;
 
@@ -34,16 +30,9 @@ import lombok.Data;
 @Config(prefix = "eventmesh.trace.zipkin", path = "classPath://zipkin.properties")
 public class ZipkinConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "ip", notNull = true)
-    private String eventMeshZipkinIP = "localhost";
-
-    @ConfigFiled(field = "port")
-=======
     @ConfigField(field = "ip", notNull = true)
     private String eventMeshZipkinIP = "localhost";
 
     @ConfigField(field = "port")
->>>>>>> upstream/master
     private int eventMeshZipkinPort = 9411;
 }

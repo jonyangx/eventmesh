@@ -17,11 +17,7 @@
 
 package org.apache.eventmesh.connector.redis.config;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.api.config.Config;
-=======
 import org.apache.eventmesh.common.config.connector.Config;
->>>>>>> upstream/master
 
 import lombok.Data;
 

@@ -17,14 +17,6 @@
 
 package org.apache.eventmesh.storage.standalone;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.storage.standalone.broker.MessageQueue;
-import org.apache.eventmesh.storage.standalone.broker.model.MessageEntity;
-import org.apache.eventmesh.storage.standalone.broker.model.TopicMetadata;
-
-import java.net.URI;
-import java.util.Arrays;
-=======
 import org.apache.eventmesh.storage.standalone.broker.Channel;
 import org.apache.eventmesh.storage.standalone.broker.MessageQueue;
 import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
@@ -36,34 +28,19 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.net.URI;
 import java.util.Collections;
->>>>>>> upstream/master
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.cloudevents.CloudEvent;
 import io.cloudevents.core.builder.CloudEventBuilder;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> upstream/master
 public class TestUtils {
 
     public static final String TEST_TOPIC = "test-topic";
     public static final int OFF_SET = 0;
     public static final int LENGTH = 5;
     public static final int EXCEEDED_MESSAGE_STORE_WINDOW = 60 * 60 * 1000 + 1000;
-<<<<<<< HEAD
-    public static final boolean TOPIC_EXISTS = true;
-    public static final boolean TOPIC_DO_NOT_EXISTS = false;
-
-    public static ConcurrentHashMap<TopicMetadata, MessageQueue> createDefaultMessageContainer() {
-        ConcurrentHashMap<TopicMetadata, MessageQueue> messageContainer = new ConcurrentHashMap<>(1);
-        messageContainer.put(new TopicMetadata(TEST_TOPIC), new MessageQueue());
-        return messageContainer;
-    }
-
-=======
 
     public static Pair<ConcurrentHashMap<TopicMetadata, Channel>, ConcurrentHashMap<TopicMetadata, Subscribe>> createDefaultMessageContainer(
         StandaloneBroker broker) {
@@ -77,7 +54,6 @@ public class TestUtils {
     }
 
 
->>>>>>> upstream/master
     public static ConcurrentHashMap<TopicMetadata, MessageQueue> createMessageContainer(TopicMetadata topicMetadata, MessageEntity messageEntity)
         throws InterruptedException {
         ConcurrentHashMap<TopicMetadata, MessageQueue> messageContainer = new ConcurrentHashMap<>(1);
@@ -97,11 +73,7 @@ public class TestUtils {
     }
 
     public static List<CloudEvent> createCloudEvents() {
-<<<<<<< HEAD
-        return Arrays.asList(createDefaultCloudEvent());
-=======
         return Collections.singletonList(createDefaultCloudEvent());
->>>>>>> upstream/master
     }
 
     public static MessageEntity createDefaultMessageEntity() {
@@ -119,8 +91,6 @@ public class TestUtils {
             offSet,
             currentTimeMillis);
     }
-<<<<<<< HEAD
-=======
 
     public static Subscribe createSubscribe(StandaloneBroker standaloneBroker) {
         standaloneBroker.createTopic(TEST_TOPIC);
@@ -134,5 +104,4 @@ public class TestUtils {
             cloudEvents.add(cloudEvent);
         });
     }
->>>>>>> upstream/master
 }

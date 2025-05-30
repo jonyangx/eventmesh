@@ -22,10 +22,6 @@ import org.apache.eventmesh.common.protocol.http.common.EventMeshRetCode;
 import org.apache.eventmesh.common.protocol.http.common.ProtocolKey;
 import org.apache.eventmesh.common.protocol.http.common.RequestURI;
 import org.apache.eventmesh.common.utils.IPUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.boot.EventMeshHTTPServer;
 import org.apache.eventmesh.runtime.common.EventMeshTrace;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
@@ -37,10 +33,7 @@ import org.apache.eventmesh.runtime.util.RemotingHelper;
 
 import java.util.HashMap;
 import java.util.Map;
-<<<<<<< HEAD
-=======
 import java.util.concurrent.Executor;
->>>>>>> upstream/master
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,11 +45,7 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 @EventMeshTrace
 public class QuerySubscriptionProcessor implements AsyncHttpProcessor {
 
-<<<<<<< HEAD
-    private final Logger httpLogger = LoggerFactory.getLogger("http");
-=======
     private static final Logger HTTP_LOGGER = LoggerFactory.getLogger(EventMeshConstants.PROTOCOL_HTTP);
->>>>>>> upstream/master
 
     private final transient EventMeshHTTPServer eventMeshHTTPServer;
 
@@ -73,11 +62,7 @@ public class QuerySubscriptionProcessor implements AsyncHttpProcessor {
 
         HttpEventWrapper responseWrapper;
 
-<<<<<<< HEAD
-        httpLogger.info("uri={}|{}|client2eventMesh|from={}|to={}", requestWrapper.getRequestURI(),
-=======
         HTTP_LOGGER.info("uri={}|{}|client2eventMesh|from={}|to={}", requestWrapper.getRequestURI(),
->>>>>>> upstream/master
             EventMeshConstants.PROTOCOL_HTTP, RemotingHelper.parseChannelRemoteAddr(ctx.channel()), IPUtils.getLocalAddress());
 
         Map<String, Object> responseHeaderMap = new HashMap<>();
@@ -94,21 +79,12 @@ public class QuerySubscriptionProcessor implements AsyncHttpProcessor {
 
             final CompleteHandler<HttpEventWrapper> handler = httpEventWrapper -> {
                 try {
-<<<<<<< HEAD
-                    LogUtils.debug(httpLogger, "{}", httpEventWrapper);
-                    eventMeshHTTPServer.sendResponse(ctx, httpEventWrapper.httpResponse());
-                    eventMeshHTTPServer.getMetrics().getSummaryMetrics().recordHTTPReqResTimeCost(
-                        System.currentTimeMillis() - requestWrapper.getReqTime());
-                } catch (Exception ex) {
-                    httpLogger.warn("query subscription, sendResponse fail", ex);
-=======
                     HTTP_LOGGER.debug("{}", httpEventWrapper);
                     eventMeshHTTPServer.sendResponse(ctx, httpEventWrapper.httpResponse());
                     eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordHTTPReqResTimeCost(
                         System.currentTimeMillis() - requestWrapper.getReqTime());
                 } catch (Exception ex) {
                     HTTP_LOGGER.warn("query subscription, sendResponse fail", ex);
->>>>>>> upstream/master
                 }
             };
 
@@ -129,29 +105,19 @@ public class QuerySubscriptionProcessor implements AsyncHttpProcessor {
             handlerSpecific.sendErrorResponse(EventMeshRetCode.EVENTMESH_RUNTIME_ERR, responseHeaderMap,
                 responseBodyMap, null);
             long endTime = System.currentTimeMillis();
-<<<<<<< HEAD
-            httpLogger.warn("query subscription fail,eventMesh2client|cost={}ms", endTime - startTime, e);
-            eventMeshHTTPServer.getMetrics().getSummaryMetrics().recordSendMsgFailed();
-            eventMeshHTTPServer.getMetrics().getSummaryMetrics().recordSendMsgCost(endTime - startTime);
-=======
             HTTP_LOGGER.warn("query subscription fail,eventMesh2client|cost={}ms", endTime - startTime, e);
             eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgFailed();
             eventMeshHTTPServer.getEventMeshHttpMetricsManager().getHttpMetrics().recordSendMsgCost(endTime - startTime);
->>>>>>> upstream/master
         }
     }
 
     @Override
     public String[] paths() {
-<<<<<<< HEAD
-        return new String[]{RequestURI.SUBSCRIPTION_QUERY.getRequestURI()};
-=======
         return new String[] {RequestURI.SUBSCRIPTION_QUERY.getRequestURI()};
     }
 
     @Override
     public Executor executor() {
         return eventMeshHTTPServer.getHttpThreadPoolGroup().getClientManageExecutor();
->>>>>>> upstream/master
     }
 }

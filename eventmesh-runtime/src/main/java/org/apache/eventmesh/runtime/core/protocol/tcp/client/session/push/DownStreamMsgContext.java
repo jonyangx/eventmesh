@@ -24,10 +24,6 @@ import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.plugin.MQConsumerWrapper;
 import org.apache.eventmesh.runtime.core.protocol.RetryContext;
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.session.Session;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.core.timer.Timeout;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 import org.apache.eventmesh.runtime.util.ServerGlobal;
 
@@ -198,11 +194,7 @@ public class DownStreamMsgContext extends RetryContext {
     }
 
     @Override
-<<<<<<< HEAD
-    public void run(Timeout timeout) throws Exception {
-=======
     public void doRun() {
->>>>>>> upstream/master
         retry();
     }
 }

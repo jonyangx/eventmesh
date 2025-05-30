@@ -21,26 +21,16 @@ import org.apache.eventmesh.api.exception.AclException;
 import org.apache.eventmesh.common.protocol.SubscriptionItem;
 import org.apache.eventmesh.common.protocol.grpc.cloudevents.CloudEvent;
 import org.apache.eventmesh.common.protocol.grpc.common.EventMeshCloudEventUtils;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.protocol.grpc.common.GrpcType;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.protocol.grpc.common.StatusCode;
 import org.apache.eventmesh.common.protocol.http.common.RequestCode;
 import org.apache.eventmesh.common.utils.JsonUtils;
 import org.apache.eventmesh.runtime.acl.Acl;
 import org.apache.eventmesh.runtime.boot.EventMeshGrpcServer;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.ConsumerManager;
-import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.EventMeshConsumer;
-import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.ConsumerGroupClient;
-import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.GrpcType;
-=======
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.ConsumerManager;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.EventMeshConsumer;
 import org.apache.eventmesh.runtime.core.protocol.grpc.consumer.consumergroup.ConsumerGroupClient;
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.EventEmitter;
 import org.apache.eventmesh.runtime.core.protocol.grpc.service.ServiceUtils;
 
@@ -59,11 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SubscribeStreamProcessor {
 
-<<<<<<< HEAD
-    private final Logger aclLogger = LoggerFactory.getLogger("acl");
-=======
     private static final Logger ACL_LOGGER = LoggerFactory.getLogger(EventMeshConstants.ACL);
->>>>>>> upstream/master
 
     private final EventMeshGrpcServer eventMeshGrpcServer;
 
@@ -92,11 +78,7 @@ public class SubscribeStreamProcessor {
         try {
             doAclCheck(subscription);
         } catch (AclException e) {
-<<<<<<< HEAD
-            aclLogger.warn("CLIENT HAS NO PERMISSION to Subscribe. failed", e);
-=======
             ACL_LOGGER.warn("CLIENT HAS NO PERMISSION to Subscribe. failed", e);
->>>>>>> upstream/master
             ServiceUtils.sendStreamResponseCompleted(subscription, StatusCode.EVENTMESH_ACL_ERR, e.getMessage(), emitter);
             return;
         }

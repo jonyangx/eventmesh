@@ -19,26 +19,14 @@ package org.apache.eventmesh.connector.jdbc.table.catalog;
 
 import java.util.List;
 
-<<<<<<< HEAD
-import lombok.AllArgsConstructor;
-=======
->>>>>>> upstream/master
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-<<<<<<< HEAD
-@AllArgsConstructor
-@NoArgsConstructor
-public class Table {
-
-    private String name;
-=======
 @NoArgsConstructor
 public class Table {
 
     private TableId tableId;
->>>>>>> upstream/master
 
     private PrimaryKey primaryKey;
 
@@ -46,8 +34,6 @@ public class Table {
 
     private String comment;
 
-<<<<<<< HEAD
-=======
     private Options options = new Options();
 
     public Table(TableId tableId, PrimaryKey primaryKey, List<UniqueKey> uniqueKeys, String comment) {
@@ -116,5 +102,4 @@ public class Table {
             return new Table(tableId, primaryKey, uniqueKeys, comment, options);
         }
     }
->>>>>>> upstream/master
 }

@@ -17,11 +17,7 @@
 
 package org.apache.eventmesh.common.config.convert;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.config.convert.converter.BaseDataTypeConverter;
 import org.apache.eventmesh.common.config.convert.converter.DateConverter;
 import org.apache.eventmesh.common.config.convert.converter.EnumConverter;
@@ -100,15 +96,9 @@ public class ConverterMap {
      */
     public static ConvertValue<?> getFieldConverter(Field field) {
         Class<?> clazz = field.getType();
-<<<<<<< HEAD
-        ConfigFiled configFiled = field.getAnnotation(ConfigFiled.class);
-
-        Class<?> converter1 = configFiled.converter();
-=======
         ConfigField configField = field.getAnnotation(ConfigField.class);
 
         Class<?> converter1 = configField.converter();
->>>>>>> upstream/master
         if (!converter1.equals(ConvertValue.DefaultConverter.class)) {
             if (!classToConverter.containsKey(converter1)) {
                 try {

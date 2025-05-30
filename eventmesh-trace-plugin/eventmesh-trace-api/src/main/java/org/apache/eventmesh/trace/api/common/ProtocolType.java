@@ -15,17 +15,9 @@
  * limitations under the License.
  */
 
-<<<<<<<< HEAD:eventmesh-trace-plugin/eventmesh-trace-api/src/main/java/org/apache/eventmesh/trace/api/common/ProtocolType.java
 package org.apache.eventmesh.trace.api.common;
 
 public enum ProtocolType {
     TCP,
     HTTP
-========
-package org.apache.eventmesh.common.enums;
-
-public enum ConnectorStage {
-    SOURCE,
-    SINK
->>>>>>>> upstream/master:eventmesh-common/src/main/java/org/apache/eventmesh/common/enums/ConnectorStage.java
 }

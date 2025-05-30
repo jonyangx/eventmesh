@@ -17,13 +17,8 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.storage;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
-=======
 import org.apache.eventmesh.common.remote.offset.RecordOffset;
 import org.apache.eventmesh.common.remote.offset.RecordPartition;
->>>>>>> upstream/master
 
 import java.util.Map;
 

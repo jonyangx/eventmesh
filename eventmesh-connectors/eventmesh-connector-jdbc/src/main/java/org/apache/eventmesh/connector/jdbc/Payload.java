@@ -19,51 +19,6 @@ package org.apache.eventmesh.connector.jdbc;
 
 import org.apache.eventmesh.connector.jdbc.source.SourceMateData;
 
-<<<<<<< HEAD
-import java.util.HashMap;
-
-public final class Payload extends HashMap<String, Object> {
-
-    public static final String AFTER_FIELD = "after";
-
-    public static final String BEFORE_FIELD = "before";
-
-    public static final String SOURCE = "source";
-
-    public static final String DDL = "ddl";
-
-    /**
-     * Constructs an empty <code>HashMap</code> with the default initial capacity (16) and the default load factor (0.75).
-     */
-    public Payload() {
-        this.put("timestamp", System.currentTimeMillis());
-    }
-
-    public Payload withSource(SourceMateData source) {
-        this.put(SOURCE, source);
-        return this;
-    }
-
-    public Payload withDdl(String ddl) {
-        this.put(DDL, ddl);
-        return this;
-    }
-
-    public Payload withCatalogChanges(CatalogChanges catalogChanges) {
-        this.put("catalogChanges", catalogChanges);
-        return this;
-    }
-
-    public Payload withDataChanges(DataChanges dataChanges) {
-        this.put("dataChanges", dataChanges);
-        return this;
-    }
-
-    public SourceMateData ofSourceMateData() {
-        return (SourceMateData) super.get(SOURCE);
-    }
-
-=======
 import lombok.Getter;
 import lombok.Setter;
 
@@ -208,17 +163,13 @@ public final class Payload {
     /**
      * Builder class for constructing Payload instances.
      */
->>>>>>> upstream/master
     public static Builder builder() {
         return new Builder();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Builder class for constructing Payload instances.
      */
->>>>>>> upstream/master
     public static class Builder {
 
         private final Payload payload;
@@ -227,18 +178,6 @@ public final class Payload {
             payload = new Payload();
         }
 
-<<<<<<< HEAD
-        public Builder put(String key, Object value) {
-            payload.put(key, value);
-            return this;
-        }
-
-        public Builder withSource(SourceMateData source) {
-            payload.put(SOURCE, source);
-            return this;
-        }
-
-=======
         /**
          * Sets the 'source' field in the payload.
          *
@@ -255,13 +194,8 @@ public final class Payload {
          *
          * @return The constructed Payload.
          */
->>>>>>> upstream/master
         public Payload build() {
             return payload;
         }
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 }

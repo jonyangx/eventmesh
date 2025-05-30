@@ -17,26 +17,20 @@
 
 package org.apache.eventmesh.connector.jdbc.source;
 
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlSourceMateData;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
->>>>>>> upstream/master
 import lombok.Data;
 
 /**
  * Represents metadata related to a data source.
  */
 @Data
-<<<<<<< HEAD
-=======
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "connector")
 @JsonSubTypes({@JsonSubTypes.Type(value = MysqlSourceMateData.class, name = "mysql")})
->>>>>>> upstream/master
 public class SourceMateData {
 
     /**
@@ -74,8 +68,6 @@ public class SourceMateData {
      */
     private String tableName;
 
-<<<<<<< HEAD
-=======
     /**
      * This method returns the TableId object with the specified catalog name, schema name, and table name.
      *
@@ -85,5 +77,4 @@ public class SourceMateData {
         return new TableId(catalogName, schemaName, tableName);
     }
 
->>>>>>> upstream/master
 }

@@ -81,13 +81,10 @@ public class ProducerImpl extends AbstractProducer {
             messageId = sendResultRmq.getMsgId();
             sendResult.setMessageId(messageId);
             return sendResult;
-<<<<<<< HEAD
-=======
         } catch (InterruptedException e) {
             log.error("Send message InterruptedException", e);
             Thread.currentThread().interrupt(); // Restore interrupted status
             return new SendResult();
->>>>>>> upstream/master
         } catch (Exception e) {
             log.error(String.format("Send message Exception, %s", msg), e);
             throw this.checkProducerException(msg.getTopic(), messageId, e);
@@ -101,12 +98,9 @@ public class ProducerImpl extends AbstractProducer {
         supplySysProp(msg, cloudEvent);
         try {
             this.rocketmqProducer.sendOneway(msg);
-<<<<<<< HEAD
-=======
         } catch (InterruptedException e) {
             log.error("Send message oneway InterruptedException", e);
             Thread.currentThread().interrupt(); // Restore interrupted status
->>>>>>> upstream/master
         } catch (Exception e) {
             log.error(String.format("Send message oneway Exception, %s", msg), e);
             throw this.checkProducerException(msg.getTopic(), MessageClientIDSetter.getUniqID(msg), e);
@@ -117,18 +111,12 @@ public class ProducerImpl extends AbstractProducer {
         this.checkProducerServiceState(this.rocketmqProducer.getDefaultMQProducerImpl());
         org.apache.rocketmq.common.message.Message msg =
             RocketMQMessageFactory.createWriter(Objects.requireNonNull(cloudEvent.getSubject())).writeBinary(cloudEvent);
-<<<<<<< HEAD
-        msg = supplySysProp(msg, cloudEvent);
-        try {
-            this.rocketmqProducer.send(msg, this.sendCallbackConvert(msg, sendCallback));
-=======
         supplySysProp(msg, cloudEvent);
         try {
             this.rocketmqProducer.send(msg, this.sendCallbackConvert(msg, sendCallback));
         } catch (InterruptedException e) {
             log.error("Send message async InterruptedException", e);
             Thread.currentThread().interrupt(); // Restore interrupted status
->>>>>>> upstream/master
         } catch (Exception e) {
             log.error(String.format("Send message async Exception, %s", msg), e);
             throw this.checkProducerException(msg.getTopic(), MessageClientIDSetter.getUniqID(msg), e);
@@ -156,12 +144,9 @@ public class ProducerImpl extends AbstractProducer {
 
         try {
             this.rocketmqProducer.send(msg, this.sendCallbackConvert(msg, sendCallback));
-<<<<<<< HEAD
-=======
         } catch (InterruptedException e) {
             log.error("Send message async InterruptedException", e);
             Thread.currentThread().interrupt(); // Restore interrupted status
->>>>>>> upstream/master
         } catch (Exception e) {
             log.error(String.format("Send message async Exception, %s", msg), e);
             throw this.checkProducerException(msg.getTopic(), MessageClientIDSetter.getUniqID(msg), e);

@@ -18,10 +18,7 @@
 package org.apache.eventmesh.runtime.boot;
 
 import org.apache.eventmesh.common.ThreadPoolFactory;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.config.CommonConfiguration;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.protocol.http.HttpCommand;
 import org.apache.eventmesh.common.protocol.http.body.Body;
 import org.apache.eventmesh.common.protocol.http.common.EventMeshRetCode;
@@ -30,22 +27,13 @@ import org.apache.eventmesh.common.protocol.http.common.ProtocolVersion;
 import org.apache.eventmesh.common.protocol.http.common.RequestCode;
 import org.apache.eventmesh.common.protocol.http.header.Header;
 import org.apache.eventmesh.common.utils.AssertUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-import org.apache.eventmesh.runtime.common.Pair;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.http.async.AsyncContext;
 import org.apache.eventmesh.runtime.core.protocol.http.processor.HandlerService;
 import org.apache.eventmesh.runtime.core.protocol.http.processor.inf.HttpRequestProcessor;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.metrics.http.HTTPMetricsServer;
-=======
 import org.apache.eventmesh.runtime.metrics.http.EventMeshHttpMetricsManager;
 import org.apache.eventmesh.runtime.util.HttpRequestUtil;
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.RemotingHelper;
 import org.apache.eventmesh.runtime.util.TraceUtils;
 import org.apache.eventmesh.runtime.util.Utils;
@@ -55,10 +43,6 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-<<<<<<< HEAD
-import java.util.HashMap;
-=======
->>>>>>> upstream/master
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -94,49 +78,29 @@ import io.netty.handler.codec.http.HttpRequestDecoder;
 import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpVersion;
-<<<<<<< HEAD
-import io.netty.handler.codec.http.QueryStringDecoder;
-import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.DefaultHttpDataFactory;
 import io.netty.handler.codec.http.multipart.DiskAttribute;
-import io.netty.handler.codec.http.multipart.HttpPostRequestDecoder;
-import io.netty.handler.codec.http.multipart.InterfaceHttpData;
-=======
-import io.netty.handler.codec.http.multipart.DefaultHttpDataFactory;
-import io.netty.handler.codec.http.multipart.DiskAttribute;
->>>>>>> upstream/master
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import io.opentelemetry.api.trace.Span;
 
-<<<<<<< HEAD
-=======
 import lombok.Getter;
 import lombok.Setter;
->>>>>>> upstream/master
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * HTTP serves as the runtime module server for the protocol
-<<<<<<< HEAD
- *
-=======
->>>>>>> upstream/master
  */
 @Slf4j
 public abstract class AbstractHTTPServer extends AbstractRemotingServer {
 
     private final transient EventMeshHTTPConfiguration eventMeshHttpConfiguration;
 
-<<<<<<< HEAD
-    private HTTPMetricsServer metrics;
-=======
     @Getter
     @Setter
     private EventMeshHttpMetricsManager eventMeshHttpMetricsManager;
->>>>>>> upstream/master
 
     private static final DefaultHttpDataFactory DEFAULT_HTTP_DATA_FACTORY = new DefaultHttpDataFactory(false);
 
@@ -144,11 +108,6 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
         DiskAttribute.deleteOnExitTemporaryFile = false;
     }
 
-<<<<<<< HEAD
-    private final transient AtomicBoolean started = new AtomicBoolean(false);
-    private final transient boolean useTLS;
-    private Boolean useTrace = false; // Determine whether trace is enabled
-=======
     protected final transient AtomicBoolean started = new AtomicBoolean(false);
 
     @Getter
@@ -158,35 +117,24 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
     @Setter
     private Boolean useTrace = false; // Determine whether trace is enabled
 
->>>>>>> upstream/master
     private static final int MAX_CONNECTIONS = 20_000;
 
     /**
      * key: request code
      */
-<<<<<<< HEAD
-    protected final transient Map<String, Pair<HttpRequestProcessor, ThreadPoolExecutor>> httpRequestProcessorTable =
-=======
     protected final transient Map<String, HttpRequestProcessor> httpRequestProcessorTable =
->>>>>>> upstream/master
         new ConcurrentHashMap<>(64);
 
     private HttpConnectionHandler httpConnectionHandler;
     private HttpDispatcher httpDispatcher;
 
-<<<<<<< HEAD
-=======
     @Setter
     @Getter
->>>>>>> upstream/master
     private HandlerService handlerService;
     private final transient ThreadPoolExecutor asyncContextCompleteHandler =
         ThreadPoolFactory.createThreadPoolExecutor(10, 10, "EventMesh-http-asyncContext");
 
-<<<<<<< HEAD
-=======
     @Getter
->>>>>>> upstream/master
     private final HTTPThreadPoolGroup httpThreadPoolGroup;
 
     public AbstractHTTPServer(final int port, final boolean useTLS,
@@ -198,33 +146,23 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
         this.httpThreadPoolGroup = new HTTPThreadPoolGroup(eventMeshHttpConfiguration);
     }
 
-<<<<<<< HEAD
-    private void initSharableHandlers() {
-=======
     protected void initSharableHandlers() {
->>>>>>> upstream/master
         httpConnectionHandler = new HttpConnectionHandler();
         httpDispatcher = new HttpDispatcher();
     }
 
     public void init() throws Exception {
         super.init("eventMesh-http");
-<<<<<<< HEAD
-=======
         initProducerManager();
->>>>>>> upstream/master
         httpThreadPoolGroup.initThreadPool();
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public CommonConfiguration getConfiguration() {
         return eventMeshHttpConfiguration;
     }
 
     @Override
->>>>>>> upstream/master
     public void start() throws Exception {
 
         initSharableHandlers();
@@ -237,11 +175,7 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                     .childHandler(new HttpsServerInitializer(useTLS ? SSLContextFactory.getSslContext(eventMeshHttpConfiguration) : null))
                     .childOption(ChannelOption.SO_KEEPALIVE, Boolean.TRUE);
 
-<<<<<<< HEAD
-                LogUtils.info(log, "HTTPServer[port={}] started.", this.getPort());
-=======
                 log.info("HTTPServer[port={}] started.", this.getPort());
->>>>>>> upstream/master
 
                 bootstrap.bind(this.getPort())
                     .channel()
@@ -272,18 +206,10 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
     /**
      * Registers the processors required by the runtime module
      */
-<<<<<<< HEAD
-    public void registerProcessor(final Integer requestCode, final HttpRequestProcessor processor, final ThreadPoolExecutor executor) {
-        AssertUtils.notNull(requestCode, "requestCode can't be null");
-        AssertUtils.notNull(processor, "processor can't be null");
-        AssertUtils.notNull(executor, "executor can't be null");
-        this.httpRequestProcessorTable.put(requestCode.toString(), new Pair<>(processor, executor));
-=======
     public void registerProcessor(final Integer requestCode, final HttpRequestProcessor processor) {
         AssertUtils.notNull(requestCode, "requestCode can't be null");
         AssertUtils.notNull(processor, "processor can't be null");
         this.httpRequestProcessorTable.putIfAbsent(requestCode.toString(), processor);
->>>>>>> upstream/master
     }
 
     /**
@@ -319,19 +245,6 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
             HttpHeaderNames.CONTENT_TYPE, String.format("text/plain; charset=%s", EventMeshConstants.DEFAULT_CHARSET));
         responseHeaders.add(HttpHeaderNames.CONTENT_LENGTH, response.content().readableBytes());
         responseHeaders.add(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
-<<<<<<< HEAD
-
-        ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
-    }
-
-    public void sendResponse(final ChannelHandlerContext ctx, final DefaultFullHttpResponse response) {
-        ctx.writeAndFlush(response).addListener((ChannelFutureListener) f -> {
-            if (!f.isSuccess()) {
-                LogUtils.warn(log, "send response to [{}] fail, will close this channel",
-                    RemotingHelper.parseChannelRemoteAddr(f.channel()));
-                f.channel().close();
-            }
-=======
         ctx.channel().eventLoop().execute(() -> {
             ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
         });
@@ -345,7 +258,6 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                     f.channel().close();
                 }
             });
->>>>>>> upstream/master
         });
     }
 
@@ -356,34 +268,8 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
      * @return
      */
     private Map<String, Object> parseHttpRequestBody(final HttpRequest httpRequest) throws IOException {
-<<<<<<< HEAD
-        final long bodyDecodeStart = System.currentTimeMillis();
-        final Map<String, Object> httpRequestBody = new HashMap<>();
-
-        if (HttpMethod.GET.equals(httpRequest.method())) {
-            new QueryStringDecoder(httpRequest.uri())
-                .parameters()
-                .forEach((key, value) -> httpRequestBody.put(key, value.get(0)));
-        } else if (HttpMethod.POST.equals(httpRequest.method())) {
-            decodeHttpRequestBody(httpRequest, httpRequestBody);
-        }
-        metrics.getSummaryMetrics().recordDecodeTimeCost(System.currentTimeMillis() - bodyDecodeStart);
-        return httpRequestBody;
-    }
-
-    private void decodeHttpRequestBody(HttpRequest httpRequest, Map<String, Object> httpRequestBody) throws IOException {
-        final HttpPostRequestDecoder decoder = new HttpPostRequestDecoder(DEFAULT_HTTP_DATA_FACTORY, httpRequest);
-        for (final InterfaceHttpData param : decoder.getBodyHttpDatas()) {
-            if (InterfaceHttpData.HttpDataType.Attribute == param.getHttpDataType()) {
-                final Attribute data = (Attribute) param;
-                httpRequestBody.put(data.getName(), data.getValue());
-            }
-        }
-        decoder.destroy();
-=======
         return HttpRequestUtil.parseHttpRequestBody(httpRequest, () -> System.currentTimeMillis(),
             (startTime) -> eventMeshHttpMetricsManager.getHttpMetrics().recordDecodeTimeCost(System.currentTimeMillis() - startTime));
->>>>>>> upstream/master
     }
 
     @Sharable
@@ -422,11 +308,7 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                     TraceUtils.finishSpanWithException(span, headerMap, errorStatus.reasonPhrase(), null);
                     return;
                 }
-<<<<<<< HEAD
-                metrics.getSummaryMetrics().recordHTTPRequest();
-=======
                 eventMeshHttpMetricsManager.getHttpMetrics().recordHTTPRequest();
->>>>>>> upstream/master
 
                 // process http
                 final HttpCommand requestCommand = new HttpCommand();
@@ -471,11 +353,7 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                     return;
                 }
 
-<<<<<<< HEAD
-                LogUtils.debug(log, "{}", requestCommand);
-=======
                 log.debug("{}", requestCommand);
->>>>>>> upstream/master
 
                 final AsyncContext<HttpCommand> asyncContext =
                     new AsyncContext<>(requestCommand, responseCommand, asyncContextCompleteHandler);
@@ -511,52 +389,6 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
 
         private void processHttpCommandRequest(final ChannelHandlerContext ctx, final AsyncContext<HttpCommand> asyncContext) {
             final HttpCommand request = asyncContext.getRequest();
-<<<<<<< HEAD
-            final Pair<HttpRequestProcessor, ThreadPoolExecutor> choosed = httpRequestProcessorTable.get(request.getRequestCode());
-            try {
-                choosed.getObject2().submit(() -> {
-                    try {
-                        final HttpRequestProcessor processor = choosed.getObject1();
-                        if (processor.rejectRequest()) {
-                            final HttpCommand responseCommand =
-                                request.createHttpCommandResponse(EventMeshRetCode.EVENTMESH_REJECT_BY_PROCESSOR_ERROR);
-                            asyncContext.onComplete(responseCommand);
-
-                            if (asyncContext.isComplete()) {
-                                sendResponse(ctx, responseCommand.httpResponse());
-                                LogUtils.debug(log, "{}", asyncContext.getResponse());
-                                final Map<String, Object> traceMap = asyncContext.getRequest().getHeader().toMap();
-                                TraceUtils.finishSpanWithException(TraceUtils.prepareServerSpan(traceMap,
-                                    EventMeshTraceConstants.TRACE_UPSTREAM_EVENTMESH_SERVER_SPAN,
-                                    false),
-                                    traceMap,
-                                    EventMeshRetCode.EVENTMESH_REJECT_BY_PROCESSOR_ERROR.getErrMsg(), null);
-                            }
-
-                            return;
-                        }
-
-                        processor.processRequest(ctx, asyncContext);
-                        if (!asyncContext.isComplete()) {
-                            return;
-                        }
-
-                        metrics.getSummaryMetrics()
-                            .recordHTTPReqResTimeCost(System.currentTimeMillis() - request.getReqTime());
-
-                        LogUtils.debug(log, "{}", asyncContext.getResponse());
-
-                        sendResponse(ctx, asyncContext.getResponse().httpResponse());
-
-                    } catch (Exception e) {
-                        log.error("process error", e);
-                    }
-                });
-            } catch (RejectedExecutionException re) {
-                asyncContext.onComplete(request.createHttpCommandResponse(EventMeshRetCode.OVERLOAD));
-                metrics.getSummaryMetrics().recordHTTPDiscard();
-                metrics.getSummaryMetrics().recordHTTPReqResTimeCost(System.currentTimeMillis() - request.getReqTime());
-=======
             final HttpRequestProcessor choosed = httpRequestProcessorTable.get(request.getRequestCode());
             Runnable runnable = () -> {
                 try {
@@ -608,7 +440,6 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                 asyncContext.onComplete(request.createHttpCommandResponse(EventMeshRetCode.OVERLOAD));
                 eventMeshHttpMetricsManager.getHttpMetrics().recordHTTPDiscard();
                 eventMeshHttpMetricsManager.getHttpMetrics().recordHTTPReqResTimeCost(System.currentTimeMillis() - request.getReqTime());
->>>>>>> upstream/master
                 try {
                     sendResponse(ctx, asyncContext.getResponse().httpResponse());
 
@@ -635,41 +466,25 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
 
         @Override
         public void exceptionCaught(final ChannelHandlerContext ctx, final Throwable cause) {
-<<<<<<< HEAD
-            if (null != cause) {
-                log.error("", cause);
-            }
-
-            if (null != ctx) {
-=======
             if (cause != null) {
                 log.error("", cause);
             }
 
             if (ctx != null) {
->>>>>>> upstream/master
                 ctx.close();
             }
         }
     }
 
     @Sharable
-<<<<<<< HEAD
-    private class HttpConnectionHandler extends ChannelDuplexHandler {
-=======
     protected class HttpConnectionHandler extends ChannelDuplexHandler {
->>>>>>> upstream/master
 
         public final transient AtomicInteger connections = new AtomicInteger(0);
 
         @Override
         public void channelActive(final ChannelHandlerContext ctx) throws Exception {
             if (connections.incrementAndGet() > MAX_CONNECTIONS) {
-<<<<<<< HEAD
-                LogUtils.warn(log, "client|http|channelActive|remoteAddress={}|msg=too many client({}) connect this eventMesh server",
-=======
                 log.warn("client|http|channelActive|remoteAddress={}|msg=too many client({}) connect this eventMesh server",
->>>>>>> upstream/master
                     RemotingHelper.parseChannelRemoteAddr(ctx.channel()), MAX_CONNECTIONS);
                 ctx.close();
                 return;
@@ -689,12 +504,7 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                 final IdleStateEvent event = (IdleStateEvent) evt;
                 if (event.state().equals(IdleState.ALL_IDLE)) {
                     final String remoteAddress = RemotingHelper.parseChannelRemoteAddr(ctx.channel());
-<<<<<<< HEAD
-                    LogUtils.info(log, "client|http|userEventTriggered|remoteAddress={}|msg={}",
-                        remoteAddress, evt.getClass().getName());
-=======
                     log.info("client|http|userEventTriggered|remoteAddress={}|msg={}", remoteAddress, evt.getClass().getName());
->>>>>>> upstream/master
                     ctx.close();
                 }
             }
@@ -729,35 +539,4 @@ public abstract class AbstractHTTPServer extends AbstractRemotingServer {
                 httpDispatcher);
         }
     }
-<<<<<<< HEAD
-
-    public void setUseTrace(final Boolean useTrace) {
-        this.useTrace = useTrace;
-    }
-
-    public Boolean getUseTrace() {
-        return useTrace;
-    }
-
-    public HTTPMetricsServer getMetrics() {
-        return metrics;
-    }
-
-    public void setMetrics(final HTTPMetricsServer metrics) {
-        this.metrics = metrics;
-    }
-
-    public HTTPThreadPoolGroup getHttpThreadPoolGroup() {
-        return httpThreadPoolGroup;
-    }
-
-    public HandlerService getHandlerService() {
-        return handlerService;
-    }
-
-    public void setHandlerService(HandlerService handlerService) {
-        this.handlerService = handlerService;
-    }
-=======
->>>>>>> upstream/master
 }

@@ -43,11 +43,6 @@ public class UserAgentUtils {
     public static UserAgent createUserAgent() {
         UserAgent userAgent = new UserAgent();
         userAgent.setSubsystem("5123");
-<<<<<<< HEAD
-        // userAgent.setPid(UtilAll.getPid());
-        // userAgent.setHost(RemotingUtil.getLocalAddress());
-=======
->>>>>>> upstream/master
         userAgent.setVersion("2.0.8");
         userAgent.setUsername("username");
         userAgent.setPassword("1234");
@@ -57,20 +52,11 @@ public class UserAgentUtils {
     public static UserAgent createSubUserAgent() {
         UserAgent userAgent = new UserAgent();
         userAgent.setSubsystem("5243");
-<<<<<<< HEAD
-        // userAgent.setPid(UtilAll.getPid());
-        // userAgent.setHost(RemotingUtil.getLocalAddress());
-=======
->>>>>>> upstream/master
         userAgent.setPort(8888);
         userAgent.setVersion("2.0.8");
         userAgent.setUsername("username");
         userAgent.setPassword("1234");
-<<<<<<< HEAD
-        userAgent.setPath("/data/app/defibus-acl/");
-=======
         userAgent.setPath("/data/app/acl/");
->>>>>>> upstream/master
         userAgent.setPurpose(EventMeshConstants.PURPOSE_SUB);
         return userAgent;
     }

@@ -20,10 +20,6 @@ package org.apache.eventmesh.http.demo.pub.eventmeshmessage;
 import org.apache.eventmesh.client.http.producer.EventMeshHttpProducer;
 import org.apache.eventmesh.common.EventMeshMessage;
 import org.apache.eventmesh.common.ExampleConstants;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-=======
->>>>>>> upstream/master
 import org.apache.eventmesh.common.utils.RandomStringUtils;
 import org.apache.eventmesh.common.utils.ThreadUtils;
 import org.apache.eventmesh.http.demo.HttpAbstractDemo;
@@ -51,13 +47,8 @@ public class SyncRequestInstance extends HttpAbstractDemo {
                 .build();
 
             final EventMeshMessage rsp = eventMeshHttpProducer.request(eventMeshMessage, 10_000);
-<<<<<<< HEAD
-            LogUtils.debug(log, "send msg: {}, return: {}, cost:{} ms", eventMeshMessage.getContent(), rsp.getContent(),
-                System.currentTimeMillis() - startTime);
-=======
             log.debug("send msg: {}, return: {}, cost: {}ms",
                 eventMeshMessage.getContent(), rsp.getContent(), System.currentTimeMillis() - startTime);
->>>>>>> upstream/master
         } catch (Exception e) {
             log.error("send msg failed, ", e);
         }

@@ -17,10 +17,7 @@
 
 package org.apache.eventmesh.runtime.boot;
 
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.runtime.configuration.EventMeshAdminConfiguration;
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 
@@ -44,25 +41,6 @@ import javax.net.ssl.SSLContext;
 
 public class SSLContextFactory {
 
-<<<<<<< HEAD
-    private static String protocol = "TLSv1.1";
-
-    private static String fileName;
-
-    private static String password;
-
-    public static SSLContext getSslContext(final EventMeshHTTPConfiguration eventMeshHttpConfiguration)
-        throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException,
-        UnrecoverableKeyException, KeyManagementException {
-        SSLContext sslContext;
-
-        try (InputStream inputStream = Files.newInputStream(Paths.get(EventMeshConstants.EVENTMESH_CONF_HOME
-            + File.separator
-            + fileName), StandardOpenOption.READ)) {
-            protocol = eventMeshHttpConfiguration.getEventMeshServerSSLProtocol();
-            fileName = eventMeshHttpConfiguration.getEventMeshServerSSLCer();
-            password = eventMeshHttpConfiguration.getEventMeshServerSSLPass();
-=======
     /**
      * {@link EventMeshAdminConfiguration} will be parsed into {@link EventMeshHTTPConfiguration}.
      */
@@ -76,7 +54,6 @@ public class SSLContextFactory {
 
         try (InputStream inputStream = Files.newInputStream(Paths.get(EventMeshConstants.EVENTMESH_CONF_HOME + File.separator + fileName),
             StandardOpenOption.READ)) {
->>>>>>> upstream/master
 
             char[] filePass = StringUtils.isNotBlank(password) ? password.toCharArray() : new char[0];
             final KeyStore keyStore = KeyStore.getInstance("JKS");

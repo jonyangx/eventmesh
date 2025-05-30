@@ -157,11 +157,7 @@ public class EventMeshCloudEventBuilder {
             CloudEventAttributeValue.newBuilder().setCeString(Constants.PROTOCOL_DESC_GRPC_CLOUD_EVENT).build());
         attributeValueMap.put(ProtocolKey.PRODUCERGROUP,
             CloudEventAttributeValue.newBuilder().setCeString(clientConfig.getProducerGroup()).build());
-<<<<<<< HEAD
-        if (null != message.getTopic()) {
-=======
         if (message.getTopic() != null) {
->>>>>>> upstream/master
             attributeValueMap.put(ProtocolKey.SUBJECT, CloudEventAttributeValue.newBuilder().setCeString(message.getTopic()).build());
         }
         attributeValueMap.put(ProtocolKey.DATA_CONTENT_TYPE, CloudEventAttributeValue.newBuilder().setCeString("text/plain").build());
@@ -240,11 +236,7 @@ public class EventMeshCloudEventBuilder {
     @SuppressWarnings("unchecked")
     public static <T> T buildMessageFromEventMeshCloudEvent(final CloudEvent cloudEvent, final EventMeshProtocolType protocolType) {
 
-<<<<<<< HEAD
-        if (null == cloudEvent) {
-=======
         if (cloudEvent == null) {
->>>>>>> upstream/master
             return null;
         }
         final String seq = EventMeshCloudEventUtils.getSeqNum(cloudEvent);
@@ -259,11 +251,7 @@ public class EventMeshCloudEventBuilder {
 
                 });
         }
-<<<<<<< HEAD
-        if (null == protocolType) {
-=======
         if (protocolType == null) {
->>>>>>> upstream/master
             return null;
         }
 

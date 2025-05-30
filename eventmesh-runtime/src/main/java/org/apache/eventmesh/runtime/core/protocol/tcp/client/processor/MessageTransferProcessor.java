@@ -143,15 +143,10 @@ public class MessageTransferProcessor implements TcpProcessor {
                 .tryAcquire(TRY_PERMIT_TIME_OUT, TimeUnit.MILLISECONDS)) {
 
                 msg.setHeader(new Header(replyCmd, OPStatus.FAIL.getCode(), "Tps overload, global flow control", pkg.getHeader().getSeq()));
-<<<<<<< HEAD
-                ctx.writeAndFlush(msg).addListener(
-                    (ChannelFutureListener) future -> Utils.logSucceedMessageFlow(msg, session.getClient(), startTime, taskExecuteTime));
-=======
                 ctx.channel().eventLoop().execute(() -> {
                     ctx.writeAndFlush(msg).addListener(
                         (ChannelFutureListener) future -> Utils.logSucceedMessageFlow(msg, session.getClient(), startTime, taskExecuteTime));
                 });
->>>>>>> upstream/master
 
                 TraceUtils.finishSpanWithException(ctx, event, "Tps overload, global flow control", null);
 

@@ -19,12 +19,6 @@ package org.apache.eventmesh.connector.jdbc.source.dialect.antlr4.mysql.listener
 
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.AutoIncrementColumnConstraintContext;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.CollateColumnConstraintContext;
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.ColumnDefinitionContext;
-import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.CommentColumnConstraintContext;
-import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.NullNotnullContext;
-import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.PrimaryKeyColumnConstraintContext;
-=======
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.CollectionDataTypeContext;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.ColumnDefinitionContext;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.CommentColumnConstraintContext;
@@ -39,20 +33,12 @@ import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.Pri
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.SimpleDataTypeContext;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.SpatialDataTypeContext;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.StringDataTypeContext;
->>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParser.UniqueKeyColumnConstraintContext;
 import org.apache.eventmesh.connector.jdbc.antlr4.autogeneration.MySqlParserBaseListener;
 import org.apache.eventmesh.connector.jdbc.source.dialect.antlr4.mysql.MysqlAntlr4DdlParser;
 import org.apache.eventmesh.connector.jdbc.source.dialect.mysql.MysqlDataTypeConvertor;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableEditor;
 import org.apache.eventmesh.connector.jdbc.table.catalog.mysql.MysqlColumnEditor;
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
-import org.apache.eventmesh.connector.jdbc.utils.JdbcStringUtils;
-
-import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-=======
 import org.apache.eventmesh.connector.jdbc.table.catalog.mysql.MysqlOptions.MysqlColumnOptions;
 import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
 import org.apache.eventmesh.connector.jdbc.utils.JdbcStringUtils;
@@ -63,23 +49,16 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
->>>>>>> upstream/master
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 import lombok.Getter;
 import lombok.Setter;
-<<<<<<< HEAD
-
-@Getter
-@Setter
-=======
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
 @Slf4j
->>>>>>> upstream/master
 public class ColumnDefinitionParserListener extends MySqlParserBaseListener {
 
     private DefaultValueParserListener defaultValueParserListener;
@@ -110,13 +89,6 @@ public class ColumnDefinitionParserListener extends MySqlParserBaseListener {
     public void enterColumnDefinition(ColumnDefinitionContext ctx) {
         // parse Column data type
         this.parser.runIfAllNotNull(() -> {
-<<<<<<< HEAD
-            String dataTypeString = ctx.dataType().getText();
-            EventMeshDataType<?> eventMeshType = this.dataTypeConvertor.toEventMeshType(dataTypeString);
-            this.columnEditor.withEventMeshType(eventMeshType);
-            this.columnEditor.withJdbcType(this.dataTypeConvertor.toJDBCType(dataTypeString));
-            this.columnEditor.withType(dataTypeString);
-=======
             DataTypeContext dataTypeContext = ctx.dataType();
             String dataTypeString = null;
             if (dataTypeContext instanceof StringDataTypeContext) {
@@ -219,7 +191,6 @@ public class ColumnDefinitionParserListener extends MySqlParserBaseListener {
                 this.columnEditor.withJdbcType(this.dataTypeConvertor.toJDBCType(dataTypeString));
                 this.columnEditor.withType(dataTypeString);
             }
->>>>>>> upstream/master
         }, columnEditor);
 
         this.parser.runIfAllNotNull(() -> {
@@ -283,11 +254,7 @@ public class ColumnDefinitionParserListener extends MySqlParserBaseListener {
     @Override
     public void enterCollateColumnConstraint(CollateColumnConstraintContext ctx) {
         if (ctx.COLLATE() != null) {
-<<<<<<< HEAD
-            columnEditor.collate(ctx.collationName().getText());
-=======
             columnEditor.collation(ctx.collationName().getText());
->>>>>>> upstream/master
         }
         super.enterCollateColumnConstraint(ctx);
     }

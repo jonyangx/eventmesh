@@ -19,11 +19,7 @@ package org.apache.eventmesh.runtime.configuration;
 
 import org.apache.eventmesh.common.config.CommonConfiguration;
 import org.apache.eventmesh.common.config.Config;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.config.ConfigFiled;
-=======
 import org.apache.eventmesh.common.config.ConfigField;
->>>>>>> upstream/master
 
 import java.util.Collections;
 import java.util.List;
@@ -40,102 +36,6 @@ import inet.ipaddr.IPAddress;
 @Config(prefix = "eventMesh.server")
 public class EventMeshHTTPConfiguration extends CommonConfiguration {
 
-<<<<<<< HEAD
-    @ConfigFiled(field = "http.port", notNull = true, beNumber = true)
-    private int httpServerPort = 10105;
-
-    @ConfigFiled(field = "batchmsg.batch.enabled")
-    private boolean eventMeshServerBatchMsgBatchEnabled = Boolean.TRUE;
-
-    @ConfigFiled(field = "batchmsg.threads.num")
-    private int eventMeshServerBatchMsgThreadNum = 10;
-
-    @ConfigFiled(field = "sendmsg.threads.num")
-    private int eventMeshServerSendMsgThreadNum = 8;
-
-    @ConfigFiled(field = "remotemsg.threads.num")
-    private int eventMeshServerRemoteMsgThreadNum = 8;
-
-    @ConfigFiled(field = "pushmsg.threads.num")
-    private int eventMeshServerPushMsgThreadNum = 8;
-
-    @ConfigFiled(field = "replymsg.threads.num")
-    private int eventMeshServerReplyMsgThreadNum = 8;
-
-    @ConfigFiled(field = "clientmanage.threads.num")
-    private int eventMeshServerClientManageThreadNum = 4;
-
-    @ConfigFiled(field = "metaStorage.threads.num")
-    private int eventMeshServerMetaStorageThreadNum = 10;
-
-    @ConfigFiled(field = "admin.threads.num")
-    private int eventMeshServerAdminThreadNum = 2;
-
-    @ConfigFiled(field = "retry.threads.num")
-    private int eventMeshServerRetryThreadNum = 2;
-
-    @ConfigFiled(field = "")
-    private int eventMeshServerWebhookThreadNum = 4;
-
-    @ConfigFiled(field = "pull.metaStorage.interval")
-    private int eventMeshServerPullMetaStorageInterval = 30000;
-
-    @ConfigFiled(field = "async.accumulation.threshold")
-    private int eventMeshServerAsyncAccumulationThreshold = 1000;
-
-    @ConfigFiled(field = "retry.blockQ.size")
-    private int eventMeshServerRetryBlockQSize = 10000;
-
-    @ConfigFiled(field = "batchmsg.blockQ.size")
-    private int eventMeshServerBatchBlockQSize = 1000;
-
-    @ConfigFiled(field = "sendmsg.blockQ.size")
-    private int eventMeshServerSendMsgBlockQSize = 1000;
-
-    @ConfigFiled(field = "")
-    private int eventMeshServerRemoteMsgBlockQSize = 1000;
-
-    @ConfigFiled(field = "pushmsg.blockQ.size")
-    private int eventMeshServerPushMsgBlockQSize = 1000;
-
-    @ConfigFiled(field = "clientM.blockQ.size")
-    private int eventMeshServerClientManageBlockQSize = 1000;
-
-    @ConfigFiled(field = "busy.check.interval")
-    private int eventMeshServerBusyCheckInterval = 1000;
-
-    @ConfigFiled(field = "consumer.enabled")
-    private boolean eventMeshServerConsumerEnabled = false;
-
-    @ConfigFiled(field = "useTls.enabled")
-    private boolean eventMeshServerUseTls = false;
-
-    @ConfigFiled(field = "ssl.protocol")
-    private String eventMeshServerSSLProtocol = "TLSv1.1";
-
-    @ConfigFiled(field = "ssl.cer")
-    private String eventMeshServerSSLCer = "sChat2.jks";
-
-    @ConfigFiled(field = "ssl.pass")
-    private String eventMeshServerSSLPass = "sNetty";
-
-    @ConfigFiled(field = "http.msgReqnumPerSecond")
-    private int eventMeshHttpMsgReqNumPerSecond = 15000;
-
-    @ConfigFiled(field = "batchmsg.reqNumPerSecond")
-    private int eventMeshBatchMsgRequestNumPerSecond = 20000;
-
-    @ConfigFiled(field = "maxEventSize")
-    private int eventMeshEventSize = 1000;
-
-    @ConfigFiled(field = "maxEventBatchSize")
-    private int eventMeshEventBatchSize = 10;
-
-    @ConfigFiled(field = "blacklist.ipv4")
-    private List<IPAddress> eventMeshIpv4BlackList = Collections.emptyList();
-
-    @ConfigFiled(field = "blacklist.ipv6")
-=======
     @ConfigField(field = "http.port", notNull = true, beNumber = true)
     private int httpServerPort = 10105;
 
@@ -224,6 +124,5 @@ public class EventMeshHTTPConfiguration extends CommonConfiguration {
     private List<IPAddress> eventMeshIpv4BlackList = Collections.emptyList();
 
     @ConfigField(field = "blacklist.ipv6")
->>>>>>> upstream/master
     private List<IPAddress> eventMeshIpv6BlackList = Collections.emptyList();
 }

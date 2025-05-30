@@ -67,6 +67,7 @@
 
   <module name="BeforeExecutionExclusionFileFilter">
     <property name="fileNamePattern" value="./eventmesh-runtime/conf/sChat2.jks$"/>
+    <property name="fileNamePattern" value="checkStyle\.xml$"/>
   </module>
 
   <module name="FileTabCharacter">
@@ -375,4 +376,5 @@
       <property name="tokens" value="SINGLE_LINE_COMMENT, BLOCK_COMMENT_BEGIN"/>
     </module>
   </module>
+
 </module>

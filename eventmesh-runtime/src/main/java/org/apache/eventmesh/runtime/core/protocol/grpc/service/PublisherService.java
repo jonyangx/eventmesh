@@ -57,16 +57,10 @@ public class PublisherService extends PublisherServiceGrpc.PublisherServiceImplB
      */
     @Override
     public void publish(CloudEvent request, StreamObserver<CloudEvent> responseObserver) {
-<<<<<<< HEAD
-        log.info("cmd={}|{}|client2eventMesh|from={}|to={}", "publish", EventMeshConstants.PROTOCOL_GRPC,
-            EventMeshCloudEventUtils.getIp(request), eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshIp());
-        eventMeshGrpcServer.getMetricsMonitor().recordReceiveMsgFromClient();
-=======
         String clientId = EventMeshCloudEventUtils.getIp(request);
         log.info("cmd={}|{}|client2eventMesh|from={}|to={}", "publish", EventMeshConstants.PROTOCOL_GRPC,
             EventMeshCloudEventUtils.getIp(request), eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshIp());
         eventMeshGrpcServer.getEventMeshGrpcMetricsManager().recordReceiveMsgFromClient(clientId);
->>>>>>> upstream/master
 
         EventEmitter<CloudEvent> emitter = new EventEmitter<>(responseObserver);
         threadPoolExecutor.submit(() -> {
@@ -91,18 +85,11 @@ public class PublisherService extends PublisherServiceGrpc.PublisherServiceImplB
      */
     @Override
     public void requestReply(CloudEvent request, StreamObserver<CloudEvent> responseObserver) {
-<<<<<<< HEAD
-        log.info("cmd={}|{}|client2eventMesh|from={}|to={}", "RequestReply",
-            EventMeshConstants.PROTOCOL_GRPC, EventMeshCloudEventUtils.getIp(request),
-            eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshIp());
-        eventMeshGrpcServer.getMetricsMonitor().recordReceiveMsgFromClient();
-=======
         String clientIp = EventMeshCloudEventUtils.getIp(request);
         log.info("cmd={}|{}|client2eventMesh|from={}|to={}", "RequestReply",
             EventMeshConstants.PROTOCOL_GRPC, EventMeshCloudEventUtils.getIp(request),
             eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshIp());
         eventMeshGrpcServer.getEventMeshGrpcMetricsManager().recordReceiveMsgFromClient(clientIp);
->>>>>>> upstream/master
 
         EventEmitter<CloudEvent> emitter = new EventEmitter<>(responseObserver);
         threadPoolExecutor.submit(() -> {
@@ -127,18 +114,11 @@ public class PublisherService extends PublisherServiceGrpc.PublisherServiceImplB
      */
     @Override
     public void batchPublish(CloudEventBatch request, StreamObserver<CloudEvent> responseObserver) {
-<<<<<<< HEAD
-        log.info("cmd={}|{}|client2eventMesh|from={}|to={}", "BatchPublish",
-            EventMeshConstants.PROTOCOL_GRPC, null,
-            eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshIp());
-        eventMeshGrpcServer.getMetricsMonitor().recordReceiveMsgFromClient(request.getEventsCount());
-=======
         String clientIp = EventMeshCloudEventUtils.getIp(request.getEvents(0));
         log.info("cmd={}|{}|client2eventMesh|from={}|to={}", "BatchPublish",
             EventMeshConstants.PROTOCOL_GRPC, null,
             eventMeshGrpcServer.getEventMeshGrpcConfiguration().getEventMeshIp());
         eventMeshGrpcServer.getEventMeshGrpcMetricsManager().recordReceiveMsgFromClient(request.getEventsCount(), clientIp);
->>>>>>> upstream/master
 
         EventEmitter<CloudEvent> emitter = new EventEmitter<>(responseObserver);
         threadPoolExecutor.submit(() -> {

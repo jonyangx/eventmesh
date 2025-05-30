@@ -17,11 +17,8 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.data;
 
-<<<<<<< HEAD
-=======
 import java.net.URI;
 import java.time.OffsetDateTime;
->>>>>>> upstream/master
 import java.util.Set;
 
 /**
@@ -29,17 +26,6 @@ import java.util.Set;
  */
 public interface KeyValue {
 
-<<<<<<< HEAD
-    KeyValue put(String key, boolean value);
-
-    KeyValue put(String key, short value);
-
-    KeyValue put(String key, int value);
-
-    KeyValue put(String key, long value);
-
-    KeyValue put(String key, double value);
-=======
     KeyValue put(String key, Boolean value);
 
     KeyValue put(String key, Number value);
@@ -51,7 +37,6 @@ public interface KeyValue {
     KeyValue put(String key, URI value);
 
     KeyValue put(String key, OffsetDateTime value);
->>>>>>> upstream/master
 
     KeyValue put(String key, Object value);
 
@@ -59,13 +44,10 @@ public interface KeyValue {
 
     boolean getBoolean(String key, boolean defaultValue);
 
-<<<<<<< HEAD
-=======
     byte getByte(String key);
 
     byte getByte(String key, byte defaultValue);
 
->>>>>>> upstream/master
     short getShort(String key);
 
     short getShort(String key, short defaultValue);
@@ -78,32 +60,22 @@ public interface KeyValue {
 
     long getLong(String key, long defaultValue);
 
-<<<<<<< HEAD
-=======
     float getFloat(String key);
 
     float getFloat(String key, float defaultValue);
 
->>>>>>> upstream/master
     double getDouble(String key);
 
     double getDouble(String key, double defaultValue);
 
-<<<<<<< HEAD
-=======
     byte[] getBytes(String key);
 
     byte[] getBytes(String key, byte[] defaultValue);
 
->>>>>>> upstream/master
     String getString(String key);
 
     String getString(String key, String defaultValue);
 
-<<<<<<< HEAD
-    Object getObject(String key);
-
-=======
     URI getURI(String key);
 
     URI getURI(String key, URI defaultValue);
@@ -120,7 +92,6 @@ public interface KeyValue {
 
     <T> T getObject(String key, T defaultValue, Class<T> c);
 
->>>>>>> upstream/master
     Set<String> keySet();
 
     boolean containsKey(String key);

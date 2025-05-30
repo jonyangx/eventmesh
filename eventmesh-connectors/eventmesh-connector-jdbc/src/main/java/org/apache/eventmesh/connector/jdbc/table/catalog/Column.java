@@ -22,15 +22,12 @@ import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
 import java.io.Serializable;
 import java.sql.JDBCType;
 import java.sql.Types;
-<<<<<<< HEAD
-=======
 import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
->>>>>>> upstream/master
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,11 +39,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-<<<<<<< HEAD
-public abstract class Column<Col extends Column> implements Serializable {
-=======
 public class Column<Col extends Column> implements Serializable {
->>>>>>> upstream/master
 
     /**
      * Name of the column
@@ -56,13 +49,9 @@ public class Column<Col extends Column> implements Serializable {
     /**
      * Data type of the column
      */
-<<<<<<< HEAD
-    protected EventMeshDataType<?> dataType;
-=======
     @JsonSerialize(using = EventMeshDataTypeJsonSerializer.class)
     @JsonDeserialize(using = EventMeshDataTypeJsonDeserializer.class)
     protected EventMeshDataType dataType;
->>>>>>> upstream/master
 
     /**
      * {@link Types JDBC type}
@@ -72,11 +61,7 @@ public class Column<Col extends Column> implements Serializable {
     /**
      * Length of the column
      */
-<<<<<<< HEAD
-    protected Integer columnLength;
-=======
     protected Long columnLength;
->>>>>>> upstream/master
 
     /**
      * Decimal point of the column
@@ -86,11 +71,7 @@ public class Column<Col extends Column> implements Serializable {
     /**
      * Indicates if the column can be null or not
      */
-<<<<<<< HEAD
-    protected boolean notNull;
-=======
     protected boolean notNull = false;
->>>>>>> upstream/master
 
     /**
      * Comment for the column
@@ -102,11 +83,6 @@ public class Column<Col extends Column> implements Serializable {
      */
     protected Object defaultValue;
 
-<<<<<<< HEAD
-    protected String defaultValueExpression;
-
-    protected int order;
-=======
     @JsonIgnore
     protected String defaultValueExpression;
 
@@ -175,16 +151,12 @@ public class Column<Col extends Column> implements Serializable {
     public static Builder newBuilder() {
         return new Builder();
     }
->>>>>>> upstream/master
 
     /**
      * creates a clone of the Column
      *
      * @return clone of column
      */
-<<<<<<< HEAD
-    public abstract Col clone();
-=======
     public Col clone() {
         return null;
     }
@@ -308,6 +280,5 @@ public class Column<Col extends Column> implements Serializable {
             return new Column(this);
         }
     }
->>>>>>> upstream/master
 
 }

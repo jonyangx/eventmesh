@@ -23,25 +23,12 @@ import org.apache.eventmesh.runtime.configuration.EventMeshHTTPConfiguration;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 
-<<<<<<< HEAD
-=======
 import lombok.Getter;
 
->>>>>>> upstream/master
 public class HTTPThreadPoolGroup implements ThreadPoolGroup {
 
     private final EventMeshHTTPConfiguration eventMeshHttpConfiguration;
 
-<<<<<<< HEAD
-    private ThreadPoolExecutor batchMsgExecutor;
-    private ThreadPoolExecutor sendMsgExecutor;
-    private ThreadPoolExecutor remoteMsgExecutor;
-    private ThreadPoolExecutor replyMsgExecutor;
-    private ThreadPoolExecutor pushMsgExecutor;
-    private ThreadPoolExecutor clientManageExecutor;
-    private ThreadPoolExecutor runtimeAdminExecutor;
-    private ThreadPoolExecutor webhookExecutor;
-=======
     @Getter
     private ThreadPoolExecutor batchMsgExecutor;
     @Getter
@@ -54,7 +41,6 @@ public class HTTPThreadPoolGroup implements ThreadPoolGroup {
     private ThreadPoolExecutor pushMsgExecutor;
     @Getter
     private ThreadPoolExecutor clientManageExecutor;
->>>>>>> upstream/master
 
     public HTTPThreadPoolGroup(EventMeshHTTPConfiguration eventMeshHttpConfiguration) {
         this.eventMeshHttpConfiguration = eventMeshHttpConfiguration;
@@ -93,29 +79,10 @@ public class HTTPThreadPoolGroup implements ThreadPoolGroup {
             new LinkedBlockingQueue<>(eventMeshHttpConfiguration.getEventMeshServerClientManageBlockQSize()),
             "eventMesh-clientManage", true);
 
-<<<<<<< HEAD
-        // The runtimeAdminExecutor here is for the runtime.admin package and has nothing to do with the eventmesh-admin module.
-        runtimeAdminExecutor = ThreadPoolFactory.createThreadPoolExecutor(
-            eventMeshHttpConfiguration.getEventMeshServerAdminThreadNum(),
-            eventMeshHttpConfiguration.getEventMeshServerAdminThreadNum(),
-            new LinkedBlockingQueue<>(50), "eventMesh-runtime-admin", true);
-
-        replyMsgExecutor = ThreadPoolFactory.createThreadPoolExecutor(
-            eventMeshHttpConfiguration.getEventMeshServerReplyMsgThreadNum(),
-            eventMeshHttpConfiguration.getEventMeshServerReplyMsgThreadNum(),
-            new LinkedBlockingQueue<>(100),
-            "eventMesh-replyMsg", true);
-
-        webhookExecutor = ThreadPoolFactory.createThreadPoolExecutor(
-            eventMeshHttpConfiguration.getEventMeshServerWebhookThreadNum(),
-            eventMeshHttpConfiguration.getEventMeshServerWebhookThreadNum(),
-            new LinkedBlockingQueue<>(100), "eventMesh-webhook", true);
-=======
         replyMsgExecutor = ThreadPoolFactory.createThreadPoolExecutor(
             eventMeshHttpConfiguration.getEventMeshServerReplyMsgThreadNum(),
             eventMeshHttpConfiguration.getEventMeshServerReplyMsgThreadNum(),
             new LinkedBlockingQueue<>(100), "eventMesh-replyMsg", true);
->>>>>>> upstream/master
     }
 
     @Override
@@ -123,12 +90,6 @@ public class HTTPThreadPoolGroup implements ThreadPoolGroup {
         if (batchMsgExecutor != null) {
             batchMsgExecutor.shutdown();
         }
-<<<<<<< HEAD
-        if (runtimeAdminExecutor != null) {
-            runtimeAdminExecutor.shutdown();
-        }
-=======
->>>>>>> upstream/master
         if (clientManageExecutor != null) {
             clientManageExecutor.shutdown();
         }
@@ -145,39 +106,4 @@ public class HTTPThreadPoolGroup implements ThreadPoolGroup {
             replyMsgExecutor.shutdown();
         }
     }
-<<<<<<< HEAD
-
-    public ThreadPoolExecutor getBatchMsgExecutor() {
-        return batchMsgExecutor;
-    }
-
-    public ThreadPoolExecutor getSendMsgExecutor() {
-        return sendMsgExecutor;
-    }
-
-    public ThreadPoolExecutor getRemoteMsgExecutor() {
-        return remoteMsgExecutor;
-    }
-
-    public ThreadPoolExecutor getReplyMsgExecutor() {
-        return replyMsgExecutor;
-    }
-
-    public ThreadPoolExecutor getPushMsgExecutor() {
-        return pushMsgExecutor;
-    }
-
-    public ThreadPoolExecutor getClientManageExecutor() {
-        return clientManageExecutor;
-    }
-
-    public ThreadPoolExecutor getRuntimeAdminExecutor() {
-        return runtimeAdminExecutor;
-    }
-
-    public ThreadPoolExecutor getWebhookExecutor() {
-        return webhookExecutor;
-    }
-=======
->>>>>>> upstream/master
 }

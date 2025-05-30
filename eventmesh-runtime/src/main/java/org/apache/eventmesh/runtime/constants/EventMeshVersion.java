@@ -17,24 +17,6 @@
 
 package org.apache.eventmesh.runtime.constants;
 
-<<<<<<< HEAD
-public class EventMeshVersion {
-
-    public static final String CURRENT_VERSION = Version.V3_0_0.name();
-
-    public static String getCurrentVersionDesc() {
-        return CURRENT_VERSION.replace("V", "")
-            .replace("_", ".")
-            .replace("_SNAPSHOT", "-SNAPSHOT");
-    }
-
-    public enum Version {
-        V3_0_0,
-        V3_0_1,
-        V3_1_0,
-        V3_2_0,
-        V3_3_0
-=======
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
@@ -167,6 +149,5 @@ public class EventMeshVersion {
                 log.info("Failed to load version from jar name due to missing related info.");
             }
         }
->>>>>>> upstream/master
     }
 }

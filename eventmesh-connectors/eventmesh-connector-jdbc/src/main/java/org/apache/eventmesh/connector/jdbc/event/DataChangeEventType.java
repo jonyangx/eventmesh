@@ -17,13 +17,6 @@
 
 package org.apache.eventmesh.connector.jdbc.event;
 
-<<<<<<< HEAD
-public enum DataChangeEventType {
-
-    INSERT("I"), UPDATE("U"), DELETE("D");
-    private final String code;
-
-=======
 /**
  * Enumeration representing different types of data change events.
  */
@@ -51,17 +44,10 @@ public enum DataChangeEventType {
      *
      * @param code The code representing the data change event type.
      */
->>>>>>> upstream/master
     DataChangeEventType(String code) {
         this.code = code;
     }
 
-<<<<<<< HEAD
-    public String ofCode() {
-        return this.code;
-    }
-
-=======
     /**
      * Parses a DataChangeEventType from the given code.
      *
@@ -86,5 +72,4 @@ public enum DataChangeEventType {
     public String ofCode() {
         return this.code;
     }
->>>>>>> upstream/master
 }

@@ -19,10 +19,7 @@ package org.apache.eventmesh.meta.etcd.service;
 
 import org.apache.eventmesh.api.exception.MetaException;
 import org.apache.eventmesh.api.meta.MetaService;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.api.meta.MetaServiceListener;
->>>>>>> upstream/master
 import org.apache.eventmesh.api.meta.dto.EventMeshDataInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshRegisterInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshUnRegisterInfo;
@@ -96,11 +93,7 @@ public class EtcdMetaService implements MetaService {
         eventMeshRegisterInfoMap = new ConcurrentHashMap<>(ConfigurationContextUtil.KEYS.size());
         for (String key : ConfigurationContextUtil.KEYS) {
             CommonConfiguration commonConfiguration = ConfigurationContextUtil.get(key);
-<<<<<<< HEAD
-            if (null == commonConfiguration) {
-=======
             if (commonConfiguration == null) {
->>>>>>> upstream/master
                 continue;
             }
             if (StringUtils.isBlank(commonConfiguration.getMetaStorageAddr())) {
@@ -177,12 +170,9 @@ public class EtcdMetaService implements MetaService {
                     eventMeshDataInfoList.add(eventMeshDataInfo);
                 }
             }
-<<<<<<< HEAD
-=======
         } catch (InterruptedException e) {
             log.error("[EtcdRegistryService][findEventMeshInfoByCluster] InterruptedException", e);
             Thread.currentThread().interrupt();
->>>>>>> upstream/master
         } catch (Exception e) {
             log.error("[EtcdRegistryService][findEventMeshInfoByCluster] error, clusterName: {}", clusterName, e);
             throw new MetaException(e.getMessage());
@@ -210,12 +200,6 @@ public class EtcdMetaService implements MetaService {
     }
 
     @Override
-<<<<<<< HEAD
-    public String getMetaData(String key) {
-        return null;
-    }
-
-=======
     public Map<String, String> getMetaData(String key, boolean fuzzyEnabled) {
         return null;
     }
@@ -226,7 +210,6 @@ public class EtcdMetaService implements MetaService {
 
     }
 
->>>>>>> upstream/master
     @Override
     public void updateMetaData(Map<String, String> metadataMap) {
         String etcdMetaKey = instanceIp + "-" + group;
@@ -314,14 +297,10 @@ public class EtcdMetaService implements MetaService {
                     List<KeyValue> keyValues = null;
                     try {
                         keyValues = etcdClient.getKVClient().get(etcdKey).get().getKvs();
-<<<<<<< HEAD
-                    } catch (InterruptedException | ExecutionException e) {
-=======
                     } catch (InterruptedException e) {
                         log.error("get etcdKey[{}] failed[InterruptedException]", etcdKey, e);
                         Thread.currentThread().interrupt();
                     } catch (ExecutionException e) {
->>>>>>> upstream/master
                         log.error("get etcdKey[{}] failed", etcdKey, e);
                     }
                     if (CollectionUtils.isEmpty(keyValues)) {

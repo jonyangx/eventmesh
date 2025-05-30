@@ -20,26 +20,12 @@ package org.apache.eventmesh.storage.standalone.consumer;
 import org.apache.eventmesh.api.AbstractContext;
 import org.apache.eventmesh.api.EventListener;
 import org.apache.eventmesh.api.consumer.Consumer;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.ThreadPoolFactory;
-import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
-import org.apache.eventmesh.storage.standalone.broker.model.TopicMetadata;
-import org.apache.eventmesh.storage.standalone.broker.task.Subscribe;
-import org.apache.eventmesh.storage.standalone.broker.task.SubscribeTask;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-=======
 import org.apache.eventmesh.storage.standalone.broker.StandaloneBroker;
 import org.apache.eventmesh.storage.standalone.broker.task.Subscribe;
 
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
->>>>>>> upstream/master
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.cloudevents.CloudEvent;
@@ -54,22 +40,10 @@ public class StandaloneConsumer implements Consumer {
 
     private final ConcurrentHashMap<String, Subscribe> subscribeTable;
 
-<<<<<<< HEAD
-    private final ExecutorService consumeExecutorService;
-
-=======
->>>>>>> upstream/master
     public StandaloneConsumer(Properties properties) {
         this.standaloneBroker = StandaloneBroker.getInstance();
         this.subscribeTable = new ConcurrentHashMap<>(16);
         this.isStarted = new AtomicBoolean(false);
-<<<<<<< HEAD
-        this.consumeExecutorService = ThreadPoolFactory.createThreadPoolExecutor(
-            Runtime.getRuntime().availableProcessors() * 2,
-            Runtime.getRuntime().availableProcessors() * 2,
-            "StandaloneConsumerThread");
-=======
->>>>>>> upstream/master
     }
 
     @Override
@@ -101,11 +75,6 @@ public class StandaloneConsumer implements Consumer {
 
     @Override
     public void updateOffset(List<CloudEvent> cloudEvents, AbstractContext context) {
-<<<<<<< HEAD
-        cloudEvents.forEach(cloudEvent -> standaloneBroker.updateOffset(
-            new TopicMetadata(cloudEvent.getSubject()), Objects.requireNonNull((Long) cloudEvent.getExtension("offset"))));
-=======
->>>>>>> upstream/master
 
     }
 
@@ -117,14 +86,8 @@ public class StandaloneConsumer implements Consumer {
         synchronized (subscribeTable) {
             standaloneBroker.createTopicIfAbsent(topic);
             Subscribe subscribe = new Subscribe(topic, standaloneBroker, listener);
-<<<<<<< HEAD
-            SubscribeTask subScribeTask = new SubscribeTask(subscribe);
-            subscribeTable.put(topic, subscribe);
-            consumeExecutorService.execute(subScribeTask);
-=======
             subscribe.subscribe();
             subscribeTable.put(topic, subscribe);
->>>>>>> upstream/master
         }
     }
 

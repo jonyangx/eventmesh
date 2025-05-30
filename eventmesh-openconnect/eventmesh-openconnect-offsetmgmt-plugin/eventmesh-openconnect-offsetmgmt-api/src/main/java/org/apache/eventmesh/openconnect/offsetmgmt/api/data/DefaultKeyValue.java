@@ -17,66 +17,12 @@
 
 package org.apache.eventmesh.openconnect.offsetmgmt.api.data;
 
-<<<<<<< HEAD
-=======
 import java.net.URI;
 import java.time.OffsetDateTime;
->>>>>>> upstream/master
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-<<<<<<< HEAD
-public class DefaultKeyValue implements KeyValue {
-
-    private Map<String, Object> properties = new ConcurrentHashMap<>();
-
-    @Override
-    public boolean getBoolean(String key) {
-        if (!properties.containsKey(key)) {
-            return false;
-        }
-        return Boolean.parseBoolean(String.valueOf(properties.get(key)));
-    }
-
-    @Override
-    public boolean getBoolean(String key, boolean defaultValue) {
-        return properties.containsKey(key) ? getBoolean(key) : defaultValue;
-    }
-
-    @Override
-    public short getShort(String key) {
-        if (!properties.containsKey(key)) {
-            return 0;
-        }
-        return Short.parseShort(String.valueOf(properties.get(key)));
-    }
-
-    @Override
-    public short getShort(String key, short defaultValue) {
-        return properties.containsKey(key) ? getShort(key) : defaultValue;
-    }
-
-    @Override
-    public KeyValue put(String key, boolean value) {
-        properties.put(key, String.valueOf(value));
-        return this;
-    }
-
-    @Override
-    public KeyValue put(String key, short value) {
-        properties.put(key, String.valueOf(value));
-        return this;
-    }
-
-    public DefaultKeyValue() {
-        properties = new ConcurrentHashMap<String, Object>();
-    }
-
-    @Override
-    public KeyValue put(String key, int value) {
-        properties.put(key, String.valueOf(value));
-=======
 import lombok.Getter;
 import lombok.Setter;
 
@@ -93,15 +39,10 @@ public class DefaultKeyValue implements KeyValue {
     @Override
     public KeyValue put(String key, Boolean value) {
         properties.put(key, value);
->>>>>>> upstream/master
         return this;
     }
 
     @Override
-<<<<<<< HEAD
-    public KeyValue put(String key, long value) {
-        properties.put(key, String.valueOf(value));
-=======
     public KeyValue put(String key, Number value) {
         properties.put(key, value);
         return this;
@@ -111,15 +52,10 @@ public class DefaultKeyValue implements KeyValue {
     @Override
     public KeyValue put(String key, byte[] value) {
         properties.put(key, value);
->>>>>>> upstream/master
         return this;
     }
 
     @Override
-<<<<<<< HEAD
-    public KeyValue put(String key, double value) {
-        properties.put(key, String.valueOf(value));
-=======
     public KeyValue put(String key, String value) {
         properties.put(key, value);
         return this;
@@ -134,7 +70,6 @@ public class DefaultKeyValue implements KeyValue {
     @Override
     public KeyValue put(String key, OffsetDateTime value) {
         properties.put(key, value);
->>>>>>> upstream/master
         return this;
     }
 
@@ -145,8 +80,6 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public boolean getBoolean(String key) {
         if (!properties.containsKey(key)) {
             return false;
@@ -199,20 +132,15 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
->>>>>>> upstream/master
     public int getInt(String key) {
         if (!properties.containsKey(key)) {
             return 0;
         }
-<<<<<<< HEAD
-        return Integer.parseInt(String.valueOf(properties.get(key)));
-=======
         Object val = properties.get(key);
         if (val instanceof Integer) {
             return (Integer) val;
         }
         return 0;
->>>>>>> upstream/master
     }
 
     @Override
@@ -225,15 +153,11 @@ public class DefaultKeyValue implements KeyValue {
         if (!properties.containsKey(key)) {
             return 0;
         }
-<<<<<<< HEAD
-        return Long.parseLong(String.valueOf(properties.get(key)));
-=======
         Object val = properties.get(key);
         if (val instanceof Long) {
             return (Long) val;
         }
         return 0;
->>>>>>> upstream/master
     }
 
     @Override
@@ -242,8 +166,6 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public float getFloat(String key) {
         if (!properties.containsKey(key)) {
             return 0;
@@ -261,20 +183,15 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
->>>>>>> upstream/master
     public double getDouble(String key) {
         if (!properties.containsKey(key)) {
             return 0;
         }
-<<<<<<< HEAD
-        return Double.parseDouble(String.valueOf(properties.get(key)));
-=======
         Object val = properties.get(key);
         if (val instanceof Double) {
             return (Double) val;
         }
         return 0;
->>>>>>> upstream/master
     }
 
     @Override
@@ -283,10 +200,6 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
-<<<<<<< HEAD
-    public Object getObject(String key) {
-        return properties.get(key);
-=======
     public byte[] getBytes(String key) {
         if (!properties.containsKey(key)) {
             return new byte[]{};
@@ -301,14 +214,10 @@ public class DefaultKeyValue implements KeyValue {
     @Override
     public byte[] getBytes(String key, byte[] defaultValue) {
         return properties.containsKey(key) ? getBytes(key) : defaultValue;
->>>>>>> upstream/master
     }
 
     @Override
     public String getString(String key) {
-<<<<<<< HEAD
-        return String.valueOf(properties.get(key));
-=======
         if (!properties.containsKey(key)) {
             return "";
         }
@@ -317,7 +226,6 @@ public class DefaultKeyValue implements KeyValue {
             return (String) val;
         }
         return "";
->>>>>>> upstream/master
     }
 
     @Override
@@ -326,8 +234,6 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public URI getURI(String key) {
         if (!properties.containsKey(key)) {
             return null;
@@ -390,7 +296,6 @@ public class DefaultKeyValue implements KeyValue {
     }
 
     @Override
->>>>>>> upstream/master
     public Set<String> keySet() {
         return properties.keySet();
     }

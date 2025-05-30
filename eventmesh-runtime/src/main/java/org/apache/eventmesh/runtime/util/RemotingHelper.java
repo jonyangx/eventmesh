@@ -48,11 +48,7 @@ public abstract class RemotingHelper {
     }
 
     public static String parseChannelRemoteAddr(final Channel channel) {
-<<<<<<< HEAD
-        if (null == channel) {
-=======
         if (channel == null) {
->>>>>>> upstream/master
             return "";
         }
 
@@ -71,11 +67,7 @@ public abstract class RemotingHelper {
     }
 
     public static String parseChannelLocalAddr(final Channel channel) {
-<<<<<<< HEAD
-        if (null == channel) {
-=======
         if (channel == null) {
->>>>>>> upstream/master
             return "";
         }
 

@@ -20,10 +20,7 @@ package org.apache.eventmesh.connector.jdbc.table.catalog;
 import org.apache.eventmesh.connector.jdbc.table.type.EventMeshDataType;
 
 import java.sql.JDBCType;
-<<<<<<< HEAD
-=======
 import java.util.List;
->>>>>>> upstream/master
 
 public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col extends Column> implements ColumnEditor<CE, Col> {
 
@@ -40,11 +37,7 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
     /**
      * Length of the column
      */
-<<<<<<< HEAD
-    private Integer columnLength;
-=======
     private Long columnLength;
->>>>>>> upstream/master
 
     /**
      * Decimal point of the column
@@ -76,8 +69,6 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
 
     private int order;
 
-<<<<<<< HEAD
-=======
     private String charsetName;
 
     /**
@@ -91,7 +82,6 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
 
     private Options options;
 
->>>>>>> upstream/master
     public AbstractColumnEditorImpl(String name) {
         this.name = name;
     }
@@ -156,11 +146,7 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
      */
     @SuppressWarnings("unchecked")
     @Override
-<<<<<<< HEAD
-    public CE withEventMeshType(EventMeshDataType<?> eventMeshType) {
-=======
     public CE withEventMeshType(EventMeshDataType eventMeshType) {
->>>>>>> upstream/master
         this.eventMeshDataType = eventMeshType;
         return (CE) this;
     }
@@ -186,11 +172,7 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
      */
     @SuppressWarnings("unchecked")
     @Override
-<<<<<<< HEAD
-    public CE length(int length) {
-=======
     public CE length(long length) {
->>>>>>> upstream/master
         this.columnLength = length;
         return (CE) this;
     }
@@ -273,13 +255,6 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
         return (CE) this;
     }
 
-<<<<<<< HEAD
-    public EventMeshDataType<?> ofEventMeshDataType() {
-        return eventMeshDataType;
-    }
-
-    public Integer ofColumnLength() {
-=======
     @SuppressWarnings("unchecked")
     @Override
     public CE charsetName(String charsetName) {
@@ -321,7 +296,6 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
     }
 
     public Long ofColumnLength() {
->>>>>>> upstream/master
         return columnLength;
     }
 
@@ -360,8 +334,6 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
     public int ofOrder() {
         return this.order;
     }
-<<<<<<< HEAD
-=======
 
     public String ofCharsetName() {
         return this.charsetName;
@@ -374,5 +346,4 @@ public abstract class AbstractColumnEditorImpl<CE extends ColumnEditor, Col exte
     public Options ofOptions() {
         return this.options;
     }
->>>>>>> upstream/master
 }

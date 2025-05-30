@@ -17,11 +17,8 @@
 
 package org.apache.eventmesh.runtime.boot;
 
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.common.Pair;
 import org.apache.eventmesh.common.config.CommonConfiguration;
->>>>>>> upstream/master
 import org.apache.eventmesh.common.protocol.tcp.Command;
 import org.apache.eventmesh.common.protocol.tcp.EventMeshMessage;
 import org.apache.eventmesh.common.protocol.tcp.Header;
@@ -30,12 +27,7 @@ import org.apache.eventmesh.common.protocol.tcp.Package;
 import org.apache.eventmesh.common.protocol.tcp.UserAgent;
 import org.apache.eventmesh.common.protocol.tcp.codec.Codec;
 import org.apache.eventmesh.common.utils.AssertUtils;
-<<<<<<< HEAD
-import org.apache.eventmesh.common.utils.LogUtils;
-import org.apache.eventmesh.runtime.common.Pair;
-=======
 import org.apache.eventmesh.common.utils.IPUtils;
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.configuration.EventMeshTCPConfiguration;
 import org.apache.eventmesh.runtime.constants.EventMeshConstants;
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.EventMeshTcp2Client;
@@ -43,11 +35,7 @@ import org.apache.eventmesh.runtime.core.protocol.tcp.client.group.ClientSession
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.processor.TcpProcessor;
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.session.Session;
 import org.apache.eventmesh.runtime.core.protocol.tcp.client.session.SessionState;
-<<<<<<< HEAD
-import org.apache.eventmesh.runtime.metrics.tcp.EventMeshTcpMonitor;
-=======
 import org.apache.eventmesh.runtime.metrics.tcp.EventMeshTcpMetricsManager;
->>>>>>> upstream/master
 import org.apache.eventmesh.runtime.util.EventMeshUtil;
 import org.apache.eventmesh.runtime.util.RemotingHelper;
 import org.apache.eventmesh.runtime.util.TraceUtils;
@@ -88,27 +76,16 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * TCP serves as the runtime module server for the protocol
-<<<<<<< HEAD
- *
-=======
->>>>>>> upstream/master
  */
 @Slf4j
 public class AbstractTCPServer extends AbstractRemotingServer {
 
-<<<<<<< HEAD
-    private final EventMeshTCPConfiguration eventMeshTCPConfiguration;
-    private ClientSessionGroupMapping clientSessionGroupMapping;
-
-    private EventMeshTcpMonitor eventMeshTcpMonitor;
-=======
     private static final Logger MESSAGE_LOGGER = LoggerFactory.getLogger(EventMeshConstants.MESSAGE);
 
     private final EventMeshTCPConfiguration eventMeshTCPConfiguration;
     private ClientSessionGroupMapping clientSessionGroupMapping;
 
     protected EventMeshTcpMetricsManager eventMeshTcpMetricsManager;
->>>>>>> upstream/master
 
     private transient GlobalTrafficShapingHandler globalTrafficShapingHandler;
     private TcpConnectionHandler tcpConnectionHandler;
@@ -133,22 +110,16 @@ public class AbstractTCPServer extends AbstractRemotingServer {
 
     public void init() throws Exception {
         super.init("eventMesh-tcp");
-<<<<<<< HEAD
-=======
         initProducerManager();
->>>>>>> upstream/master
         tcpThreadPoolGroup.initThreadPool();
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public CommonConfiguration getConfiguration() {
         return eventMeshTCPConfiguration;
     }
 
     @Override
->>>>>>> upstream/master
     public void start() throws Exception {
         initSharableHandlers();
 
@@ -202,10 +173,6 @@ public class AbstractTCPServer extends AbstractRemotingServer {
 
     /**
      * Registers the processors required by the runtime module
-<<<<<<< HEAD
-     *
-=======
->>>>>>> upstream/master
      */
     public void registerProcessor(final Command command, final TcpProcessor processor,
         final ThreadPoolExecutor executor) {
@@ -263,21 +230,12 @@ public class AbstractTCPServer extends AbstractRemotingServer {
     @Sharable
     private class TcpDispatcher extends SimpleChannelInboundHandler<Package> {
 
-<<<<<<< HEAD
-        private final Logger messageLogger = LoggerFactory.getLogger(EventMeshConstants.MESSAGE);
-
-=======
->>>>>>> upstream/master
         @Override
         protected void channelRead0(ChannelHandlerContext ctx, Package pkg) throws Exception {
             long startTime = System.currentTimeMillis();
             validateMsg(pkg);
 
-<<<<<<< HEAD
-            eventMeshTcpMonitor.getTcpSummaryMetrics().getClient2eventMeshMsgNum().incrementAndGet();
-=======
             eventMeshTcpMetricsManager.client2eventMeshMsgNumIncrement(IPUtils.parseChannelRemoteAddr(ctx.channel()));
->>>>>>> upstream/master
 
             Command cmd = pkg.getHeader().getCmd();
             try {
@@ -295,22 +253,13 @@ public class AbstractTCPServer extends AbstractRemotingServer {
                 }
 
                 if (Command.HELLO_REQUEST == cmd || Command.RECOMMEND_REQUEST == cmd) {
-<<<<<<< HEAD
-                    LogUtils.info(messageLogger, "pkg|c2eventMesh|cmd={}|pkg={}", cmd, pkg);
-                    processHttpCommandRequest(pkg, ctx, startTime, cmd);
-=======
                     MESSAGE_LOGGER.info("pkg|c2eventMesh|cmd={}|pkg={}", cmd, pkg);
                     processTcpCommandRequest(pkg, ctx, startTime, cmd);
->>>>>>> upstream/master
                     return;
                 }
 
                 if (clientSessionGroupMapping.getSession(ctx) == null) {
-<<<<<<< HEAD
-                    LogUtils.info(messageLogger, "pkg|c2eventMesh|cmd={}|pkg={},no session is found", cmd, pkg);
-=======
                     MESSAGE_LOGGER.info("pkg|c2eventMesh|cmd={}|pkg={}, no session is found", cmd, pkg);
->>>>>>> upstream/master
                     throw new Exception("no session is found");
                 }
 
@@ -322,11 +271,7 @@ public class AbstractTCPServer extends AbstractRemotingServer {
                         "this eventMesh tcp session will be closed, may be reboot or version change!");
                 }
 
-<<<<<<< HEAD
-                processHttpCommandRequest(pkg, ctx, startTime, cmd);
-=======
                 processTcpCommandRequest(pkg, ctx, startTime, cmd);
->>>>>>> upstream/master
             } catch (Exception e) {
                 log.error("exception occurred while pkg|cmd={}|pkg={}", cmd, pkg, e);
 
@@ -342,21 +287,12 @@ public class AbstractTCPServer extends AbstractRemotingServer {
             }
         }
 
-<<<<<<< HEAD
-        private void processHttpCommandRequest(final Package pkg, final ChannelHandlerContext ctx,
-            final long startTime, final Command cmd) {
-
-            Pair<TcpProcessor, ThreadPoolExecutor> pair = tcpRequestProcessorTable.get(cmd);
-            pair.getObject2().submit(() -> {
-                TcpProcessor processor = pair.getObject1();
-=======
         private void processTcpCommandRequest(final Package pkg, final ChannelHandlerContext ctx,
             final long startTime, final Command cmd) {
 
             Pair<TcpProcessor, ThreadPoolExecutor> pair = tcpRequestProcessorTable.get(cmd);
             pair.getRight().submit(() -> {
                 TcpProcessor processor = pair.getLeft();
->>>>>>> upstream/master
 
                 processor.process(pkg, ctx, startTime);
 
@@ -366,13 +302,8 @@ public class AbstractTCPServer extends AbstractRemotingServer {
         private boolean isNeedTrace(Command cmd) {
             return eventMeshTCPConfiguration.isEventMeshServerTraceEnable()
                 && (Command.REQUEST_TO_SERVER == cmd
-<<<<<<< HEAD
-                    || Command.ASYNC_MESSAGE_TO_SERVER == cmd
-                    || Command.BROADCAST_MESSAGE_TO_SERVER == cmd);
-=======
                 || Command.ASYNC_MESSAGE_TO_SERVER == cmd
                 || Command.BROADCAST_MESSAGE_TO_SERVER == cmd);
->>>>>>> upstream/master
         }
 
         private void writeToClient(Command cmd, Package pkg, ChannelHandlerContext ctx, Exception e) {
@@ -380,11 +311,7 @@ public class AbstractTCPServer extends AbstractRemotingServer {
                 Package res = new Package();
                 res.setHeader(new Header(getReplyCommand(cmd), OPStatus.FAIL.getCode(), e.toString(),
                     pkg.getHeader().getSeq()));
-<<<<<<< HEAD
-                ctx.writeAndFlush(res);
-=======
                 ctx.channel().eventLoop().execute(() -> ctx.writeAndFlush(res));
->>>>>>> upstream/master
             } catch (Exception ex) {
                 log.warn("writeToClient failed", ex);
             }
@@ -418,28 +345,16 @@ public class AbstractTCPServer extends AbstractRemotingServer {
         }
 
         private void logMessageFlow(ChannelHandlerContext ctx, Package pkg, Command cmd) {
-<<<<<<< HEAD
-            if (!messageLogger.isInfoEnabled()) {
-=======
             if (!MESSAGE_LOGGER.isInfoEnabled()) {
->>>>>>> upstream/master
                 return;
             }
 
             if (pkg.getBody() instanceof EventMeshMessage) {
-<<<<<<< HEAD
-                messageLogger.info("pkg|c2eventMesh|cmd={}|Msg={}|user={}", cmd,
-                    EventMeshUtil.printMqMessage((EventMeshMessage) pkg.getBody()),
-                    clientSessionGroupMapping.getSession(ctx).getClient());
-            } else {
-                messageLogger.info("pkg|c2eventMesh|cmd={}|pkg={}|user={}", cmd, pkg,
-=======
                 MESSAGE_LOGGER.info("pkg|c2eventMesh|cmd={}|Msg={}|user={}", cmd,
                     EventMeshUtil.printMqMessage((EventMeshMessage) pkg.getBody()),
                     clientSessionGroupMapping.getSession(ctx).getClient());
             } else {
                 MESSAGE_LOGGER.info("pkg|c2eventMesh|cmd={}|pkg={}|user={}", cmd, pkg,
->>>>>>> upstream/master
                     clientSessionGroupMapping.getSession(ctx).getClient());
             }
         }
@@ -474,11 +389,7 @@ public class AbstractTCPServer extends AbstractRemotingServer {
                 EventMeshTcp2Client.goodBye2Client(tcpThreadPoolGroup, session, errMsg, OPStatus.FAIL.getCode(),
                     clientSessionGroupMapping);
             } else {
-<<<<<<< HEAD
-                EventMeshTcp2Client.goodBye2Client(ctx, errMsg, clientSessionGroupMapping, eventMeshTcpMonitor);
-=======
                 EventMeshTcp2Client.goodBye2Client(ctx, errMsg, clientSessionGroupMapping, eventMeshTcpMetricsManager);
->>>>>>> upstream/master
             }
         }
 
@@ -549,21 +460,12 @@ public class AbstractTCPServer extends AbstractRemotingServer {
         return tcpConnectionHandler;
     }
 
-<<<<<<< HEAD
-    public EventMeshTcpMonitor getEventMeshTcpMonitor() {
-        return eventMeshTcpMonitor;
-    }
-
-    public void setEventMeshTcpMonitor(EventMeshTcpMonitor eventMeshTcpMonitor) {
-        this.eventMeshTcpMonitor = eventMeshTcpMonitor;
-=======
     public EventMeshTcpMetricsManager getEventMeshTcpMetricsManager() {
         return eventMeshTcpMetricsManager;
     }
 
     public void setEventMeshTcpMetricsManager(EventMeshTcpMetricsManager eventMeshTcpMetricsManager) {
         this.eventMeshTcpMetricsManager = eventMeshTcpMetricsManager;
->>>>>>> upstream/master
     }
 
     public TcpDispatcher getTcpDispatcher() {
@@ -585,8 +487,4 @@ public class AbstractTCPServer extends AbstractRemotingServer {
     public void setClientSessionGroupMapping(ClientSessionGroupMapping clientSessionGroupMapping) {
         this.clientSessionGroupMapping = clientSessionGroupMapping;
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> upstream/master
 }

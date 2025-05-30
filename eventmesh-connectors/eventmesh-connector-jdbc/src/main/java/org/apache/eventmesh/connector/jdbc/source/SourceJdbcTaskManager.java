@@ -17,11 +17,6 @@
 
 package org.apache.eventmesh.connector.jdbc.source;
 
-<<<<<<< HEAD
-import org.apache.eventmesh.connector.jdbc.JdbcConnectData;
-import org.apache.eventmesh.connector.jdbc.event.Event;
-import org.apache.eventmesh.connector.jdbc.source.config.JdbcSourceConfig;
-=======
 import org.apache.eventmesh.common.config.connector.rdb.jdbc.JdbcSourceConfig;
 import org.apache.eventmesh.common.remote.offset.RecordOffset;
 import org.apache.eventmesh.common.remote.offset.RecordPartition;
@@ -29,16 +24,10 @@ import org.apache.eventmesh.common.remote.offset.jdbc.JdbcRecordOffset;
 import org.apache.eventmesh.common.remote.offset.jdbc.JdbcRecordPartition;
 import org.apache.eventmesh.connector.jdbc.JdbcConnectData;
 import org.apache.eventmesh.connector.jdbc.event.Event;
->>>>>>> upstream/master
 import org.apache.eventmesh.connector.jdbc.source.dialect.cdc.RandomTaskSelectStrategy;
 import org.apache.eventmesh.connector.jdbc.source.dialect.cdc.TaskSelectStrategy;
 import org.apache.eventmesh.connector.jdbc.table.catalog.TableId;
 import org.apache.eventmesh.openconnect.offsetmgmt.api.data.ConnectRecord;
-<<<<<<< HEAD
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordOffset;
-import org.apache.eventmesh.openconnect.offsetmgmt.api.data.RecordPartition;
-=======
->>>>>>> upstream/master
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -77,21 +66,12 @@ public class SourceJdbcTaskManager extends AbstractJdbcTaskManager<SourceEventMe
     }
 
     private void doHandleEvent(Event event) {
-<<<<<<< HEAD
-        if (null == event) {
-            return;
-        }
-        JdbcConnectData jdbcConnectData = event.getJdbcConnectData();
-        RecordPartition partition = new RecordPartition();
-        RecordOffset offset = new RecordOffset();
-=======
         if (event == null) {
             return;
         }
         JdbcConnectData jdbcConnectData = event.getJdbcConnectData();
         RecordPartition partition = new JdbcRecordPartition();
         RecordOffset offset = new JdbcRecordOffset();
->>>>>>> upstream/master
         ConnectRecord record = new ConnectRecord(partition, offset, System.currentTimeMillis(), jdbcConnectData);
         List<ConnectRecord> records = Collections.singletonList(record);
         for (TaskManagerListener listener : listeners) {

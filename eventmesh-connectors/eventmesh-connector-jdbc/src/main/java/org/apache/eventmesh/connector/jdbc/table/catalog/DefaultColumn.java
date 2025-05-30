@@ -28,28 +28,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DefaultColumn extends Column<DefaultColumn> {
 
-<<<<<<< HEAD
-    public DefaultColumn(String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression) {
-        super(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, 0);
-    }
-
-    public DefaultColumn(String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression, int order) {
-        super(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order);
-    }
-
-    public static DefaultColumn of(
-        String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression) {
-        return new DefaultColumn(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression);
-    }
-
-    public static DefaultColumn of(
-        String name, EventMeshDataType<?> dataType, JDBCType jdbcType, Integer columnLength, Integer decimal, boolean notNull,
-        String comment, Object defaultValue, String defaultValueExpression, int order) {
-        return new DefaultColumn(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order);
-=======
     public DefaultColumn(String name, EventMeshDataType dataType, JDBCType jdbcType, Long columnLength, Integer decimal, boolean notNull,
         String comment, Object defaultValue, String defaultValueExpression, String charsetName, boolean autoIncremented, boolean generated,
         String collationName) {
@@ -78,7 +56,6 @@ public class DefaultColumn extends Column<DefaultColumn> {
         String collationName) {
         return new DefaultColumn(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order,
             charsetName, autoIncremented, generated, collationName);
->>>>>>> upstream/master
     }
 
     /**
@@ -88,11 +65,7 @@ public class DefaultColumn extends Column<DefaultColumn> {
      */
     @Override
     public DefaultColumn clone() {
-<<<<<<< HEAD
-        return DefaultColumn.of(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order);
-=======
         return DefaultColumn.of(name, dataType, jdbcType, columnLength, decimal, notNull, comment, defaultValue, defaultValueExpression, order,
             charsetName, autoIncremented, generated, collationName);
->>>>>>> upstream/master
     }
 }

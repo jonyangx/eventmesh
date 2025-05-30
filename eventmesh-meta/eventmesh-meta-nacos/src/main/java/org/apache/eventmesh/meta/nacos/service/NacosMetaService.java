@@ -19,10 +19,7 @@ package org.apache.eventmesh.meta.nacos.service;
 
 import org.apache.eventmesh.api.exception.MetaException;
 import org.apache.eventmesh.api.meta.MetaService;
-<<<<<<< HEAD
-=======
 import org.apache.eventmesh.api.meta.MetaServiceListener;
->>>>>>> upstream/master
 import org.apache.eventmesh.api.meta.config.EventMeshMetaConfig;
 import org.apache.eventmesh.api.meta.dto.EventMeshDataInfo;
 import org.apache.eventmesh.api.meta.dto.EventMeshRegisterInfo;
@@ -35,11 +32,6 @@ import org.apache.eventmesh.meta.nacos.config.NacosMetaStorageConfiguration;
 import org.apache.eventmesh.meta.nacos.constant.NacosConstant;
 
 import org.apache.commons.lang3.StringUtils;
-<<<<<<< HEAD
-
-import java.util.ArrayList;
-import java.util.Collections;
-=======
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -52,7 +44,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
->>>>>>> upstream/master
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,28 +51,19 @@ import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-<<<<<<< HEAD
-=======
 import java.util.concurrent.Executor;
->>>>>>> upstream/master
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.alibaba.nacos.api.NacosFactory;
 import com.alibaba.nacos.api.PropertyKeyConst;
-<<<<<<< HEAD
-=======
 import com.alibaba.nacos.api.config.listener.Listener;
->>>>>>> upstream/master
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.alibaba.nacos.client.naming.utils.UtilAndComs;
 import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.alibaba.nacos.common.utils.JacksonUtils;
-<<<<<<< HEAD
-=======
 import com.fasterxml.jackson.databind.JsonNode;
->>>>>>> upstream/master
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -116,11 +98,8 @@ public class NacosMetaService implements MetaService {
 
     private ConcurrentMap<String, EventMeshRegisterInfo> eventMeshRegisterInfoMap;
 
-<<<<<<< HEAD
-=======
     private MetaServiceListener metaServiceListener;
 
->>>>>>> upstream/master
     @Override
     public void init() throws MetaException {
 
@@ -130,11 +109,7 @@ public class NacosMetaService implements MetaService {
         eventMeshRegisterInfoMap = new ConcurrentHashMap<>(ConfigurationContextUtil.KEYS.size());
         for (String key : ConfigurationContextUtil.KEYS) {
             CommonConfiguration commonConfiguration = ConfigurationContextUtil.get(key);
-<<<<<<< HEAD
-            if (null == commonConfiguration) {
-=======
             if (commonConfiguration == null) {
->>>>>>> upstream/master
                 continue;
             }
             if (StringUtils.isBlank(commonConfiguration.getMetaStorageAddr())) {
@@ -214,8 +189,6 @@ public class NacosMetaService implements MetaService {
     }
 
     @Override
-<<<<<<< HEAD
-=======
     public void getMetaDataWithListener(MetaServiceListener metaServiceListener, String key) {
         try {
             nacosConfigService.addListener(key, group, new Listener() {
@@ -236,7 +209,6 @@ public class NacosMetaService implements MetaService {
     }
 
     @Override
->>>>>>> upstream/master
     public void shutdown() throws MetaException {
         if (!initStatus.compareAndSet(true, false)) {
             return;
@@ -246,17 +218,11 @@ public class NacosMetaService implements MetaService {
         }
         try {
             nacosNamingService.shutDown();
-<<<<<<< HEAD
-=======
             log.info("NacosRegistryService close");
->>>>>>> upstream/master
         } catch (NacosException e) {
             log.error("[NacosRegistryService][shutdown] error", e);
             throw new MetaException(e.getMessage());
         }
-<<<<<<< HEAD
-        log.info("NacosRegistryService close");
-=======
         try {
             nacosConfigService.shutDown();
             log.info("NacosConfigService close");
@@ -264,7 +230,6 @@ public class NacosMetaService implements MetaService {
             log.error("[NacosConfigService][shutdown] error", e);
             throw new MetaException(e.getMessage());
         }
->>>>>>> upstream/master
     }
 
     @Override
@@ -319,13 +284,6 @@ public class NacosMetaService implements MetaService {
         }
     }
 
-<<<<<<< HEAD
-    @Override
-    public String getMetaData(String key) {
-        try {
-            return this.nacosConfigService.getConfig(key, group, 5000L);
-        } catch (NacosException e) {
-=======
     // implement with http
     @Override
     public Map<String, String> getMetaData(String key, boolean fuzzyEnabled) {
@@ -370,14 +328,11 @@ public class NacosMetaService implements MetaService {
             }
             return result;
         } catch (Exception e) {
->>>>>>> upstream/master
             log.error("get metaData fail", e);
             throw new RuntimeException(e);
         }
     }
 
-<<<<<<< HEAD
-=======
     private Map<String, String> processResponse(String response) {
         Map<String, String> result = new HashMap<>();
         JsonNode jsonNode = JacksonUtils.toObj(response);
@@ -392,7 +347,6 @@ public class NacosMetaService implements MetaService {
         return result;
     }
 
->>>>>>> upstream/master
     @Override
     public void updateMetaData(Map<String, String> metadataMap) {
         String protocol = metadataMap.get(EventMeshMetaConfig.EVENT_MESH_PROTO);

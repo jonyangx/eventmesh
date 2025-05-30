@@ -441,11 +441,7 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
                 hasException = true;
             }
             long consumeRT = System.currentTimeMillis() - beginTimestamp;
-<<<<<<< HEAD
-            if (null == status) {
-=======
             if (status == null) {
->>>>>>> upstream/master
                 if (hasException) {
                     returnType = ConsumeReturnType.EXCEPTION;
                 } else {
@@ -461,11 +457,7 @@ public class ConsumeMessageConcurrentlyService implements ConsumeMessageService 
                 Objects.requireNonNull(consumeMessageContext).getProps().put(MixAll.CONSUME_CONTEXT_TYPE, returnType.name());
             }
 
-<<<<<<< HEAD
-            if (null == status) {
-=======
             if (status == null) {
->>>>>>> upstream/master
                 log.warn("consumeMessage return null, Group: {} Msgs: {} MQ: {}",
                     ConsumeMessageConcurrentlyService.this.consumerGroup,
                     msgs,

@@ -26,16 +26,11 @@ import org.apache.eventmesh.connector.jdbc.table.catalog.UniqueKey;
 import java.util.List;
 import java.util.Map;
 
-<<<<<<< HEAD
-public class MysqlTableSchema extends TableSchema {
-
-=======
 import lombok.Getter;
 
 public class MysqlTableSchema extends TableSchema {
 
     @Getter
->>>>>>> upstream/master
     private Options tableOptions;
 
     public MysqlTableSchema(TableId tableId, Map<String, MysqlColumn> columnMap, List<MysqlColumn> columns, Map<Integer, MysqlColumn> orderColumnMap,

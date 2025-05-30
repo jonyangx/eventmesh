@@ -40,24 +40,14 @@ public class TableSchema implements Serializable {
     /**
      * A map of column names to their respective column objects.
      */
-<<<<<<< HEAD
-    private Map<String, ? extends Column> columnMap;
-=======
     private Map<String, ? extends Column<?>> columnMap;
->>>>>>> upstream/master
 
     /**
      * A list of columns in the table.
      */
-<<<<<<< HEAD
-    private List<? extends Column> columns;
-
-    private Map<Integer, ? extends Column> orderColumnMap;
-=======
     private List<? extends Column<?>> columns;
 
     private Map<Integer, ? extends Column<?>> orderColumnMap;
->>>>>>> upstream/master
 
     /**
      * The primary key of the table.
@@ -68,13 +58,8 @@ public class TableSchema implements Serializable {
 
     private String comment;
 
-<<<<<<< HEAD
-    public TableSchema(TableId tableId, Map<String, ? extends Column> columnMap, List<? extends Column> columns,
-        Map<Integer, ? extends Column> orderColumnMap, PrimaryKey primaryKey, List<UniqueKey> uniqueKeys, String comment) {
-=======
     public TableSchema(TableId tableId, Map<String, ? extends Column<?>> columnMap, List<? extends Column<?>> columns,
         Map<Integer, ? extends Column<?>> orderColumnMap, PrimaryKey primaryKey, List<UniqueKey> uniqueKeys, String comment) {
->>>>>>> upstream/master
         this.tableId = tableId;
         this.columnMap = columnMap;
         this.columns = columns;
@@ -103,15 +88,9 @@ public class TableSchema implements Serializable {
     public static class TableSchemaBuilder {
 
         private TableId tableId;
-<<<<<<< HEAD
-        private Map<String, Column> columnMap;
-        private Map<Integer, Column> orderColumnMap;
-        private List<Column> columns;
-=======
         private Map<String, Column<?>> columnMap;
         private Map<Integer, Column<?>> orderColumnMap;
         private List<Column<?>> columns;
->>>>>>> upstream/master
         private PrimaryKey primaryKey;
         private List<UniqueKey> uniqueKeys;
         private String comment;
@@ -125,20 +104,12 @@ public class TableSchema implements Serializable {
             return this;
         }
 
-<<<<<<< HEAD
-        public TableSchemaBuilder withColumns(Map<String, Column> columnMap) {
-=======
         public TableSchemaBuilder withColumns(Map<String, Column<?>> columnMap) {
->>>>>>> upstream/master
             this.columnMap = columnMap;
             return this;
         }
 
-<<<<<<< HEAD
-        public TableSchemaBuilder withColumns(List<Column> columns) {
-=======
         public TableSchemaBuilder withColumns(List<Column<?>> columns) {
->>>>>>> upstream/master
             this.columns = columns;
             return this;
         }
